@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { StyleSheet, Text, View, ImageBackground, TextInput, Button } from 'react-native';
 import { HandleLogin } from "../store/Actions";
 
-export default function Login() {
+export default function Login({navigation}) {
     const dispatch = useDispatch()
-    const pelengkap = useSelector(state=>state.login)
-    console.log(pelengkap, 'data pelengkap')
+    const {error, isLoading} = useSelector(state=>state.login)
+    // console.log(error, isLoading, 'data pelengkap')
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
@@ -46,6 +47,14 @@ export default function Login() {
                 title="Signup"
                 onPress={() => handleLogin()}
             />
+            <Text>
+                Don't have account? 
+                <Text
+                onPress={()=> navigation.navigate("Register")}
+                >
+                    Sign Up
+                </Text>
+            </Text>
         </>
     )
 }

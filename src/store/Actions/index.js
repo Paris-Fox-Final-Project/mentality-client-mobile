@@ -21,20 +21,42 @@ export function HandleLogin(payload){
         try {
             dispatch(setLoading(true))
             const {data} = await axios({
-                url: "http://192.168.1.4:4000/login",
+                url: "http://192.168.1.5:4000/login",
                 method: "POST",
                 data: payload
             })
-            // console.log(data.access_token, 'ini')
+            // console.log(data, 'ini')
+            await AsyncStorage.setItem('user_cred', JSON.stringify(data.user))
             await AsyncStorage.setItem("access_token", data.access_token)
             let test = await AsyncStorage.getItem('access_token')
-            // console.log(test, 'ini kah')
+            let test1 = await AsyncStorage.getItem('user_cred')
+            // get user data juga
+            // console.log(test,"||||||||" ,test1,'ini kah')
         } catch (err) {
             console.log(err.response.data, 'err login') 
             dispatch(setError(err.response.data))    
         }
         finally{
             dispatch(setLoading(false))
+        }
+    }
+}
+
+export function HandleRegister(payload){
+    return async (dispatch, getState)=>{
+        try {
+            console.log(payload, 'data di store buat register')
+            const {data} = await axios({
+                url: "http://192.168.1.5:4000/register",
+                method: "POST",
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                data: payload
+            })
+            console.log(data, 'balikan register')
+        } catch (err) {
+            console.log(err, 'err regis')
         }
     }
 }

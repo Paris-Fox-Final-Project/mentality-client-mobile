@@ -102,7 +102,6 @@ export default function Register({ navigation }) {
     }
 
     const isValidPayload = email && name && password;
-    console.log(avatar);
     if (isValidPayload) {
       const form = new FormData();
       form.append("name", name);

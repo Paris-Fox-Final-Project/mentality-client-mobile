@@ -43,6 +43,10 @@ export default function Login({ navigation }) {
     setPassword("");
   };
 
+  const handleOnPressRegister = () => {
+    navigation.navigate("Register");
+  };
+
   return (
     <SafeAreaView style={loginStyles.container}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
@@ -84,7 +88,7 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
         <View style={loginStyles.actionRegisterContainer}>
           <Text style={loginStyles.actionRegisterText}>Belum punya akun?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOnPressRegister}>
             <Text style={loginStyles.actionRegisterTextPrimary}>Daftar</Text>
           </TouchableOpacity>
         </View>
@@ -99,10 +103,6 @@ const loginStyles = StyleSheet.create({
     backgroundColor: "#60A5FA",
     justifyContent: "center",
     paddingHorizontal: 10,
-  },
-  AndroidSafeArea: {
-    flex: 1,
-    backgroundColor: "white",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   title: {
@@ -146,6 +146,7 @@ const loginStyles = StyleSheet.create({
     textTransform: "capitalize",
     fontWeight: "700",
     fontSize: 16,
+    letterSpacing: 1,
   },
   actionRegisterContainer: {
     alignItems: "center",

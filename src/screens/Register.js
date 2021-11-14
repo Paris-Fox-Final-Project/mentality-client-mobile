@@ -7,19 +7,39 @@ import {
   StatusBar,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/mentality-logo.png";
 import { Picker } from "@react-native-picker/picker";
+import { useDispatch, useSelector } from "react-redux";
+import { registerHandler } from "../store/actions/registerAction";
+import { useFocusEffect } from "@react-navigation/core";
 
-export default function Register() {
+export default function Register({ navigation }) {
+  const dispatch = useDispatch();
+  const { isSuccess, isLoading, error } = useSelector(
+    (state) => state.register
+  );
   const [name, setName] = React.useState("");
   const [errorName, setErrorName] = React.useState();
   const [email, setEmail] = React.useState("");
   const [errorEmail, setEmailError] = React.useState();
   const [password, setPassword] = React.useState("");
   const [errorPassword, setPasswordError] = React.useState();
-  const [gender, setGender] = React.useState("");
+  const [gender, setGender] = React.useState("male");
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (isSuccess) {
+        navigation.navigate("Login");
+      }
+    }, [isSuccess])
+  );
+
+  const onGenderChangeHandle = (itemValue, _) => {
+    setGender(itemValue);
+  };
 
   const onButtonRegisterPress = () => {
     if (!name) {
@@ -33,15 +53,28 @@ export default function Register() {
     if (!password) {
       setPasswordError("Kolom password tidak boleh kosong");
     }
+
+    const isValidPayload = email && name && password;
+
+    if (isValidPayload) {
+      const payload = {
+        email,
+        password,
+        gender,
+        name,
+      };
+      dispatch(registerHandler(payload));
+    }
   };
+
   return (
     <SafeAreaView style={registerSyle.container}>
       <View
-        style={{ justifyContent: "center", alignItems: "center", flex: 0.8 }}
+        style={{ justifyContent: "center", alignItems: "center", flex: 0.5 }}
       >
         <Image source={logo} style={{ width: 150, height: 150 }} />
       </View>
-      <View style={{ flex: 1.2 }}>
+      <View style={{ flex: 1.5 }}>
         <Text style={registerSyle.title}>Daftar</Text>
         <View style={{ marginBottom: 20 }}>
           <View style={registerSyle.inputContainer}>
@@ -72,8 +105,20 @@ export default function Register() {
             />
             <Text style={registerSyle.textError}>{errorPassword}</Text>
           </View>
-          <View>
-            <Picker>
+          <View style={registerSyle.inputContainer}>
+            <Picker
+              selectedValue={gender}
+              onValueChange={onGenderChangeHandle}
+              dropdownIconColor="white"
+              style={{
+                backgroundColor: "#60A5FA",
+                borderRadius: 10,
+                borderRadius: 10,
+                color: "white",
+                borderWidth: 1,
+                borderColor: "white",
+              }}
+            >
               <Picker.Item label="Male" value="male" />
               <Picker.Item label="Female" value="female" />
             </Picker>
@@ -82,8 +127,13 @@ export default function Register() {
         <TouchableOpacity
           style={registerSyle.buttonPrimary}
           onPress={onButtonRegisterPress}
+          disabled={isLoading}
         >
-          <Text style={registerSyle.textButtonPrimary}>Daftar</Text>
+          {isLoading ? (
+            <ActivityIndicator color="white" size="small" />
+          ) : (
+            <Text style={registerSyle.textButtonPrimary}>Daftar</Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

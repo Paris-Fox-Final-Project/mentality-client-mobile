@@ -6,18 +6,17 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  Button,
+  Pressable,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../store/actions/loginAction";
 import logo from "../../assets/mentality-logo.png";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
-  const { loading, isLoggedIn, error } = useSelector((state) => state.login);
+  const { loading, error } = useSelector((state) => state.login);
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -83,8 +82,13 @@ export default function Login({ navigation }) {
           onPress={handleOnpress}
           activeOpacity={0.5}
           style={loginStyles.buttonPrimary}
+          disabled={loading}
         >
-          <Text style={loginStyles.textButtonPrimary}>masuk</Text>
+          {loading ? (
+            <ActivityIndicator color="white" size="small" />
+          ) : (
+            <Text style={loginStyles.textButtonPrimary}>masuk</Text>
+          )}
         </TouchableOpacity>
         <View style={loginStyles.actionRegisterContainer}>
           <Text style={loginStyles.actionRegisterText}>Belum punya akun?</Text>

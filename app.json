@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mentality-client-mobile",
-    "slug": "mentality-client-mobile",
+    "name": "MentaliTy",
+    "slug": "MentaliTy-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

@@ -37,8 +37,16 @@ export const registerHandler = (payload) => {
       dispatch(setRegisterSuccess(true));
     } catch (error) {
       const { response } = error;
-      const data = response.data;
-      dispatch(setRegisterError(data.message[0]));
+      let message = "";
+      if (response) {
+        let { data } = response;
+        if (Array.isArray(data.message)) {
+          message = data.message[0];
+        } else {
+          message = data.message;
+        }
+      }
+      dispatch(setRegisterError(message));
     } finally {
       dispatch(setRegisterLoading(false));
     }

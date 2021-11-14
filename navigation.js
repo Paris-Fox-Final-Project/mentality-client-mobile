@@ -33,8 +33,10 @@ export default function Navigation() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
           user.role === "user" ? (
+            // seluruh screen user
             <Stack.Screen name="HomeClient" component={HomeClient} />
           ) : (
+            // seluruh screen counselor
             <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
           )
         ) : (

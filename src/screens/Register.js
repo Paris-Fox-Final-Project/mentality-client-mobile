@@ -8,13 +8,21 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Pressable,
+  Platform,
+  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import logo from "../../assets/mentality-logo.png";
+import user from "../../assets/user.png";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
-import { registerHandler } from "../store/actions/registerAction";
+import {
+  registerHandler,
+  setRegisterSuccess,
+} from "../store/actions/registerAction";
 import { useFocusEffect } from "@react-navigation/core";
+import * as ImagePicker from "expo-image-picker";
 
 export default function Register({ navigation }) {
   const dispatch = useDispatch();
@@ -28,14 +36,53 @@ export default function Register({ navigation }) {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setPasswordError] = React.useState();
   const [gender, setGender] = React.useState("male");
+  const [avatar, setAvatar] = React.useState(null);
 
   useFocusEffect(
     React.useCallback(() => {
       if (isSuccess) {
         navigation.navigate("Login");
       }
+
+      return () => {
+        dispatch(setRegisterSuccess(false));
+      };
     }, [isSuccess])
   );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        if (Platform.OS !== "web") {
+          const { status } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== "granted") {
+            alert("Sorry, we need camera roll permissions to make this work!");
+          }
+        }
+      })();
+    }, [])
+  );
+
+  const pickImageHandler = async () => {
+    const option = {
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    };
+    const result = await ImagePicker.launchImageLibraryAsync(option);
+    if (!result.cancelled) {
+      const filename = result.uri.split("/").pop().split(".")[0];
+      const mimetype = `${result.type}/${result.uri.split(".").pop()}`;
+      const { uri } = result;
+      setAvatar({
+        name: filename,
+        type: mimetype,
+        uri,
+      });
+    }
+  };
 
   const onGenderChangeHandle = (itemValue, _) => {
     setGender(itemValue);
@@ -55,26 +102,59 @@ export default function Register({ navigation }) {
     }
 
     const isValidPayload = email && name && password;
-
+    console.log(avatar);
     if (isValidPayload) {
-      const payload = {
-        email,
-        password,
-        gender,
-        name,
-      };
-      dispatch(registerHandler(payload));
+      const form = new FormData();
+      form.append("name", name);
+      form.append("email", email);
+      form.append("password", password);
+      form.append("gender", gender);
+      form.append("avatar_url", avatar);
+      dispatch(registerHandler(form));
     }
   };
 
   return (
     <SafeAreaView style={registerSyle.container}>
       <View
-        style={{ justifyContent: "center", alignItems: "center", flex: 0.5 }}
+        style={{ alignItems: "center", justifyContent: "center", flex: 0.7 }}
       >
-        <Image source={logo} style={{ width: 150, height: 150 }} />
+        <Pressable
+          style={{
+            width: 80,
+            height: 80,
+            borderWidth: 1,
+            borderColor: "gray",
+            borderRadius: 99,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            shadowColor: null,
+          }}
+          onPress={pickImageHandler}
+        >
+          <Image
+            source={avatar ? avatar.uri : user}
+            style={{ width: 80, height: 80, borderRadius: 900 }}
+          ></Image>
+          <View
+            style={{
+              position: "absolute",
+              right: -5,
+              bottom: 10,
+              width: 20,
+              height: 20,
+              backgroundColor: "#FDB029",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 99,
+            }}
+          >
+            <Text style={{ fontSize: 12, color: "white" }}>+</Text>
+          </View>
+        </Pressable>
       </View>
-      <View style={{ flex: 1.5 }}>
+      <View style={{ flex: 1.3 }}>
         <Text style={registerSyle.title}>Daftar</Text>
         <View style={{ marginBottom: 20 }}>
           <View style={registerSyle.inputContainer}>

@@ -34,11 +34,13 @@ export const registerHandler = (payload) => {
         method: "POST",
         data: payload,
       });
+      console.log(data, ">>>>>> data register");
       dispatch(setRegisterSuccess(true));
     } catch (error) {
-      const { response } = error;
-      const data = response.data;
-      dispatch(setRegisterError(data.message[0]));
+      console.log(error);
+      // const { response } = error;
+      // const data = response.data;
+      dispatch(setRegisterError(error.message));
     } finally {
       dispatch(setRegisterLoading(false));
     }

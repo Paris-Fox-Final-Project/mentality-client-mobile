@@ -29,6 +29,7 @@ export const setLoginStatus = (payload) => {
 export const loginHandler = (credential) => {
   return async (dispatch, getState) => {
     dispatch(setLoginLoading(true));
+    dispatch(setLoginError(""));
     try {
       const { data } = await apiServer({
         url: "/login",

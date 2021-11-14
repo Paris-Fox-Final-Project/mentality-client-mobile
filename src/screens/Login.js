@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  Pressable,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
@@ -14,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../store/actions/loginAction";
 import logo from "../../assets/mentality-logo.png";
+import { useFocusEffect } from "@react-navigation/core";
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.login);
@@ -21,6 +21,18 @@ export default function Login({ navigation }) {
   const [emailError, setEmailError] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
+
+  React.useEffect(() => {
+    clearState();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        clearState();
+      };
+    }, [])
+  );
 
   const handleOnpress = () => {
     if (!email) {
@@ -36,10 +48,15 @@ export default function Login({ navigation }) {
       setPasswordError("");
       const credential = { email, password };
       dispatch(loginHandler(credential));
+      clearState();
     }
+  };
 
+  const clearState = () => {
     setEmail("");
     setPassword("");
+    setEmailError("");
+    setPasswordError("");
   };
 
   const handleOnPressRegister = () => {
@@ -53,6 +70,7 @@ export default function Login({ navigation }) {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={loginStyles.title}>Masuk</Text>
+        {error ? <Text style={loginStyles.textError}>{error}</Text> : null}
         <View style={{ marginBottom: 20 }}>
           <View style={loginStyles.inputContainer}>
             <TextInput
@@ -114,7 +132,7 @@ const loginStyles = StyleSheet.create({
     fontSize: 26,
     color: "#EFF6FF",
     letterSpacing: 1,
-    marginBottom: 24,
+    marginBottom: 10,
   },
   inputContainer: {
     marginBottom: 10,

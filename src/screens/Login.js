@@ -1,11 +1,20 @@
 import * as React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet, TextInput, Image, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../store/actions/loginAction";
 import logo from "../../assets/mentality-logo.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const { loading, isLoggedIn, error } = useSelector((state) => state.login);
@@ -13,14 +22,6 @@ export default function Login({ navigation }) {
   const [emailError, setEmailError] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
-
-  useFocusEffect(
-    React.useCallback(() => {
-      if (isLoggedIn) {
-        navigation.navigate("HomeClient");
-      }
-    }, [isLoggedIn])
-  );
 
   const handleOnpress = () => {
     if (!email) {
@@ -74,13 +75,13 @@ export default function Login({ navigation }) {
             <Text style={loginStyles.textError}>{passwordError}</Text>
           </View>
         </View>
-        <Button
+        <TouchableOpacity
           onPress={handleOnpress}
-          title={loading ? "..." : "Masuk"}
+          activeOpacity={0.5}
           style={loginStyles.buttonPrimary}
-          color="#FDB029"
-          disabled={loading}
-        />
+        >
+          <Text style={loginStyles.textButtonPrimary}>masuk</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -123,7 +124,20 @@ const loginStyles = StyleSheet.create({
     fontWeight: "600",
   },
   buttonPrimary: {
-    paddingVertical: 10,
-    color: "#1F2937",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    backgroundColor: "#FDB029",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#FDB029",
+    overflow: "hidden",
+    overlayColor: "#FDB029",
+  },
+  textButtonPrimary: {
+    color: "#fff",
+    textTransform: "capitalize",
+    fontWeight: "700",
+    fontSize: 16,
   },
 });

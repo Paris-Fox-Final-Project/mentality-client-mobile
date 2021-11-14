@@ -1,13 +1,25 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/core";
 import * as React from "react";
 import { StatusBar, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { setLoginStatus } from "../store/actions/loginAction";
+import {counselorHomeDataHandler} from "../store/actions/counselorHomeAction"
+
 
 export default function HomeCounselor() {
   const dispatch = useDispatch();
+  const {homeData,error,isLoading,profile} = useSelector(state=>state.counselorHome)
+  console.log(homeData, 'data di home konselor js', profile)
+
+  useFocusEffect(
+    React.useCallback(()=>{
+      dispatch(counselorHomeDataHandler())
+    },[])
+  )
+  
   const signOut = () => {
     (async () => {
       await AsyncStorage.removeItem("access_token");
@@ -18,7 +30,8 @@ export default function HomeCounselor() {
   return (
     <SafeAreaView style={styleHomeCounselor.AndroidSafeArea}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text>Hello Counselor</Text>
+        <Text>Hello {profile.name}</Text>
+        <Text>{profile.email}</Text>
         <TouchableOpacity
           style={{
             paddingVertical: 10,
@@ -29,6 +42,7 @@ export default function HomeCounselor() {
         >
           <Text style={{ color: "white" }}>Logout</Text>
         </TouchableOpacity>
+        <Text>{JSON.stringify(homeData)}</Text>
       </View>
     </SafeAreaView>
   );

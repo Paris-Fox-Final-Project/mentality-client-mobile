@@ -46,11 +46,11 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={loginStyles.container}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Image source={logo} style={{ width: 200, height: 200 }} />
+        <Image source={logo} style={{ width: 150, height: 150 }} />
       </View>
       <View style={{ flex: 1 }}>
         <Text style={loginStyles.title}>Masuk</Text>
-        <View style={{ marginBottom: 26 }}>
+        <View style={{ marginBottom: 20 }}>
           <View style={loginStyles.inputContainer}>
             <TextInput
               placeholder="Masukkan email"
@@ -82,6 +82,12 @@ export default function Login({ navigation }) {
         >
           <Text style={loginStyles.textButtonPrimary}>masuk</Text>
         </TouchableOpacity>
+        <View style={loginStyles.actionRegisterContainer}>
+          <Text style={loginStyles.actionRegisterText}>Belum punya akun?</Text>
+          <TouchableOpacity>
+            <Text style={loginStyles.actionRegisterTextPrimary}>Daftar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -107,7 +113,7 @@ const loginStyles = StyleSheet.create({
     marginBottom: 24,
   },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   textError: {
     color: "#EF4444",
@@ -133,11 +139,26 @@ const loginStyles = StyleSheet.create({
     borderColor: "#FDB029",
     overflow: "hidden",
     overlayColor: "#FDB029",
+    marginBottom: 40,
   },
   textButtonPrimary: {
     color: "#fff",
     textTransform: "capitalize",
     fontWeight: "700",
     fontSize: 16,
+  },
+  actionRegisterContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  actionRegisterText: {
+    color: "white",
+  },
+  actionRegisterTextPrimary: {
+    color: "#FDB029",
+    fontWeight: "400",
+    marginLeft: 4,
+    letterSpacing: 1,
   },
 });

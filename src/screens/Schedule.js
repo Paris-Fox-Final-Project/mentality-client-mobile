@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  ActivityIndicator,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -15,22 +16,37 @@ import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTopics } from "../store/actions/topicAction";
 import { createNewCounselingHandler } from "../store/actions/counselingAction";
+import Midtrans from "./Midtrans";
 
 const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
 
 export default function Schedule() {
   const dispatch = useDispatch();
   const { topics } = useSelector((state) => state.topic);
+  const { createdCounseling, isSuccess, isLoading, error } = useSelector(
+    (state) => state.counseling
+  );
+
   const [time, setTime] = React.useState("10:00");
   const [date, setDate] = React.useState();
   const [description, setDescription] = React.useState();
   const [session, setSession] = React.useState(1);
   const [topicId, setTopicId] = React.useState(1);
+  const [midtrans, setMidtrans] = React.useState();
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getAllTopics());
     }, [])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (createdCounseling) {
+        const { transaction } = createdCounseling;
+        setMidtrans(transaction);
+      }
+    }, [createdCounseling])
   );
 
   const onSessionPressHandler = (value) => {
@@ -52,7 +68,7 @@ export default function Schedule() {
     const payload = {
       totalSession: session,
       TopicId: topicId,
-      CounselorId: 3,
+      CounselorId: 4,
       schedule,
       description,
     };
@@ -62,6 +78,10 @@ export default function Schedule() {
   const datesBlackList = (date) => {
     return date.isoWeekday() === 7;
   };
+
+  if (midtrans) {
+    return <Midtrans uri={midtrans.redirect_url} />;
+  }
 
   return (
     <SafeAreaView style={styleSchedule.container}>
@@ -286,10 +306,15 @@ export default function Schedule() {
             <TouchableOpacity
               style={styleSchedule.buttonPrimary}
               onPress={onButtonSubmit}
+              disabled={isLoading}
             >
-              <Text style={styleSchedule.textButtonPrimary}>
-                Jadwalkan Konseling
-              </Text>
+              {isLoading ? (
+                <ActivityIndicator color="white" size="small" />
+              ) : (
+                <Text style={styleSchedule.textButtonPrimary}>
+                  Jadwalkan Konseling
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>

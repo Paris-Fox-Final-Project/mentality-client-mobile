@@ -25,6 +25,16 @@ export default function HomeClient({ navigation }) {
             paddingHorizontal: 20,
             paddingVertical: 10,
           }}
+          onPress={() => navigation.push("Schedule")}
+        >
+          <Text style={{ color: "white" }}>Schedule</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "black",
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+          }}
           onPress={logoutHandler}
         >
           <Text style={{ color: "white" }}>Logout</Text>

@@ -1,4 +1,5 @@
 import {
+  SET_CREATED_SCHEDULE_COUNSELING,
   SET_ERROR_CREATE_SCHEDULE_COUNSELING,
   SET_LOADING_CREATE_SCHEDULE_COUNSELING,
   SET_SUCCESS_CREATE_SCHEDULE_COUNSELING,
@@ -27,6 +28,13 @@ export const setLoadingCreateScheduleCounseling = (payload) => {
   };
 };
 
+export const setCreateCounseling = (payload) => {
+  return {
+    type: SET_CREATED_SCHEDULE_COUNSELING,
+    payload,
+  };
+};
+
 export const createNewCounselingHandler = (payload) => {
   return async (dispatch, getState) => {
     dispatch(setErrorCreateScheduleCounseling(""));
@@ -41,6 +49,8 @@ export const createNewCounselingHandler = (payload) => {
         },
         data: payload,
       });
+      const { counseling } = data;
+      dispatch(setCreateCounseling(counseling));
       dispatch(setSuccessCreateScheduleCounseling(true));
     } catch (error) {
       const { response } = error;

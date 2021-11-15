@@ -5,10 +5,12 @@ import Login from "./src/screens/Login";
 import Register from "./src/screens/Register";
 import HomeClient from "./src/screens/HomeClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import HomeCounselor from "./src/screens/HomeKonselor";
-import CounselorDetailClient from "./src/screens/CounselorDetailClient";
+import HomeCounselor from "./src/screens/HomeCounselor";
+import ListCounselor from "./src/screens/ListCounselor";
+import DetailCounselor  from "./src/screens/Detail";
+import ScheduleCounseling from "./src/screens/Schedule";
 import { useDispatch, useSelector } from "react-redux";
-// import { setLoginStatus } from "./src/store/actions/loginAction";
+import { setLoginStatus } from "./src/store/Actions/loginAction";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +37,12 @@ export default function Navigation() {
         {isLoggedIn ? (
           user.role === "user" ? (
             // seluruh screen user
-            <Stack.Screen name="HomeClient" component={HomeClient} />
+            <>
+              <Stack.Screen name="HomeClient" component={HomeClient} />
+              <Stack.Screen name="ListCounselor" component={ListCounselor} />
+              <Stack.Screen name="DetailCounselor" component={DetailCounselor} />
+              <Stack.Screen name="ScheduleCounseling" component={ScheduleCounseling} />
+            </>
           ) : (
             // seluruh screen counselor
             <>

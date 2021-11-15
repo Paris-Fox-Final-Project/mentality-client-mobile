@@ -1,7 +1,6 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { View } from "react-native"
 import Login from "./src/screens/Login";
 import Register from "./src/screens/Register";
 import HomeClient from "./src/screens/HomeClient";
@@ -10,6 +9,7 @@ import HomeCounselor from "./src/screens/HomeCounselor";
 import ListCounselor from "./src/screens/ListCounselor";
 import DetailCounselor  from "./src/screens/Detail";
 import ScheduleCounseling from "./src/screens/Schedule";
+import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/actions/loginAction";
 
@@ -46,7 +46,10 @@ export default function Navigation() {
             </>
           ) : (
             // seluruh screen counselor
+            <>
             <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+            <Stack.Screen name="CounselorDetailClient" component={CounselorDetailClient} />
+            </>
           )
         ) : (
           <>

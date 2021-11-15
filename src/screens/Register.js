@@ -175,7 +175,7 @@ export default function Register({ navigation }) {
         <View style={{ marginTop: 10 }}>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Nama Anda"
+              placeholder="Nama"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setName}
@@ -184,7 +184,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Email"
+              placeholder="Email"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setEmail}
@@ -193,7 +193,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Password"
+              placeholder="Password"
               secureTextEntry
               style={registerSyle.input}
               placeholderTextColor="white"
@@ -207,7 +207,7 @@ export default function Register({ navigation }) {
               onValueChange={onGenderChangeHandle}
               dropdownIconColor="white"
               style={{
-                backgroundColor: "#60A5FA",
+                backgroundColor: "transparent",
                 borderRadius: 10,
                 borderRadius: 10,
                 color: "white",
@@ -239,7 +239,7 @@ export default function Register({ navigation }) {
 const registerSyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#60A5FA",
+    backgroundColor: "#222C39",
     justifyContent: "center",
     paddingHorizontal: 10,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,

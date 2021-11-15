@@ -5,7 +5,9 @@ import Login from "./src/screens/Login";
 import Register from "./src/screens/Register";
 import HomeClient from "./src/screens/HomeClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import HomeCounselor from "./src/screens/HomeKonselor";
+import HomeCounselor from "./src/screens/HomeCounselor";
+import ListCounselor from "./src/screens/ListCounselor";
+import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/actions/loginAction";
@@ -39,12 +41,12 @@ export default function Navigation() {
             // seluruh screen user
             <>
               <Stack.Screen name="HomeClient" component={HomeClient} />
-              <Stack.Screen name="History" component={History} />
+              <Stack.Screen name="ListCounselor" component={ListCounselor} />
               <Stack.Screen
-                name="Schedule"
-                component={Schedule}
-                options={{ headerShown: true }}
+                name="DetailCounselor"
+                component={DetailCounselor}
               />
+              <Stack.Screen name="Shedule" component={Schedule} />
             </>
           ) : (
             // seluruh screen counselor

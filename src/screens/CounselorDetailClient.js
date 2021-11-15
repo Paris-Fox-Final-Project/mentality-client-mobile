@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Image, Text, View, FlatList, TextInput, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, View, FlatList, TextInput, ScrollView, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction"
 import { useFocusEffect } from '@react-navigation/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,12 +9,27 @@ export default function CounselorDetailClient({ route }) {
     const counselingID = +route.params.counselingId
     const dispatch = useDispatch()
     const { detail, isLoading, error } = useSelector(state => state.detail)
-    console.log(detail, 'data detail di page')
+    console.log(isLoading, 'data detail di page')
+    
     useFocusEffect(
         React.useCallback(() => {
             dispatch(counselorCounselingDetailHandler(counselingID))
         }, [])
     )
+    if(isLoading){
+        console.log("loading")
+        return(
+            <>
+              <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator />
+                    <ActivityIndicator size="large" />
+                    <ActivityIndicator size="small" color="#0000ff" />
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
+            </>
+        )
+    }
+
     return (
         <SafeAreaView>
             <View>
@@ -50,7 +65,7 @@ export default function CounselorDetailClient({ route }) {
                     <View>
                         <Text>Jadwal Konseling: {detail.schedule}</Text>
                     </View>
-                    {/* <View>
+                {/* <View>
                         <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90]}>
                             <View>
                                 <Image style={[styles.imgSize, styles.rounded]} source={{
@@ -217,5 +232,14 @@ const styles = StyleSheet.create({
     },
     z99: {
         zIndex: 99
-    }
+    },
+    container: {
+        flex: 1,
+        justifyContent: "center"
+      },
+      horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+      }
 })

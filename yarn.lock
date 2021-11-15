@@ -4720,11 +4720,6 @@
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
 
-"react-native-date-picker@^4.1.1":
-  "integrity" "sha512-2KzwFZoPNmGCgDFP8FrrtIBrKMEzTkLG5Zq68CbyUxG7aFPmeP7ik//lSB0gPwfO9TKQyKFVqTod5jTp0PTnbw=="
-  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.1.1.tgz"
-  "version" "4.1.1"
-
 "react-native-document-picker@^7.1.1":
   "integrity" "sha512-lEgyfl+JbU/UCDu8UdagBrC5CC71WTfqCzWyGeALLZiXGHrCJo/5BMqWbAc9PSCeiqNMnFkjcybO/kws5gMkxA=="
   "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-7.1.1.tgz"

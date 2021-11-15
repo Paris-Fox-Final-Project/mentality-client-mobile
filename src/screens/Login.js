@@ -74,7 +74,7 @@ export default function Login({ navigation }) {
         <View style={{ marginBottom: 20 }}>
           <View style={loginStyles.inputContainer}>
             <TextInput
-              placeholder="Masukkan email"
+              placeholder="Email"
               style={loginStyles.input}
               placeholderTextColor="#EFF6FF"
               textContentType="emailAddress"
@@ -85,7 +85,7 @@ export default function Login({ navigation }) {
           </View>
           <View style={loginStyles.inputContainer}>
             <TextInput
-              placeholder="Masukkan password"
+              placeholder="Password"
               style={loginStyles.input}
               textContentType="password"
               secureTextEntry={true}
@@ -122,7 +122,7 @@ export default function Login({ navigation }) {
 const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#60A5FA",
+    backgroundColor: "#222C39",
     justifyContent: "center",
     paddingHorizontal: 10,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,

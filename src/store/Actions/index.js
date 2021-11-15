@@ -47,7 +47,7 @@ export function HandleRegister(payload){
         try {
             console.log(payload, 'data di store buat register')
             const {data} = await axios({
-                url: "http://192.168.1.5:4000/register",
+                url: "http://192.168.1.2:4000/register",
                 method: "POST",
                 headers: {
                     "Content-Type": "multipart/form-data",

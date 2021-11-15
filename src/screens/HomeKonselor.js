@@ -1,12 +1,125 @@
-import React from 'react';
-import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, Button, TouchableOpacity } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/core";
+import * as React from "react";
+import { StatusBar } from "react-native";
+import { StyleSheet, Image, Text, View, FlatList, TextInput, ScrollView, Button, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginStatus } from "../store/actions/loginAction";
+import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction"
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
-export default function HomeKonselor({navigation}) {
-  return (
-    <SafeAreaView>
-    </SafeAreaView>
+
+export default function HomeCounselor({ navigate }) {
+  const navigation = useNavigation()
+  const dispatch = useDispatch();
+  const { homeData, error, isLoading, profile } = useSelector(state => state.counselorHome)
+  // console.log(homeData, 'data di home konselor js')
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(counselorHomeDataHandler())
+    }, [])
   )
+  const handleDetail = () => {
+    console.log("detail")
+  }
+  const signOut = () => {
+    (async () => {
+      await AsyncStorage.removeItem("access_token");
+      await AsyncStorage.removeItem("user");
+      dispatch(setLoginStatus(false));
+    })();
+  };
+  return (
+    <SafeAreaView style={styleHomeCounselor.AndroidSafeArea}>
+      <TouchableOpacity
+        style={{
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          backgroundColor: "black",
+        }}
+        onPress={signOut}
+      >
+        <Text style={{ color: "white" }}>Logout</Text>
+      </TouchableOpacity>
+      {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text>Hello {profile.name}</Text>
+        <Text>{profile.email}</Text>
+        <TouchableOpacity
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            backgroundColor: "black",
+          }}
+          onPress={signOut}
+        >
+          <Text style={{ color: "white" }}>Logout</Text>
+        </TouchableOpacity>
+        <Text>{JSON.stringify(homeData)}</Text>
+        {homeData.map(el=>{
+          return 
+        })}
+      </View> */}
+      <ScrollView>
+        <View>
+          <View style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}>
+            <View style={[styles.mt30, styles.containerItem, styles.ml15]}>
+              <View style={[styles.pCenter, styles.dFlex]}>
+                <Image style={[styles.imgMediumSize, styles.rounded]} source={{
+                  uri: 'https://reactnative.dev/img/tiny_logo.png',
+                }} />
+              </View>
+              <View style={[styles.ml5, styles.mt10]}>
+                <Text style={[styles.cBlack, styles.txtCenter]}>{profile.name}</Text>
+                <Text style={[styles.cBlack, styles.txtCenter]}>{profile.email}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={[styles.mAuto, styles.mt20, styles.h100]}>
+          <View style={[styles.mt10]}>
+            <View>
+              {homeData.map(el => {
+                return (
+                  <>
+                    <TouchableOpacity
+                      key={el.id} onPress={() => navigation.navigate("CounselorDetailClient", { counselingId: el.id })}
+                    >
+
+                      <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                        <View>
+                          <Image style={[styles.imgSize, styles.rounded]} source={{
+                            uri: el.User.avatarUrl,
+                          }} />
+                        </View>
+                        <View>
+                          <Text>{el.User.name}</Text>
+                          <Text>{el.description}</Text>
+
+                        </View>
+                      </View>
+
+                    </TouchableOpacity>
+                  </>
+                )
+              })}
+
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
+
+const styleHomeCounselor = StyleSheet.create({
+  AndroidSafeArea: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +163,11 @@ const styles = StyleSheet.create({
   h100: {
     height: '100%'
   },
+<<<<<<< HEAD
   mauto:{
+=======
+  mauto: {
+>>>>>>> c6552e5daf7562e0e0ff8ddbb221e9b4970b8bf4
     margin: 'auto'
   },
   txtCenter: {

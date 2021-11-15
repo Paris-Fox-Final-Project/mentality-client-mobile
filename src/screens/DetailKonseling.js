@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TextInput, Button } from 'react-native';
+import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, Button, TouchableOpacity } from 'react-native';
 
-export default function HomeClient({navigation}) {
+export default function DetailKonseling({navigation}) {
   return (
     <SafeAreaView>
     </SafeAreaView>
@@ -98,9 +98,6 @@ const styles = StyleSheet.create({
   br10: {
     borderRadius: 10
   },
-  br38: {
-    borderRadius: 30
-  },
   br30: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30
@@ -117,6 +114,10 @@ const styles = StyleSheet.create({
   imgSize: {
     height: 50,
     width: 50
+  },
+  imgMediumSize: {
+    height: 80,
+    width: 80
   },
   rounded: {
     borderRadius: 90

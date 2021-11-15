@@ -1,57 +1,106 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, Button, TouchableOpacity } from 'react-native';
 
-export default function SleepSound({navigation}) {
+export default function HomeKonselor({navigation}) {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View style={[styles.dFlex, styles.pCenter, styles.mb30]}>
-          <View style={[styles.mAuto, styles.mt20, styles.h100]}>
+        <View>
+          <View style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}>
+            <View style={[styles.mt30, styles.containerItem, styles.ml15]}>
+              <View style={[styles.pCenter, styles.dFlex]}>
+                <Image style={[styles.imgMediumSize, styles.rounded]} source={{
+                  uri: 'https://reactnative.dev/img/tiny_logo.png',
+                }}/>
+              </View>
+              <View style={[styles.ml5, styles.mt10]}>
+                <Text style={[styles.cBlack, styles.txtCenter]}>Name Konselor</Text>
+                <Text style={[styles.cBlack, styles.txtCenter]}>konselor@mail.com</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={[styles.mAuto, styles.mt20, styles.h100]}>
             <View style={[styles.mt10]}>
               <View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
                     <Text>spesialisasi</Text>
                   </View>
                 </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
+                <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90, styles.br10, styles.h80]}>
+                  <View>
+                    <Image style={[styles.imgSize, styles.rounded]} source={{
+                      uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}/>
+                  </View>
                   <View>
                     <Text>name konselor</Text>
                     <Text>deskripsi</Text>
@@ -60,62 +109,6 @@ export default function SleepSound({navigation}) {
                 </View>
               </View>
             </View>
-          </View>
-          <View style={[styles.mAuto, styles.mt20, styles.h100]}>
-            <View style={[styles.mt10]}>
-              <View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-                <View style={[styles.dFlex, styles.bGrey, styles.mt10, styles.w200, styles.br10, styles.h80]}>
-                  <View>
-                    <Text>name konselor</Text>
-                    <Text>deskripsi</Text>
-                    <Text>spesialisasi</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

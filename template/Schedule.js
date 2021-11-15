@@ -1,9 +1,18 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TextInput, Button } from 'react-native';
 
-export default function HomeClient({navigation}) {
+export default function Schedule({navigation}) {
   return (
     <SafeAreaView>
+      <View>
+        <Text>Choose date</Text>
+      </View>
+      <View>
+        <Text>Topic Konseling</Text>
+      </View>
+      <View>
+        <Text>Deskripsi singkat masalah</Text>
+      </View>
     </SafeAreaView>
   )
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleCounselor } from "../store/actions/singleCounselorAction"
@@ -22,25 +23,25 @@ export default function DetailCounselor({ navigation, route }) {
   
   return (
     <SafeAreaView style={styleDetailCounselor.AndroidSafeArea}>
-      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Text>Detail Counselor</Text>
-        {/* <Image 
+      <View style={{ flexDirection: 'column', justifyContent: "center", alignItems: "center", flex: 1 }}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Detail Counselor</Text>
+        <Image 
           style={{ width: 200, height: 200, }}
           source={{ uri: singleCounselor.User?.avatarUrl }}
-        /> */}
-        <Text>{singleCounselor.User?.name}</Text>
-        <Text>{singleCounselor.specialist}</Text>
-        <Text>{singleCounselor.motto}</Text>
-        <Text>{singleCounselor.price}</Text>
-        <Text>{singleCounselor.about}</Text>
+        />
+        <Text>name:{singleCounselor.User?.name}</Text>
+        <Text>specialist:{singleCounselor.specialist}</Text>
+        <Text>motto:{singleCounselor.motto}</Text>
+        <Text>price:{singleCounselor.price}</Text>
+        <Text>about:{singleCounselor.about}</Text>
         <Button 
           title='Schedule Your Counseling'
           onPress={() => navigation.navigate('ScheduleCounseling', 
-          {
-            name: singleCounselor.User?.name,
-            specialist: singleCounselor.specialist,
-            price: singleCounselor.price
-          }
+            {
+              name: singleCounselor.User?.name,
+              specialist: singleCounselor.specialist,
+              price: singleCounselor.price
+            }
           )} 
         />
       </View>

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Image, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch,  useSelector } from "react-redux";
 import { fetchCounselors } from "../store/actions/counselorsAction"
@@ -21,14 +22,18 @@ export default function ListCounselor({ navigation }) {
   return (
     <SafeAreaView style={styleListCounselor.AndroidSafeArea}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Text>Counselors List</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Counselors List</Text>
         <ScrollView>
           {
             counselors.map((counselor) => (
-              <View key={counselor.id} style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                <Text>{counselor.User?.name}</Text>
-                <Text>{counselor.specialist}</Text>
-                <Text>{counselor.motto}</Text>
+              <View key={counselor.id} style={{ flexDirection: 'column', justifyContent: "center", alignItems: "center", flex: 1 }}>
+                <Image 
+                  style={{ width: 100, height: 100, }}
+                  source={{ uri: counselor.User?.avatarUrl }}
+                />
+                <Text>name:{counselor.User?.name}</Text>
+                <Text>name:{counselor.specialist}</Text>
+                <Text>name:{counselor.motto}</Text>
                 <Button 
                   title='View Details'
                   onPress={() => navigation.navigate('DetailCounselor', 

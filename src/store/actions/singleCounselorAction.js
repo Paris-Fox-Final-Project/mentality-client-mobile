@@ -35,7 +35,7 @@ export const fetchSingleCounselor = (id) => {
       const { data } = await apiClient({
         url: "/counselors/" + id,
         method: "GET",
-        headers: token,
+        headers: { access_token: token },
       });
       dispatch(setSingleCounselorData(data));
     } catch (error) {

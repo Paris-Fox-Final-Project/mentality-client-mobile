@@ -35,7 +35,7 @@ export const fetchCounselors = () => {
       const { data } = await apiClient({
         url: "/counselors",
         method: "GET",
-        headers: token,
+        headers: { access_token: token },
       });
       dispatch(setCounselorsData(data));
     } catch (error) {

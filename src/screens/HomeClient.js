@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Button} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector, useDispatch } from "react-redux";
@@ -30,17 +31,18 @@ export default function HomeClient({ navigation }) {
   return (
     <SafeAreaView style={styleHomeClient.AndroidSafeArea}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Text>Home</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Home</Text>
         <Button 
           title='Counseling/List Counselor'
           onPress={() => navigation.navigate('ListCounselor')} 
         />
         <ScrollView>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>List Counselor:</Text>
           {
             counselors.map((counselor) => (
-              <View key={counselor.id} style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                <Text>{counselor.User?.name}</Text>
-                <Text>{counselor.specialist}</Text>
+              <View key={counselor.id} style={{ flexDirection: 'column', justifyContent: "center", alignItems: "center", flex: 1 }}>
+                <Text>name: {counselor.User?.name}</Text>
+                <Text>specialist: {counselor.specialist}</Text>
               </View>
             ))
           }

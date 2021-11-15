@@ -38,12 +38,12 @@ export default function Navigation() {
         {isLoggedIn ? (
           user.role === "user" ? (
             // seluruh screen user
-            <View>
+            <>
               <Stack.Screen name="HomeClient" component={HomeClient} />
               <Stack.Screen name="ListCounselor" component={ListCounselor} />
               <Stack.Screen name="DetailCounselor" component={DetailCounselor} />
               <Stack.Screen name="ScheduleCounseling" component={ScheduleCounseling} />
-            </View>
+            </>
           ) : (
             // seluruh screen counselor
             <Stack.Screen name="HomeCounselor" component={HomeCounselor} />

@@ -20,7 +20,8 @@ import Midtrans from "./Midtrans";
 
 const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
 
-export default function Schedule() {
+export default function Schedule({ route }) {
+  const { counselor } = route.params;
   const dispatch = useDispatch();
   const { topics } = useSelector((state) => state.topic);
   const { createdCounseling, isSuccess, isLoading, error } = useSelector(
@@ -68,7 +69,7 @@ export default function Schedule() {
     const payload = {
       totalSession: session,
       TopicId: topicId,
-      CounselorId: 4,
+      CounselorId: counselor.id,
       schedule,
       description,
     };
@@ -82,15 +83,14 @@ export default function Schedule() {
   if (midtrans) {
     return <Midtrans uri={midtrans.redirect_url} />;
   }
-
+  console.log(counselor);
   return (
-    <SafeAreaView style={styleSchedule.container}>
-      <ScrollView>
+    <ScrollView>
+      <SafeAreaView style={styleSchedule.container}>
         <View
           style={{
             backgroundColor: "white",
             borderRadius: 10,
-            paddingVertical: 10,
             paddingHorizontal: 10,
             marginBottom: 10,
           }}
@@ -131,7 +131,7 @@ export default function Schedule() {
                   <Text style={{ fontSize: 10 }}>45 - 60 Menit</Text>
                 </View>
                 <Text style={{ color: "#FDB029", fontWeight: "bold" }}>
-                  Rp150.000
+                  Rp{counselor.price}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -156,7 +156,7 @@ export default function Schedule() {
                   <Text style={{ fontSize: 10 }}>90 - 120 Menit</Text>
                 </View>
                 <Text style={{ color: "#FDB029", fontWeight: "bold" }}>
-                  Rp300.000
+                  Rp{counselor.price * 2}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -318,8 +318,8 @@ export default function Schedule() {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 

@@ -46,7 +46,11 @@ export default function Navigation() {
                 name="DetailCounselor"
                 component={DetailCounselor}
               />
-              <Stack.Screen name="Shedule" component={Schedule} />
+              <Stack.Screen
+                name="Schedule"
+                component={Schedule}
+                options={{ headerShown: true }}
+              />
             </>
           ) : (
             // seluruh screen counselor

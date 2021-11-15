@@ -8,8 +8,6 @@ import { counselorCounselingDetailDataReducer } from "./counselorCounselingReduc
 import { counselingReducer } from "./counselingReducer";
 import { counselorsReducer } from "./counselorsReducer";
 import { singleCounselorReducer } from "./singleCounselorReducer";
-import { counselorHomeDataReducer } from "./counselorHomeDataReducer";
-import { counselorCounselingDetailDataReducer } from "./counselorCounselingReducer";
 
 export default reducer = combineReducers({
   login: loginReducer,

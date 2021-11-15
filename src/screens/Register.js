@@ -207,7 +207,7 @@ export default function Register({ navigation }) {
               onValueChange={onGenderChangeHandle}
               dropdownIconColor="white"
               style={{
-                backgroundColor: "#60A5FA",
+                backgroundColor: "transparent",
                 borderRadius: 10,
                 borderRadius: 10,
                 color: "white",
@@ -239,7 +239,7 @@ export default function Register({ navigation }) {
 const registerSyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#60A5FA",
+    backgroundColor: "#222C39",
     justifyContent: "center",
     paddingHorizontal: 10,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,

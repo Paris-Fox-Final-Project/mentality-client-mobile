@@ -175,7 +175,7 @@ export default function Register({ navigation }) {
         <View style={{ marginTop: 10 }}>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Nama Anda"
+              placeholder="Nama"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setName}
@@ -184,7 +184,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Email"
+              placeholder="Email"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setEmail}
@@ -193,7 +193,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Password"
+              placeholder="Password"
               secureTextEntry
               style={registerSyle.input}
               placeholderTextColor="white"

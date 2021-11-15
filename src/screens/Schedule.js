@@ -11,16 +11,50 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import CalendarStrip from "react-native-calendar-strip";
 import { Picker } from "@react-native-picker/picker";
+import { useFocusEffect } from "@react-navigation/core";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTopics } from "../store/actions/topicAction";
 
 const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
 
 export default function Schedule() {
+  const dispatch = useDispatch();
+  const { topics } = useSelector((state) => state.topic);
   const [time, setTime] = React.useState("10:00");
   const [date, setDate] = React.useState();
+  const [description, setDescription] = React.useState();
   const [session, setSession] = React.useState(1);
+  const [topicId, setTopicId] = React.useState(1);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getAllTopics());
+    }, [])
+  );
 
   const onSessionPressHandler = (value) => {
     setSession(value);
+  };
+
+  const onTopicSelected = (itemValue, _) => {
+    setTopicId(itemValue);
+  };
+
+  const onDateSelected = (date) => {
+    const newDate = date.toISOString().split("T")[0];
+    setDate(newDate);
+  };
+
+  const onButtonSubmit = () => {
+    const schedule = `${date} ${time}:00`;
+    const payload = {
+      totalSession: session,
+      TopicId: topicId,
+      CounselorId: 1,
+      schedule,
+      description,
+    };
+    console.log(payload);
   };
 
   const datesBlackList = (date) => {
@@ -69,9 +103,8 @@ export default function Schedule() {
               dateNumberStyle={{ color: "black" }}
               dateNameStyle={{ color: "black" }}
               iconContainer={{ flex: 0.1 }}
-              onDateSelected={(date) => {
-                setDate(date);
-              }}
+              onDateSelected={onDateSelected}
+              minDate={new Date()}
               datesBlacklist={datesBlackList}
               iconContainer={{ alignItems: "center", justifyContent: "center" }}
             />
@@ -194,7 +227,7 @@ export default function Schedule() {
               </TouchableOpacity>
             </View>
           </View>
-          <View>
+          <View style={{ marginBottom: 20 }}>
             <Text
               style={{
                 fontWeight: "bold",
@@ -207,15 +240,33 @@ export default function Schedule() {
               Topik Konseling
             </Text>
             <Picker
-              style={{ marginBottom: 10, color: "#FDB029", fontWeight: "bold" }}
+              style={{
+                marginBottom: 10,
+                color: "#FDB029",
+                fontWeight: "bold",
+              }}
+              selectedValue={topicId}
+              onValueChange={onTopicSelected}
             >
-              <Picker.Item label="Percintaan" value="percintaan" />
+              {topics.map((topic) => {
+                const name =
+                  topic.name.charAt(0).toUpperCase() + topic.name.slice(1);
+                return (
+                  <Picker.Item
+                    label={name}
+                    value={topic.id}
+                    key={`topic-${topic.id}`}
+                  />
+                );
+              })}
             </Picker>
             <View>
               <TextInput
                 placeholder="Klik disini untuk menceritakan tentang topik konselingmu"
                 multiline={true}
                 maxLength={300}
+                value={description}
+                onChangeText={setDescription}
                 style={{
                   height: 150,
                   borderRadius: 10,
@@ -225,6 +276,16 @@ export default function Schedule() {
                 }}
               />
             </View>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styleSchedule.buttonPrimary}
+              onPress={onButtonSubmit}
+            >
+              <Text style={styleSchedule.textButtonPrimary}>
+                Jadwalkan Konseling
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -238,5 +299,23 @@ const styleSchedule = StyleSheet.create({
     backgroundColor: "white",
     paddingHorizontal: 10,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  buttonPrimary: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    backgroundColor: "#FDB029",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#FDB029",
+    overflow: "hidden",
+    overlayColor: "#FDB029",
+  },
+  textButtonPrimary: {
+    color: "#fff",
+    textTransform: "capitalize",
+    fontWeight: "700",
+    fontSize: 16,
+    letterSpacing: 1,
   },
 });

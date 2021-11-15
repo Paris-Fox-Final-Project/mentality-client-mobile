@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleCounselor } from "../store/actions/singleCounselorAction"
+import { fetchSingleCounselor } from "../store/actions/singleCounselorAction";
 
 export default function DetailCounselor({ navigation, route }) {
   const dispatch = useDispatch();
@@ -14,19 +14,27 @@ export default function DetailCounselor({ navigation, route }) {
   );
 
   useEffect(() => {
-    dispatch(fetchSingleCounselor(id))
-  }, [id])
+    dispatch(fetchSingleCounselor(id));
+  }, [id]);
 
-  if (loading) return <Text>Loading...</Text>
-  if (error) return <Text>Error: {error}</Text>
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error}</Text>;
 
-  
   return (
     <SafeAreaView style={styleDetailCounselor.AndroidSafeArea}>
-      <View style={{ flexDirection: 'column', justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Detail Counselor</Text>
-        <Image 
-          style={{ width: 200, height: 200, }}
+      <View
+        style={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+        }}
+      >
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+          Detail Counselor
+        </Text>
+        <Image
+          style={{ width: 200, height: 200 }}
           source={{ uri: singleCounselor.User?.avatarUrl }}
         />
         <Text>name:{singleCounselor.User?.name}</Text>
@@ -34,15 +42,13 @@ export default function DetailCounselor({ navigation, route }) {
         <Text>motto:{singleCounselor.motto}</Text>
         <Text>price:{singleCounselor.price}</Text>
         <Text>about:{singleCounselor.about}</Text>
-        <Button 
-          title='Schedule Your Counseling'
-          onPress={() => navigation.navigate('ScheduleCounseling', 
-            {
-              name: singleCounselor.User?.name,
-              specialist: singleCounselor.specialist,
-              price: singleCounselor.price
-            }
-          )} 
+        <Button
+          title="Schedule Your Counseling"
+          onPress={() =>
+            navigation.navigate("Schedule", {
+              counselor: singleCounselor,
+            })
+          }
         />
       </View>
     </SafeAreaView>

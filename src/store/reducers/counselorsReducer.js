@@ -7,7 +7,7 @@ import {
 const intialState = {
   counselors: [],
   error: null,
-  loading: false,
+  loading: true,
 };
 export const counselorsReducer = (state = intialState, action) => {
   switch (action.type) {

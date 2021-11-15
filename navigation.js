@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeCounselor from "./src/screens/HomeKonselor";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/actions/loginAction";
+import Schedule from "./src/screens/Schedule";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +35,10 @@ export default function Navigation() {
         {isLoggedIn ? (
           user.role === "user" ? (
             // seluruh screen user
-            <Stack.Screen name="HomeClient" component={HomeClient} />
+            <>
+              <Stack.Screen name="Schedule" component={Schedule} />
+              <Stack.Screen name="HomeClient" component={HomeClient} />
+            </>
           ) : (
             // seluruh screen counselor
             <Stack.Screen name="HomeCounselor" component={HomeCounselor} />

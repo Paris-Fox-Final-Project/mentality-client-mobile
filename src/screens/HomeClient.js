@@ -19,6 +19,10 @@ export default function HomeClient({ navigation }) {
     <SafeAreaView style={styleHomeClient.AndroidSafeArea}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
         <Text>Home</Text>
+        <Button 
+          title='Konseling'
+          onPress={() => navigation.navigate('ListCounselor')} 
+        />
         <TouchableOpacity
           style={{
             backgroundColor: "black",

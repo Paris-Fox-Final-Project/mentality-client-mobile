@@ -31,7 +31,7 @@ export const fetchCounselors = () => {
   return async (dispatch) => {
     dispatch(setCounselorsLoading(true));
     try {
-      const token = await AsyncStorage.getItem("access_token", data.access_token);
+      const token = await AsyncStorage.getItem("access_token");
       const { data } = await apiClient({
         url: "/counselors",
         method: "GET",

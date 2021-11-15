@@ -9,6 +9,7 @@ import HomeCounselor from "./src/screens/HomeCounselor";
 import ListCounselor from "./src/screens/ListCounselor";
 import DetailCounselor  from "./src/screens/Detail";
 import ScheduleCounseling from "./src/screens/Schedule";
+import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/Actions/loginAction";
 

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import { loginReducer } from "./loginReducer";
 import { registerReducer } from "./registerReducer";
-import {counselorHomeDataReducer} from "./counselorHomeDataReducer";
-import {counselorCounselingDetailDataReducer} from "./counselorCounselingReducer" 
 import { counselorsReducer } from "./counselorsReducer"
 import { singleCounselorReducer } from "./singleCounselorReducer"
+import { counselorHomeDataReducer } from "./counselorHomeDataReducer";
+import { counselorCounselingDetailDataReducer } from "./counselorCounselingReducer" 
 
 export default reducer = combineReducers({
   login: loginReducer,
@@ -12,5 +12,7 @@ export default reducer = combineReducers({
   counselorHome: counselorHomeDataReducer,
   detail: counselorCounselingDetailDataReducer,
   counselors: counselorsReducer,
-  singleCounselor: singleCounselorReducer
-})
+  singleCounselor: singleCounselorReducer,
+  counselorHome: counselorHomeDataReducer,
+  detail: counselorCounselingDetailDataReducer
+});

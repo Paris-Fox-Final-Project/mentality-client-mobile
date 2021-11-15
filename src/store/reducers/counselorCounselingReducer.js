@@ -4,7 +4,7 @@ import {SET_COUNSELOR_COUNSELING_DETAIL_DATA,
 } from "../counselorCounselingDetailTypes"
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
     error: null,
     detail: ''
 }

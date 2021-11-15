@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Image, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch,  useSelector } from "react-redux";
-import { fetchCounselors } from "../store/actions/counselorsAction"
+import { fetchCounselors } from "../store/Actions/counselorsAction"
 
 export default function ListCounselor({ navigation }) {
   const dispatch = useDispatch();

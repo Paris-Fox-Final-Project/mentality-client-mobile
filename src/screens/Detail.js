@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleCounselor } from "../store/actions/singleCounselorAction"
+import { fetchSingleCounselor } from "../store/Actions/singleCounselorAction"
 
 export default function DetailCounselor({ navigation, route }) {
   const dispatch = useDispatch();

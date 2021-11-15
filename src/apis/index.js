@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default apiClient = axios.create({
-  baseURL: "http://192.168.1.2",
+  baseURL: "https://f325-180-252-171-203.ngrok.io",
 });

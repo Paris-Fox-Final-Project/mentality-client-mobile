@@ -5,8 +5,8 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Button} from "rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoginStatus } from "../store/actions/loginAction";
-import { fetchCounselors } from "../store/actions/counselorsAction"
+import { setLoginStatus } from "../store/Actions/loginAction";
+import { fetchCounselors } from "../store/Actions/counselorsAction";
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();

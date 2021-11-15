@@ -1,43 +1,43 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  SET_COUNSELOR_ERROR,
-  SET_COUNSELOR_LOADING,
-  SET_COUNSELOR_DATA,
-} from "../counselorsTypes";
+  SET_SINGLE_COUNSELOR_ERROR,
+  SET_SINGLE_COUNSELOR_LOADING,
+  SET_SINGLE_COUNSELOR_DATA,
+} from "../singleCounselorTypes";
 import apiClient from "../../apis/index";
 
-export const setCounselorsData = (payload) => {
+export const setSingleCounselorData = (payload) => {
   return {
-    type: SET_COUNSELOR_DATA,
+    type: SET_SINGLE_COUNSELOR_DATA,
     payload: payload,
   };
 };
 
-export const setCounselorsError = (payload) => {
+export const setSingleCounselorError = (payload) => {
   return {
-    type: SET_COUNSELOR_ERROR,
+    type: SET_SINGLE_COUNSELOR_ERROR,
     payload: payload,
   };
 };
 
-export const setCounselorsLoading = (payload) => {
+export const setSingleCounselorLoading = (payload) => {
   return {
-    type: SET_COUNSELOR_LOADING,
+    type: SET_SINGLE_COUNSELOR_LOADING,
     payload: payload,
   };
 };
 
-export const fetchCounselors = () => {
+export const fetchSingleCounselor = (id) => {
   return async (dispatch) => {
-    dispatch(setCounselorsLoading(true));
+    dispatch(setSingleCounselorLoading(true));
     try {
       const token = await AsyncStorage.getItem("access_token", data.access_token);
       const { data } = await apiClient({
-        url: "/counselors",
+        url: "/counselors/" + id,
         method: "GET",
         headers: token,
       });
-      dispatch(setCounselorsData(data));
+      dispatch(setSingleCounselorData(data));
     } catch (error) {
       const { response } = error;
       let message = "";
@@ -49,9 +49,9 @@ export const fetchCounselors = () => {
           message = data.message;
         }
       }
-      dispatch(setCounselorsError(message));
+      dispatch(setSingleCounselorError(message));
     } finally {
-      dispatch(setCounselorsLoading(false));
+      dispatch(setSingleCounselorLoading(false));
     }
   };
 };

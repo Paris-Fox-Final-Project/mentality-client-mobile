@@ -13,12 +13,12 @@ import {
   ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import logo from "../../assets/mentality-logo.png";
 import user from "../../assets/user.png";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import {
   registerHandler,
+  setRegisterError,
   setRegisterSuccess,
 } from "../store/actions/registerAction";
 import { useFocusEffect } from "@react-navigation/core";
@@ -36,7 +36,7 @@ export default function Register({ navigation }) {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setPasswordError] = React.useState();
   const [gender, setGender] = React.useState("male");
-  const [avatar, setAvatar] = React.useState(null);
+  const [avatar, setAvatar] = React.useState();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -61,6 +61,10 @@ export default function Register({ navigation }) {
           }
         }
       })();
+
+      return () => {
+        cleanUp();
+      };
     }, [])
   );
 
@@ -108,9 +112,21 @@ export default function Register({ navigation }) {
       form.append("email", email);
       form.append("password", password);
       form.append("gender", gender);
-      form.append("avatar_url", avatar);
+      if (avatar) {
+        form.append("avatar_url", avatar);
+      }
       dispatch(registerHandler(form));
     }
+  };
+
+  const cleanUp = () => {
+    setPasswordError("");
+    setEmailError("");
+    setErrorName("");
+    setName("");
+    setPassword("");
+    setEmail("");
+    setAvatar("");
   };
 
   return (
@@ -133,7 +149,7 @@ export default function Register({ navigation }) {
           onPress={pickImageHandler}
         >
           <Image
-            source={avatar ? avatar.uri : user}
+            source={avatar ? { uri: avatar.uri } : user}
             style={{ width: 80, height: 80, borderRadius: 900 }}
           ></Image>
           <View
@@ -155,10 +171,11 @@ export default function Register({ navigation }) {
       </View>
       <View style={{ flex: 1.3 }}>
         <Text style={registerSyle.title}>Daftar</Text>
-        <View style={{ marginBottom: 20 }}>
+        {error ? <Text style={registerSyle.textError}>{error}</Text> : null}
+        <View style={{ marginTop: 10 }}>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Nama Anda"
+              placeholder="Nama"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setName}
@@ -167,7 +184,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Email"
+              placeholder="Email"
               style={registerSyle.input}
               placeholderTextColor="white"
               onChangeText={setEmail}
@@ -176,7 +193,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={registerSyle.inputContainer}>
             <TextInput
-              placeholder="Masukkan Password"
+              placeholder="Password"
               secureTextEntry
               style={registerSyle.input}
               placeholderTextColor="white"
@@ -190,7 +207,7 @@ export default function Register({ navigation }) {
               onValueChange={onGenderChangeHandle}
               dropdownIconColor="white"
               style={{
-                backgroundColor: "#60A5FA",
+                backgroundColor: "transparent",
                 borderRadius: 10,
                 borderRadius: 10,
                 color: "white",
@@ -222,7 +239,7 @@ export default function Register({ navigation }) {
 const registerSyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#60A5FA",
+    backgroundColor: "#222C39",
     justifyContent: "center",
     paddingHorizontal: 10,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
@@ -232,7 +249,7 @@ const registerSyle = StyleSheet.create({
     fontSize: 26,
     color: "#EFF6FF",
     letterSpacing: 1,
-    marginBottom: 24,
+    marginBottom: 20,
   },
   inputContainer: {
     marginBottom: 10,

@@ -8,5 +8,5 @@ export default reducer = combineReducers({
   login: loginReducer,
   register: registerReducer,
   counselors: counselorsReducer,
-  counselor: singleCounselorReducer
+  singleCounselor: singleCounselorReducer
 });

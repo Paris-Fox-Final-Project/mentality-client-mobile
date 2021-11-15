@@ -6,6 +6,7 @@ import Register from "./src/screens/Register";
 import HomeClient from "./src/screens/HomeClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeCounselor from "./src/screens/HomeKonselor";
+import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/actions/loginAction";
 import Schedule from "./src/screens/Schedule";
@@ -41,7 +42,10 @@ export default function Navigation() {
             </>
           ) : (
             // seluruh screen counselor
+            <>
             <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+            <Stack.Screen name="CounselorDetailClient" component={CounselorDetailClient} />
+            </>
           )
         ) : (
           <>

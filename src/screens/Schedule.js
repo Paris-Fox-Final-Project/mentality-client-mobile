@@ -14,8 +14,9 @@ import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTopics } from "../store/actions/topicAction";
+import { createNewCounselingHandler } from "../store/actions/counselingAction";
 
-const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
+const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
 
 export default function Schedule() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function Schedule() {
 
   const onSessionPressHandler = (value) => {
     setSession(value);
+    setTime("");
   };
 
   const onTopicSelected = (itemValue, _) => {
@@ -50,11 +52,11 @@ export default function Schedule() {
     const payload = {
       totalSession: session,
       TopicId: topicId,
-      CounselorId: 1,
+      CounselorId: 3,
       schedule,
       description,
     };
-    console.log(payload);
+    dispatch(createNewCounselingHandler(payload));
   };
 
   const datesBlackList = (date) => {
@@ -73,94 +75,6 @@ export default function Schedule() {
             marginBottom: 10,
           }}
         >
-          <View style={{ marginBottom: 20 }}>
-            <CalendarStrip
-              highlightDateNameStyle={{
-                color: "#FDB029",
-              }}
-              highlightDateNumberStyle={{
-                color: "#FDB029",
-              }}
-              style={{
-                height: 100,
-                paddingTop: 10,
-                paddingBottom: 10,
-                justifyContent: "center",
-                backgroundColor: "white",
-              }}
-              calendarColor={"white"}
-              calendarHeaderContainerStyle={{
-                marginBottom: 20,
-              }}
-              calendarHeaderStyle={{
-                color: "black",
-                marginBottom: 20,
-                backgroundColor: "white",
-                left: 0,
-                fontSize: 14,
-                position: "absolute",
-              }}
-              dateNumberStyle={{ color: "black" }}
-              dateNameStyle={{ color: "black" }}
-              iconContainer={{ flex: 0.1 }}
-              onDateSelected={onDateSelected}
-              minDate={new Date()}
-              datesBlacklist={datesBlackList}
-              iconContainer={{ alignItems: "center", justifyContent: "center" }}
-            />
-          </View>
-          <View style={{ marginBottom: 20 }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "black",
-                fontSize: 14,
-                letterSpacing: 1,
-                marginBottom: 10,
-              }}
-            >
-              Waktu Konseling
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-              }}
-            >
-              {TIMES.map((element, index) => {
-                return (
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: time === element ? "#FDB029" : "white",
-                      borderWidth: 0.8,
-                      borderColor: "black",
-                      alignSelf: "flex-start",
-                      paddingHorizontal: 20,
-                      paddingVertical: 4,
-                      borderRadius: 8,
-                      marginRight: 10,
-                      marginBottom: 10,
-                    }}
-                    onPress={() => {
-                      setTime(element);
-                    }}
-                    key={index}
-                  >
-                    <Text
-                      style={{
-                        color: time === element ? "white" : "black",
-                        fontWeight: "bold",
-                        letterSpacing: 1,
-                        fontSize: 16,
-                      }}
-                    >
-                      {element}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </View>
           <View style={{ marginBottom: 20 }}>
             <Text
               style={{
@@ -225,6 +139,97 @@ export default function Schedule() {
                   Rp300.000
                 </Text>
               </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{ marginBottom: 20 }}>
+            <CalendarStrip
+              highlightDateNameStyle={{
+                color: "#FDB029",
+              }}
+              highlightDateNumberStyle={{
+                color: "#FDB029",
+              }}
+              style={{
+                height: 100,
+                paddingTop: 10,
+                paddingBottom: 10,
+                justifyContent: "center",
+                backgroundColor: "white",
+              }}
+              calendarColor={"white"}
+              calendarHeaderContainerStyle={{
+                marginBottom: 20,
+              }}
+              calendarHeaderStyle={{
+                color: "black",
+                marginBottom: 20,
+                backgroundColor: "white",
+                left: 0,
+                fontSize: 14,
+                position: "absolute",
+              }}
+              dateNumberStyle={{ color: "black" }}
+              dateNameStyle={{ color: "black" }}
+              iconContainer={{ flex: 0.1 }}
+              onDateSelected={onDateSelected}
+              minDate={new Date()}
+              datesBlacklist={datesBlackList}
+              iconContainer={{ alignItems: "center", justifyContent: "center" }}
+            />
+          </View>
+          <View style={{ marginBottom: 20 }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "black",
+                fontSize: 14,
+                letterSpacing: 1,
+                marginBottom: 10,
+              }}
+            >
+              Waktu Konseling
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {TIMES.map((element, index) => {
+                if ((session === 2) & (index % 2 === 1)) {
+                  return null;
+                }
+                return (
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: time === element ? "#FDB029" : "white",
+                      borderWidth: 0.8,
+                      borderColor: "black",
+                      alignSelf: "flex-start",
+                      paddingHorizontal: 20,
+                      paddingVertical: 4,
+                      borderRadius: 8,
+                      marginRight: 10,
+                      marginBottom: 10,
+                    }}
+                    onPress={() => {
+                      setTime(element);
+                    }}
+                    key={index}
+                  >
+                    <Text
+                      style={{
+                        color: time === element ? "white" : "black",
+                        fontWeight: "bold",
+                        letterSpacing: 1,
+                        fontSize: 16,
+                      }}
+                    >
+                      {element}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           </View>
           <View style={{ marginBottom: 20 }}>

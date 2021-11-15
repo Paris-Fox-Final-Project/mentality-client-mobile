@@ -5,10 +5,12 @@ import { topicReducer } from "./topicReducer";
 
 import { counselorHomeDataReducer } from "./counselorHomeDataReducer";
 import { counselorCounselingDetailDataReducer } from "./counselorCounselingReducer";
+import { counselingReducer } from "./counselingReducer";
 export default reducer = combineReducers({
   login: loginReducer,
   register: registerReducer,
   counselorHome: counselorHomeDataReducer,
   detail: counselorCounselingDetailDataReducer,
   topic: topicReducer,
+  counseling: counselingReducer,
 });

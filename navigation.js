@@ -10,9 +10,9 @@ import ListCounselor from "./src/screens/ListCounselor";
 import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "./src/store/Actions/loginAction";
 import Schedule from "./src/screens/Schedule";
 import History from "./src/screens/History";
+import { setLoginStatus } from "./src/store/actions/loginAction";
 
 const Stack = createNativeStackNavigator();
 

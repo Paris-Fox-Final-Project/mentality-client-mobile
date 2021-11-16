@@ -29,7 +29,8 @@ export default function History() {
     }, [])
   );
   const renderCounselingList = ({ item }) => {
-    console.log(item, 'itemnya gan')
+  console.log(item, 'itemnya gan')
+
     const isActive = scheduleValidation(item.schedule);
     return (
       <View

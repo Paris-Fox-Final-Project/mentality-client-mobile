@@ -38,10 +38,13 @@ export default function HomeCounselor({ navigate }) {
       dispatch(setLoginStatus(false));
     })();
   };
+
+  console.log(homeData, "<<<<");
+
   const renderListPatient = ({ item }) => {
     return (
       <TouchableOpacity
-        style={[styles.bWhite, styles.mt10, styles.br10]}
+        style={[styles.bWhite, styles.mt10, styles.br10, styles.shadow, styles.boderOrange]}
         onPress={() =>
           navigation.navigate("CounselorDetailClient", {
             counselingId: item.id,
@@ -68,7 +71,7 @@ export default function HomeCounselor({ navigate }) {
               }
             />
           </View>
-          <View style={[styles.ml5]}>
+          <View style={[styles.ml5, styles.container]}>
             <Text>{item.User.name}</Text>
             <Text>{item.description}</Text>
           </View>
@@ -81,62 +84,54 @@ export default function HomeCounselor({ navigate }) {
     <SafeAreaView
       style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}
     >
-      <TouchableOpacity
-        style={{
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          backgroundColor: "black",
-        }}
-        onPress={signOut}
-      >
-        <Text style={{ color: "white" }}>Logout</Text>
-      </TouchableOpacity>
-      <View>
-        <View>
-          <View style={[styles.mt10]}>
-            <View style={[styles.dFlex, styles.justifyCenter]}>
-              <Image
-                style={[styles.imgMediumSize, styles.rounded]}
-                source={{
-                  uri: "https://reactnative.dev/img/tiny_logo.png",
-                }}
-              />
-            </View>
-            <View style={[styles.mt10]}>
-              <Text
-                style={[
-                  styles.cBlack,
-                  styles.txtCenter,
-                  styles.fs20,
-                  styles.fwBold,
-                ]}
-              >
-                {profile.name}
-              </Text>
-              <Text style={[styles.cBlack, styles.txtCenter]}>
-                {profile.email}
-              </Text>
+      <ScrollView>
+        <TouchableOpacity
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            backgroundColor: "black",
+          }}
+          onPress={signOut}
+        >
+          <Text style={{ color: "white", textAlign: 'right' }}>Logout</Text>
+        </TouchableOpacity>
+        <View style={[styles.pb5]}>
+          <View style={[styles.container, styles.pb30, styles.h150, styles.shadow]}>
+            <View style={[styles.mt10, styles.br10, styles.bOrange, styles.container, styles.br10, styles.containerItemFluid]}>
+              <View style={[styles.containerItemFluid]}>
+                <Text style={[ styles.cBlack, styles.fs20, styles.fwBold, styles.cBlack]}>
+                  {profile.name}
+                </Text>
+                <Text style={[styles.cBlack, styles.cWhite, styles.cBlack]}>
+                  {profile.email}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-      <View
-        style={[
-          styles.mauto,
-          styles.mt20,
-          styles.h100,
-          styles.containerItemFluid,
-        ]}
-      >
-        <View style={[styles.mt10]}>
-          <FlatList
-            data={homeData}
-            renderItem={renderListPatient}
-            keyExtractor={(item) => item.id}
-            horizontal={false}
-          />
+        <View
+          style={[
+            styles.mauto,
+            styles.mt10,
+            styles.h100,
+            styles.containerItemFluid
+          ]}>
+          <View style={[styles.w50, styles.h50, styles.boderBoldBlack, styles.br10]}>
+            <View style={[styles.w80, styles.dFlex, styles.justifyCenter, styles.itemCenter, styles.h100]}>
+              <Text style={[styles.fs16, styles.cBlack]}># Active users</Text>
+              <Text style={[styles.ml5, styles.fs16, styles.cBlack, styles.fwBold]}>{homeData.length}</Text>
+            </View>
+          </View>
+          <View style={[styles.mt10]}>
+            <FlatList
+              data={homeData}
+              renderItem={renderListPatient}
+              keyExtractor={(item) => item.id}
+              horizontal={false}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -187,6 +182,9 @@ const styles = StyleSheet.create({
   },
   w80: {
     width: "80%",
+  },
+  w50: {
+    width: "50%",
   },
   h50: {
     height: 50,
@@ -254,6 +252,9 @@ const styles = StyleSheet.create({
   bOrange: {
     backgroundColor: "#FDB029",
   },
+  cOrange: {
+    color: "#FDB029",
+  },
   bDarkBlue: {
     backgroundColor: "#222C39",
   },
@@ -272,6 +273,10 @@ const styles = StyleSheet.create({
   br30: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+  },
+  brb30: {
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   dFlex: {
     flexDirection: "row",
@@ -339,4 +344,26 @@ const styles = StyleSheet.create({
   fwBold: {
     fontWeight: "bold",
   },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 5,
+  },
+  boderOrange: {
+    borderWidth: 1,
+    borderColor: "#FDB029",
+  },
+  boderBoldOrange: {
+    borderWidth: 3,
+    borderColor: "#FDB029",
+  },
+  boderBoldBlack: {
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  }
 });

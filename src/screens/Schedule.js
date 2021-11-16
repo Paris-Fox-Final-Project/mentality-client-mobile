@@ -326,6 +326,7 @@ export default function Schedule({ route }) {
                   borderColor: "gray",
                   borderWidth: 1,
                   paddingHorizontal: 10,
+                  paddingVertical: 0
                 }}
               />
             </View>

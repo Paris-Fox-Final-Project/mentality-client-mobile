@@ -18,6 +18,8 @@ import { getUserLoggedInProfile } from "../store/actions/loginAction";
 import { fetchCounselors } from "../store/actions/counselorsAction";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setLoginStatus } from "../store/actions/loginAction";
 
 const Drawer = createDrawerNavigator();
 
@@ -40,6 +42,14 @@ export default function HomeClient({ navigation }) {
   //   })();
   // };
 
+  const signOut = () => {
+    (async () => {
+      await AsyncStorage.removeItem("access_token");
+      await AsyncStorage.removeItem("user");
+      dispatch(setLoginStatus(false));
+    })();
+  };
+
   if (loading) {
     return (
       <>
@@ -54,7 +64,7 @@ export default function HomeClient({ navigation }) {
 
   const renderCardCounselor = ({ item }) => {
     return (
-      <View style={styleHomeClient.counselorCard}>
+      <View style={[styleHomeClient.counselorCard, styleHomeClient.shadow]}>
         <Image
           source={{ uri: item.User.avatarUrl }}
           style={styleHomeClient.profilePicture}
@@ -65,13 +75,13 @@ export default function HomeClient({ navigation }) {
             {item.specialist}
           </Text>
           <TouchableOpacity
-            style={{
-              backgroundColor: "#1F2937",
+            style={[{
+              backgroundColor: "#FDB029",
               alignSelf: "flex-start",
               paddingVertical: 6,
               paddingHorizontal: 8,
               borderRadius: 15,
-            }}
+            }]}
             onPress={() =>
               navigation.navigate("DetailCounselor", {
                 id: item.id,
@@ -123,6 +133,16 @@ export default function HomeClient({ navigation }) {
           />
         </View>
       </View>
+      <TouchableOpacity
+        style={{
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          backgroundColor: "black",
+        }}
+        onPress={signOut}
+      >
+        <Text style={{ color: "white" }}>Logout</Text>
+      </TouchableOpacity>
       <View style={styleHomeClient.listContainer}>
         <Text
           style={{
@@ -286,5 +306,19 @@ const styleHomeClient = StyleSheet.create({
     marginRight: 5,
     paddingBottom: 10,
     paddingTop: 10,
+  },
+  boderOrange: {
+    borderWidth: 1,
+    borderColor: "#FDB029",
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 5,
   },
 });

@@ -38,6 +38,9 @@ export default function HomeCounselor({ navigate }) {
       dispatch(setLoginStatus(false));
     })();
   };
+
+  console.log(homeData, " <<<<");
+
   const renderListPatient = ({ item }) => {
     return (
       <TouchableOpacity
@@ -109,11 +112,12 @@ export default function HomeCounselor({ navigate }) {
                   styles.txtCenter,
                   styles.fs20,
                   styles.fwBold,
+                  styles.bGrey
                 ]}
               >
                 {profile.name}
               </Text>
-              <Text style={[styles.cBlack, styles.txtCenter]}>
+              <Text style={[styles.cBlack, styles.txtCenter, styles.bGrey]}>
                 {profile.email}
               </Text>
             </View>

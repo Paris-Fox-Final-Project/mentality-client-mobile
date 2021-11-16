@@ -50,6 +50,7 @@ export default function DetailCounselor({ navigation, route }) {
     <SafeAreaView
       style={[styleDetailCounselor.AndroidSafeArea, styles.bOrange]}
     >
+      <ScrollView>
       <View style={[]}>
         <View style={[styles.mb30]}>
           {/* <View>
@@ -116,30 +117,30 @@ export default function DetailCounselor({ navigation, route }) {
                 <View style={[styles.mb5]}>
                   <Text style={[styles.fs16]}>Review Konseling</Text>
                 </View>
-                <ScrollView>
-                  <View
-                    style={[
-                      styles.h80,
-                      styles.bWhite,
-                      styles.br10,
-                      styles.mb5,
-                      styles.shadow,
-                      styles.bGrey,
-                    ]}
-                  >
-                    <View style={[styles.containerItemFluid]}>
-                      <Text>Review</Text>
-                    </View>
+                <View
+                  style={[
+                    styles.h80,
+                    styles.bWhite,
+                    styles.br10,
+                    styles.mb5,
+                    styles.shadow,
+                    styles.boderOrange
+                  ]}
+                >
+                  <View style={[styles.containerItemFluid]}>
+                    <Text>Name Reviewer</Text>
+                    <Text>Review</Text>
                   </View>
-                </ScrollView>
+                </View>
               </View>
             </View>
           </View>
         </View>
       </View>
+      </ScrollView>
       <TouchableOpacity
         style={[
-          styles.bDarkBlue,
+          styles.bOrange,
           styles.h50,
           styles.br20,
           styles.floatingButton,
@@ -396,4 +397,8 @@ const styles = StyleSheet.create({
     right: 10,
     left: 10,
   },
+  boderOrange: {
+    borderWidth: 1,
+    borderColor: "#FDB029",
+  }
 });

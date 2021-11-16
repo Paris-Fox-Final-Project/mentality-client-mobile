@@ -127,10 +127,12 @@ export default function HomeClient({ navigation }) {
             alignItems: "center",
           }}
         >
+          
           <View>
             <Text style={[styleHomeClient.fs30, styleHomeClient.cWhite]}>Welcome, </Text>
             <Text style={[styleHomeClient.cWhite, styleHomeClient.fs18]}>{user?.name} 👋</Text>
           </View>
+
           <TouchableOpacity onPress={() => navigation.navigate("History")}>
             <Image
               source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}

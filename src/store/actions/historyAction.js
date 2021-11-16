@@ -41,7 +41,6 @@ export const getHistoriesCounselingUserLoggedIn = () => {
           access_token: token,
         },
       });
-      console.log(data, "<<<data action histories");
       dispatch(setHistoriesData(data));
     } catch (error) {
       const { response } = error;

@@ -22,7 +22,6 @@ export default function History() {
   const { histories, isLoading } = useSelector((state) => state.history);
   const [videoUrl,setVideoUrl] = React.useState()
 
-  console.log(histories, "<<<<<histories");
 
   useFocusEffect(
     React.useCallback(() => {
@@ -30,7 +29,7 @@ export default function History() {
     }, [])
   );
   const renderCounselingList = ({ item }) => {
-    console.log(item, ' <<<<<itemnya gan')
+    // console.log(item, ' <<<<<itemnya gan')
     const isActive = scheduleValidation(item.schedule);
     return (
       <View

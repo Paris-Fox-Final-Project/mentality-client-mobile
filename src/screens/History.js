@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import userProfile from "../../assets/user.png";
 import videoCamera from "../../assets/video-camera.png";
-
+import { WebView } from "react-native-webview";
 import { getHistoriesCounselingUserLoggedIn } from "../store/actions/historyAction";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
@@ -20,6 +20,8 @@ import Loading from "../components/Loading";
 export default function History() {
   const dispatch = useDispatch();
   const { histories, isLoading } = useSelector((state) => state.history);
+  const [videoUrl,setVideoUrl] = React.useState()
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -27,6 +29,7 @@ export default function History() {
     }, [])
   );
   const renderCounselingList = ({ item }) => {
+    console.log(item, 'itemnya gan')
     const isActive = scheduleValidation(item.schedule);
     return (
       <View
@@ -112,7 +115,7 @@ export default function History() {
             {formatDate(item.schedule)}
           </Text>
           {isActive ? (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>setVideoUrl(item.dailyUrl)}>
               <Image
                 source={videoCamera}
                 style={{
@@ -129,6 +132,10 @@ export default function History() {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if(videoUrl){
+    return <WebView source={{ uri:videoUrl }} />
   }
 
   return (

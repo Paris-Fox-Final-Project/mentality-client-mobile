@@ -14,7 +14,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTopics } from "../store/actions/topicAction";
-import { createNewCounselingHandler } from "../store/actions/counselingAction";
+import { createNewCounselingHandler, setCreateCounseling } from "../store/actions/counselingAction";
 import Midtrans from "./Midtrans";
 import formatPrice from "../helpers/formatPrice.js";
 const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
@@ -38,6 +38,10 @@ export default function Schedule({ route }) {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getAllTopics());
+      return () => {
+        dispatch(setCreateCounseling(null))
+        setMidtrans('')
+      } 
     }, [])
   );
 
@@ -81,7 +85,7 @@ export default function Schedule({ route }) {
 
   const onButtonSubmit = () => {
     const getDate = date.toISOString().split("T")[0];
-    const schedule = `${getDate} ${time}:00`;
+    const schedule = `${getDate} 22:40:00`;
     const payload = {
       totalSession: session,
       TopicId: topicId,

@@ -1,5 +1,6 @@
+import moment from "moment";
 export const formatDate = (inputDate) => {
-  const date = inputDate.split("T")[0];
-  const time = inputDate.split("T")[1].split(".")[0];
-  return `${date} ${time}`;
+  const schedule = moment(inputDate);
+  schedule.locale("ID");
+  return schedule.format("lll");
 };

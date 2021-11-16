@@ -9,7 +9,9 @@ export default function CounselorDetailClient({ route }) {
     const counselingID = +route.params.counselingId
     const dispatch = useDispatch()
     const { detail, isLoading, error } = useSelector(state => state.detail)
-    console.log(isLoading, 'data detail di page')
+    const event = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     
     useFocusEffect(
         React.useCallback(() => {
@@ -17,14 +19,10 @@ export default function CounselorDetailClient({ route }) {
         }, [])
     )
     if(isLoading){
-        console.log("loading")
         return(
             <>
                 <View style={[styles.container, styles.horizontal]}>
-                    <ActivityIndicator />
-                    <ActivityIndicator size="large" />
-                    <ActivityIndicator size="small" color="#0000ff" />
-                    <ActivityIndicator size="large" color="#00ff00" />
+                    <ActivityIndicator size="large" color="#FDB029" />
                 </View>
             </>
         )
@@ -48,40 +46,60 @@ export default function CounselorDetailClient({ route }) {
                 </View>
             </View>
             <View style={[styles.bOrange, styles.h100, styles.mAuto, styles.br30]}>
-            <ScrollView>
-                <View style={[styles.containerItemFluid]}>
-                    <View style={[styles.mauto, styles.mt20]}>
-                        <Text style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}>
-                            Deskripsi permasalahan
-                        </Text>
-                        <View style={[styles.bWhite, styles.h120, styles.br10]}>
-                            <Text style={[styles.cBlack, styles.mt10, styles.ml5]}>
-                                {detail.description}
+                <ScrollView>
+                    <View style={[styles.containerItemFluid]}>
+                        <View style={[styles.mauto, styles.mt20]}>
+                            <Text style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}>
+                                Deskripsi permasalahan
                             </Text>
+                            <View style={[styles.bWhite, styles.h120, styles.br10]}>
+                                <ScrollView>
+                                    <Text style={[styles.cBlack, styles.mt10, styles.mb10, styles.ml5]}>
+                                        {detail.description}
+                                    </Text>
+                                </ScrollView>
+                            </View>
                         </View>
-                    </View>
-                    <View style={[styles.mt10]}>
-                        <View>
-                            <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Topik</Text>
-                            <View style={[styles.bWhite, styles.h50, styles.br10, styles.dFlex, styles.itemCenter]}>
-                                <Text style={[styles.ml5]}>
-                                    {detail.Topic.name}
-                                </Text>
+                        <View style={[styles.mt10]}>
+                            <View>
+                                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Topik</Text>
+                                <View style={[styles.bWhite, styles.h50, styles.br10, styles.dFlex, styles.itemCenter]}>
+                                    <Text style={[styles.ml5]}>
+                                        {detail.Topic.name}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[styles.mt10]}>
+                            <View>
+                                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Jadwal Konseling</Text>
+                                <View style={[styles.bWhite, styles.h50, styles.br10, styles.justifyCenter]}>
+                                    <View style={[styles.dFlex, styles.itemCenter]}>
+                                        <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
+                                        <Text style={[styles.ml5]}>
+                                            {event.toLocaleString(detail.schedule)}
+                                        </Text>
+                                    </View>
+                                    <View style={[styles.dFlex, styles.itemCenter]}>
+                                        <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
+                                        <Text style={[styles.ml5]}>
+                                            {event.toLocaleString(detail.schedule)}
+                                        </Text>
+                                    </View>
+                                </View>
                             </View>
                         </View>
                     </View>
-                    <View style={[styles.mt10]}>
-                        <View>
-                            <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Jadwal Konseling</Text>
-                            <View style={[styles.bWhite, styles.h50, styles.br10, styles.dFlex, styles.itemCenter]}>
-                                <Text style={[styles.ml5]}>
-                                    {detail.schedule}
-                                </Text>
-                            </View>
-                        </View>
+                    <View style={[styles.containerItemFluid]}>
+                        <TouchableOpacity 
+                            style={[styles.bDarkBlue, styles.h50, styles.br20, styles.dFlex, styles.justifyCenter, styles.itemCenter]}
+                        >
+                            <Text style={[styles.cWhite, styles.fwBold]}>
+                                Mulai Konseling
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
             </View>
         </SafeAreaView>
     )
@@ -128,6 +146,9 @@ const styles = StyleSheet.create({
     },
     h50: {
         height: 50
+    },
+    h80: {
+        height: 80
     },
     h100: {
         height: '100%'
@@ -189,6 +210,9 @@ const styles = StyleSheet.create({
     bOrange: {
         backgroundColor: '#FDB029'
     },
+    bDarkBlue: {
+        backgroundColor: '#222C39'
+    },
     cWhite: {
         color: 'white'
     },
@@ -197,6 +221,9 @@ const styles = StyleSheet.create({
     },
     br10: {
         borderRadius: 10
+    },
+    br20: {
+        borderRadius: 20
     },
     br30: {
         borderTopLeftRadius: 30,
@@ -214,6 +241,10 @@ const styles = StyleSheet.create({
     imgSize: {
         height: 50,
         width: 50
+    },
+    imgLargeSize: {
+        height: 100,
+        width: 100
     },
     imgMediumSize: {
         height: 80,

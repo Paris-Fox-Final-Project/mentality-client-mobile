@@ -7,11 +7,12 @@ import HomeClient from "./src/screens/HomeClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeCounselor from "./src/screens/HomeCounselor";
 import ListCounselor from "./src/screens/ListCounselor";
-import DetailCounselor  from "./src/screens/Detail";
-import ScheduleCounseling from "./src/screens/Schedule";
+import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "./src/store/Actions/loginAction";
+import Schedule from "./src/screens/Schedule";
+import History from "./src/screens/History";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,14 +42,25 @@ export default function Navigation() {
             <>
               <Stack.Screen name="HomeClient" component={HomeClient} />
               <Stack.Screen name="ListCounselor" component={ListCounselor} />
-              <Stack.Screen name="DetailCounselor" component={DetailCounselor} />
-              <Stack.Screen name="ScheduleCounseling" component={ScheduleCounseling} />
+              <Stack.Screen
+                name="DetailCounselor"
+                component={DetailCounselor}
+                options={{ headerShown: true }}
+              />
+              <Stack.Screen
+                name="Schedule"
+                component={Schedule}
+                options={{ headerShown: true }}
+              />
             </>
           ) : (
             // seluruh screen counselor
             <>
-            <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
-            <Stack.Screen name="CounselorDetailClient" component={CounselorDetailClient} />
+              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+              <Stack.Screen
+                name="CounselorDetailClient"
+                component={CounselorDetailClient}
+              />
             </>
           )
         ) : (

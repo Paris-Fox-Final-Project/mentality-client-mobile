@@ -8,10 +8,11 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { loginHandler } from "../store/actions/loginAction";
+import { loginHandler } from "../store/Actions/loginAction";
 import logo from "../../assets/mentality-logo.png";
 import { useFocusEffect } from "@react-navigation/core";
 export default function Login({ navigation }) {
@@ -66,7 +67,7 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={loginStyles.container}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <Image source={logo} style={{ width: 150, height: 150 }} />
+        <Image source={logo} style={{ width: 120, height: 120 }} />
       </View>
       <View style={{ flex: 1 }}>
         <Text style={loginStyles.title}>Masuk</Text>
@@ -108,7 +109,7 @@ export default function Login({ navigation }) {
             <Text style={loginStyles.textButtonPrimary}>masuk</Text>
           )}
         </TouchableOpacity>
-        <View style={loginStyles.actionRegisterContainer}>
+        <View style={[loginStyles.actionRegisterContainer, loginStyles.mb10]}>
           <Text style={loginStyles.actionRegisterText}>Belum punya akun?</Text>
           <TouchableOpacity onPress={handleOnPressRegister}>
             <Text style={loginStyles.actionRegisterTextPrimary}>Daftar</Text>
@@ -161,7 +162,7 @@ const loginStyles = StyleSheet.create({
     borderColor: "#FDB029",
     overflow: "hidden",
     overlayColor: "#FDB029",
-    marginBottom: 40,
+    marginBottom: 20,
   },
   textButtonPrimary: {
     color: "#fff",
@@ -184,4 +185,10 @@ const loginStyles = StyleSheet.create({
     marginLeft: 4,
     letterSpacing: 1,
   },
+  mb10: {
+    marginBottom: 10
+  },
+  bWhite: {
+    backgroundColor: 'white'
+  }
 });

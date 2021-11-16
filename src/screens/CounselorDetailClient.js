@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Image, Text, View, FlatList, TextInput, ScrollView, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction"
+import { counselorCounselingDetailHandler } from "../store/Actions/counselorCounselingDetailAction"
 import { useFocusEffect } from '@react-navigation/core';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,9 @@ export default function CounselorDetailClient({ route }) {
     const counselingID = +route.params.counselingId
     const dispatch = useDispatch()
     const { detail, isLoading, error } = useSelector(state => state.detail)
-    console.log(isLoading, 'data detail di page')
+    const event = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     
     useFocusEffect(
         React.useCallback(() => {
@@ -17,14 +19,10 @@ export default function CounselorDetailClient({ route }) {
         }, [])
     )
     if(isLoading){
-        console.log("loading")
         return(
             <>
-              <View style={[styles.container, styles.horizontal]}>
-                    <ActivityIndicator />
-                    <ActivityIndicator size="large" />
-                    <ActivityIndicator size="small" color="#0000ff" />
-                    <ActivityIndicator size="large" color="#00ff00" />
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#FDB029" />
                 </View>
             </>
         )
@@ -32,7 +30,7 @@ export default function CounselorDetailClient({ route }) {
 
     return (
         <SafeAreaView>
-            <View>
+            <View style={[styles.mb10, styles.h180]}>
                 <View style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}>
                     <View style={[styles.mt30, styles.dFlex, styles.containerItem, styles.ml15, styles.pCenter]}>
                         <View>
@@ -40,64 +38,68 @@ export default function CounselorDetailClient({ route }) {
                                 uri: detail.User.avatarUrl,
                             }} />
                         </View>
-                        <View style={[styles.ml5, styles.mt10]}>
-                            <Text style={[styles.cBlack]}>{detail.User.name}</Text>
+                        <View style={[styles.ml5, styles.justifyCenter]}>
+                            <Text style={[styles.cBlack, styles.fs18]}>{detail.User.name}</Text>
                             <Text style={[styles.cBlack]}>{detail.User.email}</Text>
                         </View>
                     </View>
                 </View>
             </View>
-            <View style={[styles.bGrey, styles.mAuto, styles.br30, styles.mt20, styles.h100]}>
-                <View style={[styles.w90, styles.mauto, styles.mt20]}>
-                    <Text style={[styles.cBlack]}>
-                        Deskripsi permasalahan
-                    </Text>
-                    <Text style={[styles.cBlack]}>
-                        {detail.description}
-                    </Text>
-                </View>
-                <View style={[styles.mt10]}>
-                    <View>
-                        <Text>Topik: {detail.Topic.name}</Text>
-                    </View>
-                </View>
-                <View style={[styles.mt10]}>
-                    <View>
-                        <Text>Jadwal Konseling: {detail.schedule}</Text>
-                    </View>
-                {/* <View>
-                        <View style={[styles.dFlex, styles.bWhite, styles.mt10, styles.w90]}>
-                            <View>
-                                <Image style={[styles.imgSize, styles.rounded]} source={{
-                                    uri: 'https://reactnative.dev/img/tiny_logo.png',
-                                }} />
-                            </View>
-                            <View>
-                                <Text>name konselor</Text>
-                                <Text>deskripsi</Text>
-                                <Text>spesialisasi</Text>
+            <View style={[styles.bOrange, styles.h100, styles.mAuto, styles.br30]}>
+                <ScrollView>
+                    <View style={[styles.containerItemFluid]}>
+                        <View style={[styles.mauto, styles.mt20]}>
+                            <Text style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}>
+                                Deskripsi permasalahan
+                            </Text>
+                            <View style={[styles.bWhite, styles.h120, styles.br10]}>
+                                <ScrollView>
+                                    <Text style={[styles.cBlack, styles.mt10, styles.mb10, styles.ml5]}>
+                                        {detail.description}
+                                    </Text>
+                                </ScrollView>
                             </View>
                         </View>
-                    </View> */}
-                </View>
-                {/* <View>
-                    <TouchableOpacity
-                        style={{
-                            borderWidth: 1,
-                            borderColor: 'rgba(0,0,0,0.2)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 250,
-                            position: 'absolute',
-                            bottom: 10,
-                            height: 40,
-                            borderRadius: 50,
-                            backgroundColor: '#fff',
-                        }}
-                    >
-                        <Text>Mulai Konseling</Text>
-                    </TouchableOpacity>
-                </View> */}
+                        <View style={[styles.mt10]}>
+                            <View>
+                                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Topik</Text>
+                                <View style={[styles.bWhite, styles.h50, styles.br10, styles.dFlex, styles.itemCenter]}>
+                                    <Text style={[styles.ml5]}>
+                                        {detail.Topic.name}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[styles.mt10]}>
+                            <View>
+                                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>Jadwal Konseling</Text>
+                                <View style={[styles.bWhite, styles.h50, styles.br10, styles.justifyCenter]}>
+                                    <View style={[styles.dFlex, styles.itemCenter]}>
+                                        <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
+                                        <Text style={[styles.ml5]}>
+                                            {event.toLocaleString(detail.schedule)}
+                                        </Text>
+                                    </View>
+                                    <View style={[styles.dFlex, styles.itemCenter]}>
+                                        <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
+                                        <Text style={[styles.ml5]}>
+                                            {event.toLocaleString(detail.schedule)}
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.containerItemFluid]}>
+                        <TouchableOpacity 
+                            style={[styles.bDarkBlue, styles.h50, styles.br20, styles.dFlex, styles.justifyCenter, styles.itemCenter]}
+                        >
+                            <Text style={[styles.cWhite, styles.fwBold]}>
+                                Mulai Konseling
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </View>
         </SafeAreaView>
     )
@@ -107,6 +109,12 @@ const styles = StyleSheet.create({
     container: {
         marginLeft: 5,
         marginRight: 5,
+        paddingBottom: 10,
+        paddingTop: 10
+    },
+    containerItemFluid: {
+        marginLeft: 15,
+        marginRight: 15,
         paddingBottom: 10,
         paddingTop: 10
     },
@@ -139,14 +147,26 @@ const styles = StyleSheet.create({
     h50: {
         height: 50
     },
+    h80: {
+        height: 80
+    },
     h100: {
         height: '100%'
     },
     mauto: {
         margin: 'auto'
     },
-    txtCenter: {
-        textAlign: 'center'
+    dFlex: {
+        flexDirection: 'row',
+    },
+    itemCenter: {
+        alignItems: 'center'
+    },
+    justifyCenter: {
+        justifyContent: 'center'
+    },
+    pCenter: {
+        justifyContent: 'center'
     },
     mt10: {
         marginTop: 10
@@ -162,6 +182,9 @@ const styles = StyleSheet.create({
     },
     ml15: {
         marginLeft: 15
+    },
+    mb5: {
+        marginBottom: 5
     },
     mb10: {
         marginBottom: 10
@@ -184,6 +207,12 @@ const styles = StyleSheet.create({
     bWhite: {
         backgroundColor: 'white'
     },
+    bOrange: {
+        backgroundColor: '#FDB029'
+    },
+    bDarkBlue: {
+        backgroundColor: '#222C39'
+    },
     cWhite: {
         color: 'white'
     },
@@ -192,6 +221,9 @@ const styles = StyleSheet.create({
     },
     br10: {
         borderRadius: 10
+    },
+    br20: {
+        borderRadius: 20
     },
     br30: {
         borderTopLeftRadius: 30,
@@ -210,6 +242,10 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50
     },
+    imgLargeSize: {
+        height: 100,
+        width: 100
+    },
     imgMediumSize: {
         height: 80,
         width: 80
@@ -219,6 +255,12 @@ const styles = StyleSheet.create({
     },
     h180: {
         height: 180
+    },
+    h150: {
+        height: 150
+    },
+    h120: {
+        height: 120
     },
     w300: {
         width: 300
@@ -236,10 +278,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center"
-      },
-      horizontal: {
+    },
+    horizontal: {
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 10
-      }
+    },
+    fs20: {
+        fontSize: 20
+    },
+    fs18: {
+        fontSize: 18
+    },
+    fs16: {
+        fontSize: 16
+    },
+    fs14: {
+        fontSize: 14
+    },
+    fwBold: {
+        fontWeight: 'bold'
+    }
 })

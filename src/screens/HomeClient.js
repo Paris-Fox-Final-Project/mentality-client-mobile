@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -9,22 +8,37 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
+  StatusBar,
+  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import user from "../../assets/user.png";
+import backgroundHome from "../../assets/background.jpg";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector, useDispatch } from "react-redux";
+<<<<<<< HEAD
 import { setLoginStatus } from "../store/Actions/loginAction";
 import { fetchCounselors } from "../store/Actions/counselorsAction";
+=======
+import {
+  getUserLoggedInProfile,
+  setLoginStatus,
+} from "../store/actions/loginAction";
+import { fetchCounselors } from "../store/actions/counselorsAction";
+>>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.login);
   const { counselors, error, loading } = useSelector(
     (state) => state.counselors
   );
 
   useEffect(() => {
+    dispatch(getUserLoggedInProfile());
     dispatch(fetchCounselors());
+    StatusBar.setBarStyle("light-content", true);
   }, []);
 
   const logoutHandler = () => {
@@ -35,6 +49,7 @@ export default function HomeClient({ navigation }) {
     })();
   };
 
+<<<<<<< HEAD
   if(loading){
     return(
         <>
@@ -44,6 +59,15 @@ export default function HomeClient({ navigation }) {
         </>
     )
 }
+=======
+  if (loading) {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <ActivityIndicator size="small" color="black" />
+      </View>
+    );
+  }
+>>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
 
   const renderCardCounselor = ({ item }) => {
     return (
@@ -62,7 +86,7 @@ export default function HomeClient({ navigation }) {
               backgroundColor: "#1F2937",
               alignSelf: "flex-start",
               paddingVertical: 6,
-              paddingHorizontal: 20,
+              paddingHorizontal: 8,
               borderRadius: 15,
             }}
             onPress={() =>
@@ -74,10 +98,10 @@ export default function HomeClient({ navigation }) {
           >
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 10,
                 color: "white",
                 fontWeight: "bold",
-                letterSpacing: 1,
+                letterSpacing: 0.5,
               }}
             >
               Jadwalkan Sesi
@@ -89,48 +113,70 @@ export default function HomeClient({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={[styleHomeClient.AndroidSafeArea]}>
-      <View>
-          <TouchableOpacity
+    <ImageBackground
+      source={backgroundHome}
+      resizeMode="cover"
+      style={styleHomeClient.container}
+    >
+      <View style={styleHomeClient.profileContainer}>
+        <View
           style={{
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            backgroundColor: "black",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 20,
           }}
-          onPress={logoutHandler}
-          >
-            <Text style={{ color: "white" }}>Logout</Text>
-          </TouchableOpacity>
-      </View>
-      <View style={[styleHomeClient.profileContainer, styleHomeClient.containerItemFluid, styleHomeClient.mt20, styleHomeClient.justifyCenter]}>
-        <View style={[{ alignItems: "center" }]}>
-          <Text style={[styles.fs25, styles.cWhite]}>Halo, Damar!</Text>
+        >
+          <Text style={styleHomeClient.textUser}>{user?.name} 👋</Text>
+          <Image
+            source={user?.avatarUrl ? { uri: user?.avatarUrl } : user}
+            style={{
+              width: 60,
+              height: 60,
+              borderColor: "white",
+              borderWidth: 0.5,
+              borderRadius: 99,
+            }}
+          />
         </View>
       </View>
       <View style={styleHomeClient.listContainer}>
-        <View style={[styleHomeClient.containerItemFluid]}>
-          <Text style={[styleHomeClient.fs16, styles.fw500]}>Temukan konselor yang tepat, yuk!</Text>
-        </View>
+        <Text
+          style={{
+            fontWeight: "700",
+            fontSize: 15,
+            color: "#222C39",
+            marginBottom: 20,
+          }}
+        >
+          Konselor andalan MentaliTy
+        </Text>
         <FlatList
           data={counselors}
           renderItem={renderCardCounselor}
           keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styleHomeClient = StyleSheet.create({
-  AndroidSafeArea: {
+  container: {
     flex: 1,
-    backgroundColor: "white",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    width: "100%",
+    height: "100%",
+    paddingTop: 40,
   },
   listContainer: {
-    flex: 1.5,
+    flex: 1,
+    backgroundColor: "white",
     paddingVertical: 20,
-    paddingHorizontal: 10,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    paddingHorizontal: 25,
+    paddingTop: 50,
   },
   container: {
     marginLeft: 5,
@@ -145,6 +191,7 @@ const styleHomeClient = StyleSheet.create({
     paddingTop: 10
   },
   counselorCard: {
+<<<<<<< HEAD
     backgroundColor: "white",
     height: 100,
     borderRadius: 15,
@@ -161,12 +208,19 @@ const styleHomeClient = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 5,
+=======
+    backgroundColor: "transparent",
+    height: 100,
+    flexDirection: "row",
+    marginBottom: 15,
+>>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
   },
   counselorName: {
-    color: "black",
+    color: "#222C39",
     fontSize: 18,
     fontWeight: "bold",
     letterSpacing: 1,
+    textTransform: "capitalize",
   },
   textCardContainer: {
     marginTop: 6,
@@ -175,13 +229,13 @@ const styleHomeClient = StyleSheet.create({
   textSpecialist: {
     textAlign: "justify",
     marginBottom: 10,
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#222C39",
   },
   profileContainer: {
-    flex: 1,
-    borderRadius: 35,
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    backgroundColor: "#FDB029",
+    paddingHorizontal: 20,
+    flex: 0.5,
   },
   textUser: {
     color: "white",

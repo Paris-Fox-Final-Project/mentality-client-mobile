@@ -8,11 +8,11 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { loginHandler } from "../store/Actions/loginAction";
+import { loginHandler } from "../store/actions/loginAction";
 import logo from "../../assets/mentality-logo.png";
 import { useFocusEffect } from "@react-navigation/core";
 export default function Login({ navigation }) {
@@ -186,9 +186,9 @@ const loginStyles = StyleSheet.create({
     letterSpacing: 1,
   },
   mb10: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   bWhite: {
-    backgroundColor: 'white'
-  }
+    backgroundColor: "white",
+  },
 });

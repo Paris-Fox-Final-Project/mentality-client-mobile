@@ -11,24 +11,20 @@ import {
   StatusBar,
   ImageBackground,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import user from "../../assets/user.png";
+import userProfile from "../../assets/user.png";
 import backgroundHome from "../../assets/background.jpg";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getUserLoggedInProfile,
-  setLoginStatus,
-} from "../store/actions/loginAction";
+import { getUserLoggedInProfile } from "../store/actions/loginAction";
 import { fetchCounselors } from "../store/actions/counselorsAction";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Drawer = createDrawerNavigator();
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.login);
-  const { counselors, error, loading } = useSelector(
-    (state) => state.counselors
-  );
+  const { counselors, loading } = useSelector((state) => state.counselors);
 
   useEffect(() => {
     dispatch(getUserLoggedInProfile());
@@ -36,13 +32,13 @@ export default function HomeClient({ navigation }) {
     StatusBar.setBarStyle("light-content", true);
   }, []);
 
-  const logoutHandler = () => {
-    (async () => {
-      await AsyncStorage.removeItem("access_token");
-      await AsyncStorage.removeItem("user");
-      dispatch(setLoginStatus(false));
-    })();
-  };
+  // const logoutHandler = () => {
+  //   (async () => {
+  //     await AsyncStorage.removeItem("access_token");
+  //     await AsyncStorage.removeItem("user");
+  //     dispatch(setLoginStatus(false));
+  //   })();
+  // };
 
   if (loading) {
     return (
@@ -112,7 +108,7 @@ export default function HomeClient({ navigation }) {
         >
           <Text style={styleHomeClient.textUser}>{user?.name} 👋</Text>
           <Image
-            source={user?.avatarUrl ? { uri: user?.avatarUrl } : user}
+            source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
             style={{
               width: 60,
               height: 60,

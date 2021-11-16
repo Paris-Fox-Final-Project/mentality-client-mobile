@@ -3117,6 +3117,11 @@
   "resolved" "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
   "version" "1.4.0"
 
+"intl@^1.2.5":
+  "integrity" "sha1-giRKIZDE5Bn4Nx9ao02qNCDiq94="
+  "resolved" "https://registry.npmjs.org/intl/-/intl-1.2.5.tgz"
+  "version" "1.2.5"
+
 "invariant@^2.2.2", "invariant@^2.2.4", "invariant@2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
@@ -4689,7 +4694,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.6.0", "prop-types@^15.7.2":
+"prop-types@*", "prop-types@^15.6.0", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -4806,6 +4811,7 @@
   dependencies:
     "invariant" "^2.2.4"
 
+<<<<<<< HEAD
 "react-native-gesture-handler@*", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
@@ -4826,6 +4832,12 @@
     "fbjs" "^3.0.0"
     "mockdate" "^3.0.2"
     "string-hash-64" "^1.0.3"
+=======
+"react-native-floating-action@^1.22.0":
+  "integrity" "sha512-m/9ueh2bgV+Dopelam2hu+FIY1wrIOPjpcBNgU3I5J9SqWmPQCarSz5L8zsW5QWE4YgXuaVbYAO/pgb0P8x/gQ=="
+  "resolved" "https://registry.npmjs.org/react-native-floating-action/-/react-native-floating-action-1.22.0.tgz"
+  "version" "1.22.0"
+>>>>>>> development
 
 "react-native-safe-area-context@^3.3.2", "react-native-safe-area-context@>= 3.0.0":
   "integrity" "sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q=="
@@ -4858,7 +4870,7 @@
     "normalize-css-color" "^1.0.2"
     "prop-types" "^15.6.0"
 
-"react-native-webview@11.13.0":
+"react-native-webview@^11.13.0":
   "integrity" "sha512-jjQAKWv8JzRmcn76fMe4lXD84AAeR7kn43kAmUe1GX312BMLaP+RbKlgpYAlNuOBXL0YirItGKDrpaD0bNROOA=="
   "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.13.0.tgz"
   "version" "11.13.0"

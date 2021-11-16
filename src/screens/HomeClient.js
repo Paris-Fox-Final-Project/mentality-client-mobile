@@ -42,9 +42,13 @@ export default function HomeClient({ navigation }) {
 
   if (loading) {
     return (
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <ActivityIndicator size="small" color="black" />
-      </View>
+      <>
+        <View
+          style={[styleHomeClient.loadingContainer, styleHomeClient.horizontal]}
+        >
+          <ActivityIndicator size="large" color="#FDB029" />
+        </View>
+      </>
     );
   }
 
@@ -62,7 +66,7 @@ export default function HomeClient({ navigation }) {
           </Text>
           <TouchableOpacity
             style={{
-              backgroundColor: "#FDB029",
+              backgroundColor: "#1F2937",
               alignSelf: "flex-start",
               paddingVertical: 6,
               paddingHorizontal: 8,
@@ -157,6 +161,12 @@ const styleHomeClient = StyleSheet.create({
     paddingHorizontal: 25,
     paddingTop: 50,
   },
+  containerItemFluid: {
+    marginLeft: 15,
+    marginRight: 15,
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
   counselorCard: {
     backgroundColor: "transparent",
     height: 100,
@@ -192,8 +202,8 @@ const styleHomeClient = StyleSheet.create({
     letterSpacing: 1,
   },
   profilePicture: {
-    width: 85,
-    height: 100,
+    width: 60,
+    height: 70,
     borderRadius: 8,
     backgroundColor: "gray",
     marginRight: 10,
@@ -202,5 +212,79 @@ const styleHomeClient = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  mb10: {
+    marginBottom: 10,
+  },
+  mb20: {
+    marginBottom: 20,
+  },
+  mb30: {
+    marginBottom: 30,
+  },
+  mt10: {
+    marginTop: 10,
+  },
+  mt20: {
+    marginTop: 20,
+  },
+  mt30: {
+    marginTop: 30,
+  },
+  fs20: {
+    fontSize: 20,
+  },
+  fs18: {
+    fontSize: 18,
+  },
+  fs16: {
+    fontSize: 16,
+  },
+  fs14: {
+    fontSize: 14,
+  },
+  fwBold: {
+    fontWeight: "bold",
+  },
+  bWhite: {
+    backgroundColor: "white",
+  },
+  cWhite: {
+    color: "white",
+  },
+  cBlack: {
+    color: "black",
+  },
+  bGrey: {
+    backgroundColor: "grey",
+  },
+  bLightGrey: {
+    backgroundColor: "#C4C4C4",
+  },
+  dFlex: {
+    flexDirection: "row",
+  },
+  itemCenter: {
+    alignItems: "center",
+  },
+  justifyCenter: {
+    justifyContent: "center",
+  },
+  pCenter: {
+    justifyContent: "center",
+  },
+  tLeft: {
+    textAlign: "left",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+  },
+  loadingContainer: {
+    marginLeft: 5,
+    marginRight: 5,
+    paddingBottom: 10,
+    paddingTop: 10,
   },
 });

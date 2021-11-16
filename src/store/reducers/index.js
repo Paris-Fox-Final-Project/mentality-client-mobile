@@ -12,6 +12,8 @@ import { singleCounselorReducer } from "./singleCounselorReducer";
 export default reducer = combineReducers({
   login: loginReducer,
   register: registerReducer,
+  counselorHome: counselorHomeDataReducer,
+  detail: counselorCounselingDetailDataReducer,
   counselors: counselorsReducer,
   singleCounselor: singleCounselorReducer,
   counselorHome: counselorHomeDataReducer,

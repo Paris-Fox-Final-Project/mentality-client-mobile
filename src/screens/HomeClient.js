@@ -16,10 +16,8 @@ import backgroundHome from "../../assets/background.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserLoggedInProfile } from "../store/actions/loginAction";
 import { fetchCounselors } from "../store/actions/counselorsAction";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
-
-const Drawer = createDrawerNavigator();
+import { useFocusEffect } from "@react-navigation/core";
+import Loading from "../components/Loading";
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
@@ -29,8 +27,16 @@ export default function HomeClient({ navigation }) {
   useEffect(() => {
     dispatch(getUserLoggedInProfile());
     dispatch(fetchCounselors());
-    StatusBar.setBarStyle("light-content", true);
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle("light-content", true);
+      return () => {
+        StatusBar.setBarStyle("dark-content", true);
+      };
+    }, [])
+  );
 
   // const logoutHandler = () => {
   //   (async () => {
@@ -41,15 +47,7 @@ export default function HomeClient({ navigation }) {
   // };
 
   if (loading) {
-    return (
-      <>
-        <View
-          style={[styleHomeClient.loadingContainer, styleHomeClient.horizontal]}
-        >
-          <ActivityIndicator size="large" color="#FDB029" />
-        </View>
-      </>
-    );
+    return <Loading />;
   }
 
   const renderCardCounselor = ({ item }) => {
@@ -111,16 +109,18 @@ export default function HomeClient({ navigation }) {
           }}
         >
           <Text style={styleHomeClient.textUser}>{user?.name} 👋</Text>
-          <Image
-            source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
-            style={{
-              width: 60,
-              height: 60,
-              borderColor: "white",
-              borderWidth: 0.5,
-              borderRadius: 99,
-            }}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate("History")}>
+            <Image
+              source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
+              style={{
+                width: 60,
+                height: 60,
+                borderColor: "white",
+                borderWidth: 0.5,
+                borderRadius: 99,
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styleHomeClient.listContainer}>

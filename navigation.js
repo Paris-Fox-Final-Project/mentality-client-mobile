@@ -37,7 +37,17 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
-          user.role === "user" ? (
+          user.role !== "user" ? (
+            // seluruh screen counselor
+
+            <>
+              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+              <Stack.Screen
+                name="CounselorDetailClient"
+                component={CounselorDetailClient}
+              />
+            </>
+          ) : (
             // seluruh screen user
             <>
               <Stack.Screen name="HomeClient" component={HomeClient} />
@@ -52,14 +62,10 @@ export default function Navigation() {
                 component={Schedule}
                 options={{ headerShown: true }}
               />
-            </>
-          ) : (
-            // seluruh screen counselor
-            <>
-              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
               <Stack.Screen
-                name="CounselorDetailClient"
-                component={CounselorDetailClient}
+                name="History"
+                component={History}
+                options={{ headerShown: true }}
               />
             </>
           )

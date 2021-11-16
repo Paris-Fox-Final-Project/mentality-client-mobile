@@ -17,10 +17,12 @@ import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
+import { WebView } from "react-native-webview";
 
 export default function CounselorDetailClient({ route }) {
   const counselingID = +route.params.counselingId;
   const dispatch = useDispatch();
+  const [videoUrl,setVideoUrl] = React.useState()
   const { detail, isLoading, error } = useSelector((state) => state.detail);
   const options = {
     weekday: "long",
@@ -28,7 +30,6 @@ export default function CounselorDetailClient({ route }) {
     month: "long",
     day: "numeric",
   };
-  console.log(detail);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -43,6 +44,10 @@ export default function CounselorDetailClient({ route }) {
         </View>
       </>
     );
+  }
+
+  if(videoUrl){
+    return <WebView source={{ uri:videoUrl }} />
   }
 
   return (
@@ -141,8 +146,8 @@ export default function CounselorDetailClient({ route }) {
                   <View style={[styles.dFlex, styles.itemCenter]}>
                     <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
                     <Text style={[styles.ml5]}>
-                      {/* {formatDate(detail.enddate)} */}
-                      {detail.enddate}
+                      {formatDate(detail.enddate)}
+                      {/* {detail.enddate} */}
                     </Text>
                   </View>
                 </View>
@@ -159,6 +164,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.justifyCenter,
                 styles.itemCenter,
               ]}
+              onPress={()=>setVideoUrl(detail.dailyUrl)}
               disabled={!scheduleValidation(detail.schedule)}
             >
               <Text style={[styles.cWhite, styles.fwBold]}>
@@ -366,4 +372,16 @@ const styles = StyleSheet.create({
   fwBold: {
     fontWeight: "bold",
   },
+  boderOrange: {
+    borderWidth: 1,
+    borderColor: "#FDB029",
+  },
+  boderBoldOrange: {
+    borderWidth: 3,
+    borderColor: "#FDB029",
+  },
+  boderBoldBlack: {
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  }
 });

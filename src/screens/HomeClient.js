@@ -16,12 +16,10 @@ import backgroundHome from "../../assets/background.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserLoggedInProfile } from "../store/actions/loginAction";
 import { fetchCounselors } from "../store/actions/counselorsAction";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/core";
+import Loading from "../components/Loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setLoginStatus } from "../store/actions/loginAction";
-
-const Drawer = createDrawerNavigator();
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
@@ -31,16 +29,16 @@ export default function HomeClient({ navigation }) {
   useEffect(() => {
     dispatch(getUserLoggedInProfile());
     dispatch(fetchCounselors());
-    StatusBar.setBarStyle("light-content", true);
   }, []);
 
-  // const logoutHandler = () => {
-  //   (async () => {
-  //     await AsyncStorage.removeItem("access_token");
-  //     await AsyncStorage.removeItem("user");
-  //     dispatch(setLoginStatus(false));
-  //   })();
-  // };
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBarStyle("light-content", true);
+      return () => {
+        StatusBar.setBarStyle("dark-content", true);
+      };
+    }, [])
+  );
 
   const signOut = () => {
     (async () => {
@@ -51,55 +49,54 @@ export default function HomeClient({ navigation }) {
   };
 
   if (loading) {
-    return (
-      <>
-        <View
-          style={[styleHomeClient.loadingContainer, styleHomeClient.horizontal]}
-        >
-          <ActivityIndicator size="large" color="#FDB029" />
-        </View>
-      </>
-    );
+    return <Loading />;
   }
 
   const renderCardCounselor = ({ item }) => {
     return (
-      <View style={[styleHomeClient.counselorCard, styleHomeClient.shadow]}>
-        <Image
-          source={{ uri: item.User.avatarUrl }}
-          style={styleHomeClient.profilePicture}
-        />
+      <View style={[styleHomeClient.counselorCard, styleHomeClient.br10, styleHomeClient.boderBoldBlack]}>
+        <View style={[styleHomeClient.itemCenter, styleHomeClient.dFlex, styleHomeClient.ml5]}>
+          <Image
+            source={{ uri: item.User.avatarUrl }}
+            style={styleHomeClient.profilePicture}
+          />
+        </View>
         <View style={styleHomeClient.textCardContainer}>
           <Text style={styleHomeClient.counselorName}>{item.User.name}</Text>
           <Text style={styleHomeClient.textSpecialist} numberOfLines={3}>
             {item.specialist}
           </Text>
-          <TouchableOpacity
-            style={[{
-              backgroundColor: "#FDB029",
-              alignSelf: "flex-start",
-              paddingVertical: 6,
-              paddingHorizontal: 8,
-              borderRadius: 15,
-            }]}
-            onPress={() =>
-              navigation.navigate("DetailCounselor", {
-                id: item.id,
-                counselor: item,
-              })
-            }
-          >
-            <Text
-              style={{
-                fontSize: 10,
-                color: "white",
-                fontWeight: "bold",
-                letterSpacing: 0.5,
-              }}
+          <View style={{alignSelf: 'flex-end', marginRight: 10}}>
+            <TouchableOpacity
+              style={[{
+                backgroundColor: "#FDB029",
+                alignSelf: "flex-start",
+                paddingVertical: 6,
+                paddingHorizontal: 8,
+                borderRadius: 15,
+                width: 80,
+                marginBottom: 3
+              }]}
+              onPress={() =>
+                navigation.navigate("DetailCounselor", {
+                  id: item.id,
+                  counselor: item,
+                })
+              }
             >
-              Jadwalkan Sesi
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "white",
+                  fontWeight: "bold",
+                  letterSpacing: 0.5,
+                  textAlign: 'center'
+                }}
+              >
+                Meetup
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -111,28 +108,6 @@ export default function HomeClient({ navigation }) {
       resizeMode="cover"
       style={styleHomeClient.container}
     >
-      <View style={styleHomeClient.profileContainer}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 20,
-          }}
-        >
-          <Text style={styleHomeClient.textUser}>{user?.name} 👋</Text>
-          <Image
-            source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
-            style={{
-              width: 60,
-              height: 60,
-              borderColor: "white",
-              borderWidth: 0.5,
-              borderRadius: 99,
-            }}
-          />
-        </View>
-      </View>
       <TouchableOpacity
         style={{
           paddingVertical: 10,
@@ -141,8 +116,35 @@ export default function HomeClient({ navigation }) {
         }}
         onPress={signOut}
       >
-        <Text style={{ color: "white" }}>Logout</Text>
+        <Text style={{ color: "white", textAlign: 'right' }}>Logout</Text>
       </TouchableOpacity>
+
+      <View style={[styleHomeClient.profileContainer, styleHomeClient.justifyCenter]}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <Text style={[styleHomeClient.fs30, styleHomeClient.cWhite]}>Welcome, </Text>
+            <Text style={[styleHomeClient.cWhite, styleHomeClient.fs18]}>{user?.name} 👋</Text>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate("History")}>
+            <Image
+              source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
+              style={{
+                width: 60,
+                height: 60,
+                borderColor: "white",
+                borderWidth: 0.5,
+                borderRadius: 99,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={styleHomeClient.listContainer}>
         <Text
           style={{
@@ -170,7 +172,7 @@ const styleHomeClient = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    paddingTop: 40,
+    paddingTop: 20,
   },
   listContainer: {
     flex: 1,
@@ -189,7 +191,6 @@ const styleHomeClient = StyleSheet.create({
   },
   counselorCard: {
     backgroundColor: "transparent",
-    height: 100,
     flexDirection: "row",
     marginBottom: 15,
   },
@@ -251,6 +252,9 @@ const styleHomeClient = StyleSheet.create({
   mt30: {
     marginTop: 30,
   },
+  ml5: {
+    marginLeft: 5
+  },
   fs20: {
     fontSize: 20,
   },
@@ -290,11 +294,17 @@ const styleHomeClient = StyleSheet.create({
   justifyCenter: {
     justifyContent: "center",
   },
+  justifyRight: {
+    justifyContent: "flex-end",
+  },
   pCenter: {
     justifyContent: "center",
   },
   tLeft: {
     textAlign: "left",
+  },
+  tRight: {
+    textAlign: "right",
   },
   horizontal: {
     flexDirection: "row",
@@ -321,4 +331,50 @@ const styleHomeClient = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 5,
   },
+  fs30: {
+    fontSize: 30,
+  },
+  fs25: {
+    fontSize: 25,
+  },
+  fs20: {
+    fontSize: 20,
+  },
+  fs18: {
+    fontSize: 18,
+  },
+  fs16: {
+    fontSize: 16,
+  },
+  fs14: {
+    fontSize: 14,
+  },
+  fwBold: {
+    fontWeight: "bold",
+  },
+  boderOrange: {
+    borderWidth: 1,
+    borderColor: "#FDB029",
+  },
+  boderBoldOrange: {
+    borderWidth: 3,
+    borderColor: "#FDB029",
+  },
+  boderBoldBlack: {
+    borderWidth: 1,
+    borderColor: "#1F2937",
+  },
+  br10: {
+    borderRadius: 10,
+  },
+  br20: {
+    borderRadius: 20,
+  },
+  br30: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+  },
+  txtRight: {
+    textAlign: 'right'
+  }
 });

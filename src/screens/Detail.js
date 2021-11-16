@@ -47,11 +47,9 @@ export default function DetailCounselor({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView
-      style={[styleDetailCounselor.AndroidSafeArea, styles.bOrange]}
-    >
+    <SafeAreaView style={[styleDetailCounselor.AndroidSafeArea, styles.bLightOrange]}>
       <ScrollView>
-      <View style={[]}>
+      <View style={[styles.bDarkBlue, styles.br30, styles.pt20]}>
         <View style={[styles.mb30]}>
           {/* <View>
             <Text style={[styles.fs20, styles.txtCenter, styles.mt10, styles.h50]}>
@@ -75,40 +73,34 @@ export default function DetailCounselor({ navigation, route }) {
         <View style={[styles.br30, styles.bWhite]}>
           <View style={[styles.containerItemFluid]}>
             <View style={[styles.mt30, styles.mb10]}>
-              <View>
+              <View style={[singleCounselor.mb5]}>
                 <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
                   About
                 </Text>
                 {/* <View style={[styles.bWhite, styles.h120, styles.br10]}> */}
                 <ScrollView>
-                  <Text style={[styles.container, styles.mt5, styles.mb5]}>
-                    {singleCounselor.about} Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled
-                    it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic
-                    typesetting, remaining essentially unchanged.
+                  <Text style={[styles.container, styles.mt5, styles.mb5, styles.ml5]}>
+                    {singleCounselor.about}
                   </Text>
                 </ScrollView>
                 {/* </View> */}
               </View>
-              <View>
+              <View style={[styles.boderBlack, styles.br10, styles.mt10]}>
                 <Text
-                  style={[styles.fs16, styles.fwBold, styles.mb5, styles.mt10]}
+                  style={[styles.fs16, styles.fwBold, styles.mb5, styles.mt5, styles.ml5]}
                 >
                   Price
                 </Text>
                 <View
                   style={[
-                    styles.bWhite,
+                    styles.bDarkBlue,
                     styles.h50,
                     styles.br10,
                     styles.dFlex,
-                    styles.itemCenter,
+                    styles.itemCenter
                   ]}
                 >
-                  <Text style={[styles.ml5]}>{singleCounselor.price}</Text>
+                  <Text style={[styles.ml5, styles.cWhite]}>Rp. {Number(singleCounselor.price)}</Text>
                 </View>
               </View>
             </View>
@@ -292,6 +284,9 @@ const styles = StyleSheet.create({
   pt10: {
     paddingTop: 10,
   },
+  pt20: {
+    paddingTop: 20,
+  },
   pb5: {
     paddingBottom: 5,
   },
@@ -303,6 +298,9 @@ const styles = StyleSheet.create({
   },
   bOrange: {
     backgroundColor: "#FDB029",
+  },
+  bLightOrange: {
+    backgroundColor: "#F9DCA8",
   },
   bDarkBlue: {
     backgroundColor: "#222C39",
@@ -400,5 +398,9 @@ const styles = StyleSheet.create({
   boderOrange: {
     borderWidth: 1,
     borderColor: "#FDB029",
+  },
+  boderBlack: {
+    borderWidth: 1,
+    borderColor: "#222C39",
   }
 });

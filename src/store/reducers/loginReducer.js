@@ -2,12 +2,14 @@ import {
   SET_LOGIN_ERROR,
   SET_LOGIN_LOADING,
   SET_LOGIN_STATUS,
+  SET_LOGIN_USER,
 } from "../loginTypes";
 
 const intialState = {
   isLoggedIn: false,
   error: null,
   loading: false,
+  user: null,
 };
 export const loginReducer = (state = intialState, action) => {
   switch (action.type) {
@@ -17,6 +19,8 @@ export const loginReducer = (state = intialState, action) => {
       return { ...state, loading: action.payload };
     case SET_LOGIN_ERROR:
       return { ...state, error: action.payload };
+    case SET_LOGIN_USER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

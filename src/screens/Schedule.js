@@ -47,6 +47,10 @@ export default function Schedule({ route }) {
         const { transaction } = createdCounseling;
         setMidtrans(transaction);
       }
+
+      return () => {
+        setMidtrans("");
+      };
     }, [createdCounseling])
   );
 
@@ -83,7 +87,6 @@ export default function Schedule({ route }) {
   if (midtrans) {
     return <Midtrans uri={midtrans.redirect_url} />;
   }
-  console.log(counselor);
   return (
     <ScrollView>
       <SafeAreaView style={styleSchedule.container}>

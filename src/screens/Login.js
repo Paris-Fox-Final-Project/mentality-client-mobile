@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
@@ -186,9 +186,9 @@ const loginStyles = StyleSheet.create({
     letterSpacing: 1,
   },
   mb10: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   bWhite: {
-    backgroundColor: 'white'
-  }
+    backgroundColor: "white",
+  },
 });

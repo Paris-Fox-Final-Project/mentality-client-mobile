@@ -10,9 +10,9 @@ import ListCounselor from "./src/screens/ListCounselor";
 import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "./src/store/Actions/loginAction";
 import Schedule from "./src/screens/Schedule";
 import History from "./src/screens/History";
+import { setLoginStatus } from "./src/store/Actions/loginAction";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +37,17 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
-          user.role === "user" ? (
+          user.role !== "user" ? (
+            // seluruh screen counselor
+
+            <>
+              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+              <Stack.Screen
+                name="CounselorDetailClient"
+                component={CounselorDetailClient}
+              />
+            </>
+          ) : (
             // seluruh screen user
             <>
               <Stack.Screen name="HomeClient" component={HomeClient} />
@@ -52,14 +62,10 @@ export default function Navigation() {
                 component={Schedule}
                 options={{ headerShown: true }}
               />
-            </>
-          ) : (
-            // seluruh screen counselor
-            <>
-              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
               <Stack.Screen
-                name="CounselorDetailClient"
-                component={CounselorDetailClient}
+                name="History"
+                component={History}
+                options={{ headerShown: true }}
               />
             </>
           )

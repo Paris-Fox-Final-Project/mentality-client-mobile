@@ -8,6 +8,7 @@ import { counselorCounselingDetailDataReducer } from "./counselorCounselingReduc
 import { counselingReducer } from "./counselingReducer";
 import { counselorsReducer } from "./counselorsReducer";
 import { singleCounselorReducer } from "./singleCounselorReducer";
+import { historyReducer } from "./historyReducer";
 
 export default reducer = combineReducers({
   login: loginReducer,
@@ -20,4 +21,5 @@ export default reducer = combineReducers({
   detail: counselorCounselingDetailDataReducer,
   topic: topicReducer,
   counseling: counselingReducer,
+  history: historyReducer,
 });

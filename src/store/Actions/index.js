@@ -21,7 +21,7 @@ export function HandleLogin(payload){
         try {
             dispatch(setLoading(true))
             const {data} = await axios({
-                url: "https://f00f-180-252-171-203.ngrok.io/login",
+                url: "http://7a1a-36-71-141-37.ngrok.io/login",
                 method: "POST",
                 data: payload
             })

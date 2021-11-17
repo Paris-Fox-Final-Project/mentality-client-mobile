@@ -60,7 +60,7 @@ export default function HomeCounselor({ navigate }) {
         <View
           style={[
             styles.dFlex,
-            styles.h80,
+            styles.h120,
             styles.itemCenter,
             styles.containerItemFluid,
           ]}
@@ -77,9 +77,9 @@ export default function HomeCounselor({ navigate }) {
               }
             />
           </View>
-          <View style={[styles.ml5, styles.container]}>
-            <Text>{item.User.name}</Text>
-            <Text>{item.description}</Text>
+          <View style={[styles.ml5, styles.container, styles.h80]}>
+            <Text style={[styles.fwBold, styles.mb5]}>{item.User.name}</Text>
+            <Text numberOfLines={3}>{item.description}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -95,44 +95,47 @@ export default function HomeCounselor({ navigate }) {
       style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}
     >
       <ScrollView>
-        <TouchableOpacity
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            backgroundColor: "black",
-          }}
-          onPress={signOut}
-        >
-          <Text style={{ color: "white", textAlign: "right" }}>Logout</Text>
-        </TouchableOpacity>
         <View style={[styles.pb5]}>
           <View
-            style={[styles.container, styles.pb30, styles.h150, styles.shadow]}
+            style={[styles.container, styles.pb30, styles.h180, styles.shadow]}
           >
             <View
               style={[
-                styles.mt10,
-                styles.br10,
                 styles.bOrange,
                 styles.container,
-                styles.br10,
-                styles.containerItemFluid,
+                styles.dFlex,
+                styles.itemCenter,
+                styles.brb30
               ]}
             >
-              <View style={[styles.containerItemFluid]}>
+              <View style={{marginRight: 15}}>
                 <Text
                   style={[
                     styles.cBlack,
-                    styles.fs20,
+                    styles.fs16,
                     styles.fwBold,
                     styles.cBlack,
                   ]}
                 >
                   {profile.User?.name}
                 </Text>
-                <Text style={[styles.cBlack, styles.cWhite, styles.cBlack]}>
+                <Text style={[styles.cBlack]}>
                   {profile.User?.email}
                 </Text>
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 15,
+                    borderRadius: 100,
+                    borderWidth: 3,
+                    borderColor: 'black'
+                  }}
+                  onPress={signOut}
+                >
+                  <Text style={{ color: "black", textAlign: "right", fontWeight: '600' }}>Logout</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -146,21 +149,18 @@ export default function HomeCounselor({ navigate }) {
           ]}
         >
           <View
-            style={[styles.w50, styles.h50, styles.boderBoldBlack, styles.br10]}
+            style={[styles.w50, styles.h50, styles.boderBoldBlack]}
           >
             <View
               style={[
-                styles.w80,
-                styles.dFlex,
                 styles.justifyCenter,
                 styles.itemCenter,
                 styles.h100,
+                styles.bDarkBlue
               ]}
             >
-              <Text style={[styles.fs16, styles.cBlack]}># Active users</Text>
-              <Text
-                style={[styles.ml5, styles.fs16, styles.cBlack, styles.fwBold]}
-              >
+              <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>
+              <Text style={[styles.fs16, styles.cWhite, styles.fwBold]}>
                 {homeData.length}
               </Text>
             </View>

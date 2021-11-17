@@ -94,9 +94,7 @@ export default function HomeCounselor({ navigate }) {
   }
 
   return (
-    <SafeAreaView
-      style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}
-    >
+    <SafeAreaView style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}>
       <ScrollView>
         <View style={[styles.pb5]}>
           <View style={[styles.h180, styles.brb30, styles.bLightOrange]}>

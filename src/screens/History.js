@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userProfile from "../../assets/user.png";
 import videoCamera from "../../assets/video-camera.png";
 import { WebView } from "react-native-webview";
-import { getHistoriesCounselingUserLoggedIn } from "../store/Actions/historyAction";
+import { getHistoriesCounselingUserLoggedIn } from "../store/actions/historyAction";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 import Loading from "../components/Loading";

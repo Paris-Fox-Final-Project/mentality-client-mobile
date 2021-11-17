@@ -15,8 +15,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "../store/Actions/loginAction";
-import { counselorHomeDataHandler } from "../store/Actions/counselorHomeAction";
+import { setLoginStatus } from "../store/actions/loginAction";
+import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
 import Loading from "../components/Loading";
@@ -105,10 +105,10 @@ export default function HomeCounselor({ navigate }) {
                 styles.container,
                 styles.dFlex,
                 styles.itemCenter,
-                styles.brb30
+                styles.brb30,
               ]}
             >
-              <View style={{marginRight: 15}}>
+              <View style={{ marginRight: 15 }}>
                 <Text
                   style={[
                     styles.cBlack,
@@ -119,9 +119,7 @@ export default function HomeCounselor({ navigate }) {
                 >
                   {profile.User?.name}
                 </Text>
-                <Text style={[styles.cBlack]}>
-                  {profile.User?.email}
-                </Text>
+                <Text style={[styles.cBlack]}>{profile.User?.email}</Text>
               </View>
               <View>
                 <TouchableOpacity
@@ -130,11 +128,19 @@ export default function HomeCounselor({ navigate }) {
                     paddingHorizontal: 15,
                     borderRadius: 100,
                     borderWidth: 3,
-                    borderColor: 'black'
+                    borderColor: "black",
                   }}
                   onPress={signOut}
                 >
-                  <Text style={{ color: "black", textAlign: "right", fontWeight: '600' }}>Logout</Text>
+                  <Text
+                    style={{
+                      color: "black",
+                      textAlign: "right",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Logout
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -148,15 +154,13 @@ export default function HomeCounselor({ navigate }) {
             styles.containerItemFluid,
           ]}
         >
-          <View
-            style={[styles.w50, styles.h50, styles.boderBoldBlack]}
-          >
+          <View style={[styles.w50, styles.h50, styles.boderBoldBlack]}>
             <View
               style={[
                 styles.justifyCenter,
                 styles.itemCenter,
                 styles.h100,
-                styles.bDarkBlue
+                styles.bDarkBlue,
               ]}
             >
               <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>

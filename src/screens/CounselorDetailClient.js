@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   Linking,
 } from "react-native";
-import { counselorCounselingDetailHandler } from "../store/Actions/counselorCounselingDetailAction";
+import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
@@ -49,37 +49,37 @@ export default function CounselorDetailClient({ route }) {
   return (
     <SafeAreaView>
       <ScrollView>
-      <View style={[styles.mb10, styles.h180]}>
-        <View
-          style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
-        >
+        <View style={[styles.mb10, styles.h180]}>
           <View
-            style={[
-              styles.mt30,
-              styles.dFlex,
-              styles.containerItem,
-              styles.ml15,
-              styles.pCenter,
-            ]}
+            style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
           >
-            <View>
-              <Image
-                style={[styles.imgMediumSize, styles.br10]}
-                source={{
-                  uri: detail.User.avatarUrl,
-                }}
-              />
-            </View>
-            <View style={[styles.ml5, styles.justifyCenter]}>
-              <Text style={[styles.cBlack, styles.fs18]}>
-                {detail.User.name}
-              </Text>
-              <Text style={[styles.cBlack]}>{detail.User.email}</Text>
+            <View
+              style={[
+                styles.mt30,
+                styles.dFlex,
+                styles.containerItem,
+                styles.ml15,
+                styles.pCenter,
+              ]}
+            >
+              <View>
+                <Image
+                  style={[styles.imgMediumSize, styles.br10]}
+                  source={{
+                    uri: detail.User.avatarUrl,
+                  }}
+                />
+              </View>
+              <View style={[styles.ml5, styles.justifyCenter]}>
+                <Text style={[styles.cBlack, styles.fs18]}>
+                  {detail.User.name}
+                </Text>
+                <Text style={[styles.cBlack]}>{detail.User.email}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-      <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
+        <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
           <View style={[styles.containerItemFluid]}>
             <View style={[styles.mauto, styles.mt20]}>
               <Text
@@ -89,12 +89,7 @@ export default function CounselorDetailClient({ route }) {
               </Text>
               <View style={[styles.bWhite, styles.h120, styles.br10]}>
                 <ScrollView>
-                  <Text
-                    style={[
-                      styles.cBlack,
-                      styles.containerItemFluid
-                    ]}
-                  >
+                  <Text style={[styles.cBlack, styles.containerItemFluid]}>
                     {detail.description}
                   </Text>
                 </ScrollView>
@@ -138,7 +133,7 @@ export default function CounselorDetailClient({ route }) {
                     </Text>
                   </View>
                   <View style={[styles.dFlex, styles.itemCenter]}>
-                    <Text style={[styles.ml5, styles.fwBold]}>End   :</Text>
+                    <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
                     <Text style={[styles.ml5]}>
                       {formatDate(detail.enddate)}
                       {/* {detail.enddate} */}
@@ -173,17 +168,15 @@ export default function CounselorDetailClient({ route }) {
                 styles.dFlex,
                 styles.justifyCenter,
                 styles.itemCenter,
-                styles.mt10
+                styles.mt10,
               ]}
               onPress={() => Linking.openURL(detail.dailyUrl)}
               disabled={!scheduleValidation(detail.schedule)}
             >
-              <Text style={[styles.cBlack, styles.fwBold]}>
-                End Counseling
-              </Text>
+              <Text style={[styles.cBlack, styles.fwBold]}>End Counseling</Text>
             </TouchableOpacity>
           </View>
-      </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

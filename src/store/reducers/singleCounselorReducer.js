@@ -5,7 +5,7 @@ import {
 } from "../singleCounselorTypes";
 
 const intialState = {
-  singleCounselor: {},
+  singleCounselor: null,
   error: null,
   loading: false,
 };

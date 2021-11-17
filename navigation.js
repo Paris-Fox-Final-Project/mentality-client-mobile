@@ -55,7 +55,10 @@ export default function Navigation() {
               <Stack.Screen
                 name="DetailCounselor"
                 component={DetailCounselor}
-                options={{ headerShown: true }}
+                options={({ route }) => ({
+                  title: route.params.counselor.User.name,
+                  headerShown: true,
+                })}
               />
               <Stack.Screen
                 name="Schedule"

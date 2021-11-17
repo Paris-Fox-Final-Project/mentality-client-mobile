@@ -11,22 +11,15 @@ import {
   StatusBar,
   ImageBackground,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import user from "../../assets/user.png";
 import backgroundHome from "../../assets/background.jpg";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector, useDispatch } from "react-redux";
-<<<<<<< HEAD
-import { setLoginStatus } from "../store/Actions/loginAction";
-import { fetchCounselors } from "../store/Actions/counselorsAction";
-=======
 import {
   getUserLoggedInProfile,
   setLoginStatus,
-} from "../store/actions/loginAction";
-import { fetchCounselors } from "../store/actions/counselorsAction";
->>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
+} from "../store/Actions/loginAction";
+import { fetchCounselors } from "../store/Actions/counselorsAction";
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
@@ -49,7 +42,6 @@ export default function HomeClient({ navigation }) {
     })();
   };
 
-<<<<<<< HEAD
   if(loading){
     return(
         <>
@@ -59,15 +51,6 @@ export default function HomeClient({ navigation }) {
         </>
     )
 }
-=======
-  if (loading) {
-    return (
-      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <ActivityIndicator size="small" color="black" />
-      </View>
-    );
-  }
->>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
 
   const renderCardCounselor = ({ item }) => {
     return (
@@ -191,29 +174,10 @@ const styleHomeClient = StyleSheet.create({
     paddingTop: 10
   },
   counselorCard: {
-<<<<<<< HEAD
-    backgroundColor: "white",
-    height: 100,
-    borderRadius: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 25,
-    paddingVertical: 8,
-    marginBottom: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 5,
-=======
     backgroundColor: "transparent",
     height: 100,
     flexDirection: "row",
     marginBottom: 15,
->>>>>>> a361006b2fcf50c9431f19dfe5454652b91f7744
   },
   counselorName: {
     color: "#222C39",

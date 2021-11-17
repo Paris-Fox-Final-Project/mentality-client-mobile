@@ -15,6 +15,7 @@ export default function HomeCounselor({ navigate }) {
   const dispatch = useDispatch();
   const { homeData, error, isLoading, profile } = useSelector(state => state.counselorHome)
   // console.log(homeData, 'data di home konselor js')
+  console.log(profile, "<<<<");
 
   useFocusEffect(
     React.useCallback(() => {

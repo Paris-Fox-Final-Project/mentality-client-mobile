@@ -47,7 +47,7 @@ export const counselorHomeDataHandler = (payload) => {
       // console.log("data home counselor di store")
 
       const homeData = await apiClient({
-        url: `/counseling/counselor/${user.dataValues.id}`,
+        url: `/counseling/counselor/${user.id}`,
         method: "GET",
         headers: {access_token: access_token}
       })

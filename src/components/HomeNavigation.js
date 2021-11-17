@@ -13,7 +13,18 @@ export default function HomeNavigation() {
         headerShown: false,
       }}
     >
-      <Drawer.Screen name="Beranda" component={HomeClient} />
+      <Drawer.Screen
+        name="Beranda"
+        component={HomeClient}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitleStyle: {
+            opacity: 0,
+          },
+          headerTintColor: "#fff",
+        }}
+      />
       <Drawer.Screen
         name="Riwayat"
         component={History}

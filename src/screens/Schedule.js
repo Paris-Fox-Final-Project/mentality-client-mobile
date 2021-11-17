@@ -20,7 +20,7 @@ import {
 } from "../store/actions/counselingAction";
 import Midtrans from "./Midtrans";
 import formatPrice from "../helpers/formatPrice.js";
-const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
+const TIMES = [9, 10, 11, 14, 15, 16, 17];
 
 export default function Schedule({ route }) {
   const { counselor } = route.params;
@@ -249,6 +249,19 @@ export default function Schedule({ route }) {
                   if ((session === 2) & (index % 2 === 1)) {
                     return null;
                   }
+                  const selectedDate = new Date(date).getDate();
+                  const selectedMonth = new Date(date).getMonth();
+                  const currentDate = new Date().getDate();
+                  const currentMonth = new Date().getMonth();
+                  const hour = new Date().getHours();
+                  const isToday =
+                    currentMonth === selectedMonth &&
+                    selectedDate === currentDate;
+
+                  if (isToday && element < hour) {
+                    return null;
+                  }
+
                   return (
                     <TouchableOpacity
                       style={{
@@ -275,7 +288,7 @@ export default function Schedule({ route }) {
                           fontSize: 16,
                         }}
                       >
-                        {element}
+                        {element < 10 ? `0${element}:00` : `${element}:00`}
                       </Text>
                     </TouchableOpacity>
                   );

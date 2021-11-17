@@ -52,6 +52,8 @@ export default function CounselorDetailClient({ route }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView>
+      <View style={[styles.bLightOrange, styles.mt30, styles.br30]}>
       <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
         <View style={[styles.container, styles.mAuto, styles.h180]}>
           <View
@@ -129,13 +131,13 @@ export default function CounselorDetailClient({ route }) {
                 ]}
               >
                 <View style={[styles.dFlex, styles.itemCenter]}>
-                  <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
+                  <Text style={[styles.ml5, styles.fwBold]}>Mulai :</Text>
                   <Text style={[styles.ml5]}>
                     {formatDate(detail.schedule)}
                   </Text>
                 </View>
                 <View style={[styles.dFlex, styles.itemCenter]}>
-                  <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
+                  <Text style={[styles.ml5, styles.fwBold]}>Akhir :</Text>
                   <Text style={[styles.ml5]}>
                     {formatDate(detail.enddate)}
                     {/* {detail.enddate} */}
@@ -189,6 +191,8 @@ export default function CounselorDetailClient({ route }) {
           ) : null}
         </View>
       </View>
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

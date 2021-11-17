@@ -95,9 +95,7 @@ export default function HomeCounselor({ navigate }) {
   }
 
   return (
-    <SafeAreaView
-      style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}
-    >
+    <SafeAreaView style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}>
       <ScrollView>
         <View style={[styles.pb5]}>
           <View style={[styles.h180, styles.brb30, styles.bLightOrange]}>
@@ -130,8 +128,8 @@ export default function HomeCounselor({ navigate }) {
                 <TouchableOpacity
                   style={{
                     paddingVertical: 10,
-                    paddingHorizontal: 15,
-                    borderRadius: 100,
+                    paddingHorizontal: 10,
+                    borderRadius: 10,
                     borderWidth: 3,
                     borderColor: "black",
                   }}
@@ -144,7 +142,7 @@ export default function HomeCounselor({ navigate }) {
                       fontWeight: "600",
                     }}
                   >
-                    Logout
+                    Keluar
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -160,16 +158,17 @@ export default function HomeCounselor({ navigate }) {
             styles.containerItemFluid,
           ]}
         >
-          <View style={[styles.w50, styles.h50, styles.boderBoldBlack]}>
+          <View style={[styles.w50, styles.h50]}>
             <View
               style={[
                 styles.justifyCenter,
                 styles.itemCenter,
                 styles.h100,
                 styles.bDarkBlue,
+                styles.br10
               ]}
             >
-              <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>
+              <Text style={[styles.fs16, styles.cWhite]}># Pasien Aktif</Text>
               <Text style={[styles.fs16, styles.cWhite, styles.fwBold]}>
                 {homeData.filter((e) => !e.isDone).length}
               </Text>

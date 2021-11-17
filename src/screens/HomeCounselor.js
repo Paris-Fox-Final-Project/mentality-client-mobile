@@ -35,6 +35,7 @@ export default function HomeCounselor({ navigate }) {
       dispatch(counselorHomeDataHandler());
     }, [])
   );
+
   const signOut = () => {
     (async () => {
       await AsyncStorage.removeItem("access_token");
@@ -109,10 +110,10 @@ export default function HomeCounselor({ navigate }) {
                 styles.container,
                 styles.dFlex,
                 styles.itemCenter,
-                styles.brb30
+                styles.brb30,
               ]}
             >
-              <View style={{marginRight: 15}}>
+              <View style={{ marginRight: 15 }}>
                 <Text
                   style={[
                     styles.cBlack,
@@ -123,9 +124,7 @@ export default function HomeCounselor({ navigate }) {
                 >
                   {profile.User?.name}
                 </Text>
-                <Text style={[styles.cBlack]}>
-                  {profile.User?.email}
-                </Text>
+                <Text style={[styles.cBlack]}>{profile.User?.email}</Text>
               </View>
               <View>
                 <TouchableOpacity
@@ -134,12 +133,19 @@ export default function HomeCounselor({ navigate }) {
                     paddingHorizontal: 15,
                     borderRadius: 100,
                     borderWidth: 3,
-                    borderColor: '#F9DCA8',
-                    backgroundColor: '#E19001'
+                    borderColor: "black",
                   }}
                   onPress={signOut}
                 >
-                  <Text style={{ color: "#F9DCA8", textAlign: "right", fontWeight: '600' }}>Logout</Text>
+                  <Text
+                    style={{
+                      color: "black",
+                      textAlign: "right",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Logout
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -154,20 +160,18 @@ export default function HomeCounselor({ navigate }) {
             styles.containerItemFluid,
           ]}
         >
-          <View
-            style={[styles.w50, styles.h50, styles.boderBoldBlack]}
-          >
+          <View style={[styles.w50, styles.h50, styles.boderBoldBlack]}>
             <View
               style={[
                 styles.justifyCenter,
                 styles.itemCenter,
                 styles.h100,
-                styles.bDarkBlue
+                styles.bDarkBlue,
               ]}
             >
               <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>
               <Text style={[styles.fs16, styles.cWhite, styles.fwBold]}>
-                {homeData.length}
+                {homeData.filter((e) => !e.isDone).length}
               </Text>
             </View>
           </View>

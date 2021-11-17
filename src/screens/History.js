@@ -116,15 +116,21 @@ export default function History() {
           >
             {formatDate(item.schedule)}
           </Text>
-          {isActive ? (
-            <TouchableOpacity onPress={() => Linking.openURL(item.dailyUrl)}>
-              <Image
-                source={videoCamera}
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
+          {isActive && item.isDone === false ? (
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#FDB029",
+                paddingHorizontal: 6,
+                paddingVertical: 3,
+                borderRadius: 10,
+              }}
+              onPress={() => Linking.openURL(item.dailyUrl)}
+            >
+              <Text
+                style={{ fontSize: 12, color: "white", fontWeight: "bold" }}
+              >
+                Mulai Konseling
+              </Text>
             </TouchableOpacity>
           ) : null}
         </View>

@@ -79,7 +79,7 @@ export default function HomeClient({ navigation }) {
                   paddingVertical: 6,
                   paddingHorizontal: 8,
                   borderRadius: 15,
-                  width: 80,
+                  width: 120,
                   marginBottom: 3,
                 },
               ]}
@@ -99,7 +99,7 @@ export default function HomeClient({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Meetup
+                Jadwalkan Sesi
               </Text>
             </TouchableOpacity>
           </View>
@@ -197,6 +197,8 @@ const styleHomeClient = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
     backgroundColor: "white",
+    paddingBottom: 10,
+    paddingHorizontal: 5,
   },
   counselorName: {
     color: "#222C39",

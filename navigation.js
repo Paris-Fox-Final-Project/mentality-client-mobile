@@ -60,7 +60,15 @@ export default function Navigation() {
                   headerShown: true,
                 })}
               />
-              <Stack.Screen name="Schedule" component={Schedule} />
+              <Stack.Screen
+                name="Schedule"
+                component={Schedule}
+                options={({ route }) => ({
+                  title: route.params.counselor.User.name,
+                  headerShown: true,
+                  headerTitleAlign: "center",
+                })}
+              />
             </>
           )
         ) : (

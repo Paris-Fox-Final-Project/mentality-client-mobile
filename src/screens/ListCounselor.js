@@ -19,7 +19,7 @@ export default function ListCounselor({ navigation }) {
     (state) => state.counselors
   );
 
-  console.log(counselors, "<<<<<")
+  console.log(counselors, "<<<<<");
 
   useEffect(() => {
     dispatch(fetchCounselors());

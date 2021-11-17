@@ -11,7 +11,7 @@ import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import Schedule from "./src/screens/Schedule";
-import { setLoginStatus } from "./src/store/Actions/loginAction";
+import { setLoginStatus } from "./src/store/actions/loginAction";
 import HomeNavigation from "./src/components/HomeNavigation";
 
 const Stack = createNativeStackNavigator();
@@ -60,7 +60,15 @@ export default function Navigation() {
                   headerShown: true,
                 })}
               />
-              <Stack.Screen name="Schedule" component={Schedule} />
+              <Stack.Screen
+                name="Schedule"
+                component={Schedule}
+                options={({ route }) => ({
+                  title: route.params.counselor.User.name,
+                  headerShown: true,
+                  headerTitleAlign: "center",
+                })}
+              />
             </>
           )
         ) : (

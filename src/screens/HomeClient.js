@@ -14,12 +14,10 @@ import {
 import userProfile from "../../assets/user.png";
 import backgroundHome from "../../assets/background.jpg";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserLoggedInProfile } from "../store/Actions/loginAction";
-import { fetchCounselors } from "../store/Actions/counselorsAction";
+import { getUserLoggedInProfile } from "../store/actions/loginAction";
+import { fetchCounselors } from "../store/actions/counselorsAction";
 import { useFocusEffect } from "@react-navigation/core";
 import Loading from "../components/Loading";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setLoginStatus } from "../store/Actions/loginAction";
 
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
@@ -79,7 +77,7 @@ export default function HomeClient({ navigation }) {
                   paddingVertical: 6,
                   paddingHorizontal: 8,
                   borderRadius: 15,
-                  width: 80,
+                  width: 120,
                   marginBottom: 3,
                 },
               ]}
@@ -99,7 +97,7 @@ export default function HomeClient({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Meetup
+                Jadwalkan Sesi
               </Text>
             </TouchableOpacity>
           </View>
@@ -197,6 +195,8 @@ const styleHomeClient = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
     backgroundColor: "white",
+    paddingBottom: 10,
+    paddingHorizontal: 5,
   },
   counselorName: {
     color: "#222C39",

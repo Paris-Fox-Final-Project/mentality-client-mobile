@@ -39,17 +39,22 @@ export default function HomeCounselor({ navigate }) {
     })();
   };
 
-  console.log(homeData, "<<<<");
-
-  const renderListPatient = ({ item }) => {
+  const renderListPatient = (item) => {
     return (
       <TouchableOpacity
-        style={[styles.bWhite, styles.mt10, styles.br10, styles.shadow, styles.boderOrange]}
+        style={[
+          styles.bWhite,
+          styles.mt10,
+          styles.br10,
+          styles.shadow,
+          styles.boderOrange,
+        ]}
         onPress={() =>
           navigation.navigate("CounselorDetailClient", {
             counselingId: item.id,
           })
         }
+        key={item.id}
       >
         <View
           style={[
@@ -93,13 +98,31 @@ export default function HomeCounselor({ navigate }) {
           }}
           onPress={signOut}
         >
-          <Text style={{ color: "white", textAlign: 'right' }}>Logout</Text>
+          <Text style={{ color: "white", textAlign: "right" }}>Logout</Text>
         </TouchableOpacity>
         <View style={[styles.pb5]}>
-          <View style={[styles.container, styles.pb30, styles.h150, styles.shadow]}>
-            <View style={[styles.mt10, styles.br10, styles.bOrange, styles.container, styles.br10, styles.containerItemFluid]}>
+          <View
+            style={[styles.container, styles.pb30, styles.h150, styles.shadow]}
+          >
+            <View
+              style={[
+                styles.mt10,
+                styles.br10,
+                styles.bOrange,
+                styles.container,
+                styles.br10,
+                styles.containerItemFluid,
+              ]}
+            >
               <View style={[styles.containerItemFluid]}>
-                <Text style={[ styles.cBlack, styles.fs20, styles.fwBold, styles.cBlack]}>
+                <Text
+                  style={[
+                    styles.cBlack,
+                    styles.fs20,
+                    styles.fwBold,
+                    styles.cBlack,
+                  ]}
+                >
                   {profile.name}
                 </Text>
                 <Text style={[styles.cBlack, styles.cWhite, styles.cBlack]}>
@@ -114,22 +137,30 @@ export default function HomeCounselor({ navigate }) {
             styles.mauto,
             styles.mt10,
             styles.h100,
-            styles.containerItemFluid
-          ]}>
-          <View style={[styles.w50, styles.h50, styles.boderBoldBlack, styles.br10]}>
-            <View style={[styles.w80, styles.dFlex, styles.justifyCenter, styles.itemCenter, styles.h100]}>
+            styles.containerItemFluid,
+          ]}
+        >
+          <View
+            style={[styles.w50, styles.h50, styles.boderBoldBlack, styles.br10]}
+          >
+            <View
+              style={[
+                styles.w80,
+                styles.dFlex,
+                styles.justifyCenter,
+                styles.itemCenter,
+                styles.h100,
+              ]}
+            >
               <Text style={[styles.fs16, styles.cBlack]}># Active users</Text>
-              <Text style={[styles.ml5, styles.fs16, styles.cBlack, styles.fwBold]}>{homeData.length}</Text>
+              <Text
+                style={[styles.ml5, styles.fs16, styles.cBlack, styles.fwBold]}
+              >
+                {homeData.length}
+              </Text>
             </View>
           </View>
-          <View style={[styles.mt10]}>
-            <FlatList
-              data={homeData}
-              renderItem={renderListPatient}
-              keyExtractor={(item) => item.id}
-              horizontal={false}
-            />
-          </View>
+          <View style={[styles.mt10]}>{homeData.map(renderListPatient)}</View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -365,5 +396,5 @@ const styles = StyleSheet.create({
   boderBoldBlack: {
     borderWidth: 1,
     borderColor: "#1F2937",
-  }
+  },
 });

@@ -11,7 +11,7 @@ import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import Schedule from "./src/screens/Schedule";
-import { setLoginStatus } from "./src/store/Actions/loginAction";
+import { setLoginStatus } from "./src/store/actions/loginAction";
 import HomeNavigation from "./src/components/HomeNavigation";
 
 const Stack = createNativeStackNavigator();

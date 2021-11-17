@@ -12,11 +12,12 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "../store/Actions/loginAction";
-import { counselorHomeDataHandler } from "../store/Actions/counselorHomeAction";
+import { setLoginStatus } from "../store/actions/loginAction";
+import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
 import Loading from "../components/Loading";
@@ -27,6 +28,8 @@ export default function HomeCounselor({ navigate }) {
   const { homeData, error, isLoading, profile } = useSelector(
     (state) => state.counselorHome
   );
+  const image = { uri: "../../assets/hello.svg" };
+
   useFocusEffect(
     React.useCallback(() => {
       dispatch(counselorHomeDataHandler());
@@ -96,8 +99,9 @@ export default function HomeCounselor({ navigate }) {
     >
       <ScrollView>
         <View style={[styles.pb5]}>
+          <View style={[styles.h180, styles.brb30, styles.bLightOrange]}>
           <View
-            style={[styles.container, styles.pb30, styles.h180, styles.shadow]}
+            style={[styles.container, styles.pb30, styles.h150, styles.shadow]}
           >
             <View
               style={[
@@ -130,15 +134,17 @@ export default function HomeCounselor({ navigate }) {
                     paddingHorizontal: 15,
                     borderRadius: 100,
                     borderWidth: 3,
-                    borderColor: 'black'
+                    borderColor: '#F9DCA8',
+                    backgroundColor: '#E19001'
                   }}
                   onPress={signOut}
                 >
-                  <Text style={{ color: "black", textAlign: "right", fontWeight: '600' }}>Logout</Text>
+                  <Text style={{ color: "#F9DCA8", textAlign: "right", fontWeight: '600' }}>Logout</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+        </View>
         </View>
         <View
           style={[
@@ -293,6 +299,12 @@ const styles = StyleSheet.create({
   },
   bDarkBlue: {
     backgroundColor: "#222C39",
+  },
+  bLightOrange: {
+    backgroundColor: "#F9DCA8",
+  },
+  bDarkOrange: {
+    backgroundColor: "#E19001",
   },
   cWhite: {
     color: "white",

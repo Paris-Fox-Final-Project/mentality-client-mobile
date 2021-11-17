@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCounselors } from "../store/Actions/counselorsAction";
+import { fetchCounselors } from "../store/actions/counselorsAction";
 
 export default function ListCounselor({ navigation }) {
   const dispatch = useDispatch();

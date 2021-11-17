@@ -5,7 +5,7 @@ import {
   SET_HISTORIES_DATA_HISTORY_BY_ID,
   SET_HISTORIES_ERROR,
   SET_HISTORIES_LOADING,
-} from "../Reducers/historyTypes";
+} from "../reducers/historyTypes";
 
 const setHistoriesData = (payload) => ({
   type: SET_HISTORIES_DATA,

@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   Linking,
 } from "react-native";
-import { counselorCounselingDetailHandler } from "../store/Actions/counselorCounselingDetailAction";
+import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
@@ -49,7 +49,7 @@ export default function CounselorDetailClient({ route }) {
   return (
     <SafeAreaView>
       <ScrollView>
-      <View style={[styles.mb10, styles.h180]}>
+      <View style={[styles.h150]}>
         <View
           style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
         >

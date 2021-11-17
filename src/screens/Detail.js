@@ -32,7 +32,7 @@ export default function DetailCounselor({ navigation, route }) {
   } = useSelector((state) => state.singleCounselor);
 
   const [singleCounselor, setSingleCounselor] = React.useState(counselor);
-  console.log(counselorData);
+
   useEffect(() => {
     dispatch(fetchSingleCounselor(id));
   }, [id]);
@@ -48,6 +48,12 @@ export default function DetailCounselor({ navigation, route }) {
       };
     }, [counselorData])
   );
+
+  const onButtonKonselingPress = (counselor) => {
+    navigation.navigate("Schedule", {
+      counselor,
+    });
+  };
 
   if (loading) {
     return <Loading />;
@@ -157,7 +163,13 @@ export default function DetailCounselor({ navigation, route }) {
           </Text>
         </View>
       </View>
-      <View style={{ paddingHorizontal: 30 }}>
+      <View
+        style={{
+          paddingHorizontal: 30,
+          backgroundColor: "white",
+          paddingBottom: 10,
+        }}
+      >
         <TouchableOpacity
           style={{
             backgroundColor: "#FDB029",
@@ -168,6 +180,7 @@ export default function DetailCounselor({ navigation, route }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={() => onButtonKonselingPress(singleCounselor)}
         >
           <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>
             Konseling dengan {getFirstName(singleCounselor.User.name)}
@@ -286,11 +299,11 @@ export default function DetailCounselor({ navigation, route }) {
   //     </ScrollView>
   //     <TouchableOpacity
   //       style={[styles.bOrange, styles.h50, styles.br20, styles.floatingButton]}
-  //       onPress={() =>
-  //         navigation.navigate("Schedule", {
-  //           counselor: singleCounselor,
-  //         })
-  //       }
+  // onPress={() =>
+  //   navigation.navigate("Schedule", {
+  //     counselor: singleCounselor,
+  //   })
+  // }
   //     >
   //       <Text style={[styles.cWhite, styles.fwBold]}>Make appointment</Text>
   //     </TouchableOpacity>

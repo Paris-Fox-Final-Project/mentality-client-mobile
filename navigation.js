@@ -61,6 +61,7 @@ export default function Navigation() {
                   headerShown: true,
                 })}
               />
+              <Stack.Screen name="Schedule" component={Schedule} />
             </>
           )
         ) : (

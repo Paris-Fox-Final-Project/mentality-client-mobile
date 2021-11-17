@@ -136,18 +136,16 @@ export default function HomeClient({ navigation }) {
             </Text>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate("History")}>
-            <Image
-              source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
-              style={{
-                width: 60,
-                height: 60,
-                borderColor: "white",
-                borderWidth: 0.5,
-                borderRadius: 99,
-              }}
-            />
-          </TouchableOpacity>
+          <Image
+            source={user?.avatarUrl ? { uri: user?.avatarUrl } : userProfile}
+            style={{
+              width: 60,
+              height: 60,
+              borderColor: "white",
+              borderWidth: 0.5,
+              borderRadius: 99,
+            }}
+          />
         </View>
       </View>
       <View style={styleHomeClient.listContainer}>

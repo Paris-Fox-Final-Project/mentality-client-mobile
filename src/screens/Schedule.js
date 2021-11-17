@@ -77,7 +77,7 @@ export default function Schedule({ route }) {
     const currentMonth = new Date().getMonth();
     if (currentMonth === selectedMonth && selectedDate === currentDate) {
       const hours = new Date().getHours();
-      if (hours >= 18) {
+      if (hours >= 17) {
         setErrorDate("Tidak ada jadwal tersedia");
       }
     } else {

@@ -64,6 +64,7 @@ export const getUserLoggedInProfile = () => {
     try {
       const token = await AsyncStorage.getItem("access_token");
       const userString = await AsyncStorage.getItem("user");
+      console.log(JSON.parse(userString), ">> ACTION");
       const { id } = JSON.parse(userString);
       const { data } = await apiServer({
         method: "GET",

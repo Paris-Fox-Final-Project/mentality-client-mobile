@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Schedule from "./src/screens/Schedule";
 import { setLoginStatus } from "./src/store/actions/loginAction";
 import HomeNavigation from "./src/components/HomeNavigation";
+import Chat from "./src/screens/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,13 @@ export default function Navigation() {
                 name="CounselorDetailClient"
                 component={CounselorDetailClient}
               />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerShown: true,
+                }}
+              />
             </>
           ) : (
             // seluruh screen user
@@ -68,6 +76,13 @@ export default function Navigation() {
                   headerShown: true,
                   headerTitleAlign: "center",
                 })}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerShown: true,
+                }}
               />
             </>
           )

@@ -2,6 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/core";
 import * as React from "react";
 import { StatusBar } from "react-native";
+import { formatDate } from "../helpers/formatDate";
+
 import {
   StyleSheet,
   Image,
@@ -12,15 +14,19 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "../store/actions/loginAction";
+import {
+  getUserLoggedInProfile,
+  setLoginStatus,
+} from "../store/actions/loginAction";
 import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
 import Loading from "../components/Loading";
+import { scheduleValidation } from "../helpers/scheduleValidation";
 
 export default function HomeCounselor({ navigate }) {
   const navigation = useNavigation();
@@ -33,6 +39,7 @@ export default function HomeCounselor({ navigate }) {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(counselorHomeDataHandler());
+      dispatch(getUserLoggedInProfile());
     }, [])
   );
 
@@ -84,6 +91,26 @@ export default function HomeCounselor({ navigate }) {
           <View style={[styles.ml5, styles.container, styles.h80]}>
             <Text style={[styles.fwBold, styles.mb5]}>{item.User.name}</Text>
             <Text numberOfLines={3}>{item.description}</Text>
+            <View style={{ marginTop: 10 }}>
+              <Text
+                style={{
+                  backgroundColor: scheduleValidation(item.schedule)
+                    ? "#A7F3D0"
+                    : "#F3F4F6",
+                  alignSelf: "flex-start",
+                  paddingHorizontal: 12,
+                  color: scheduleValidation(item.schedule)
+                    ? "#065F46"
+                    : "#1F2937",
+                  borderRadius: 4,
+                  paddingVertical: 2,
+                  fontSize: 10,
+                  fontWeight: "bold",
+                }}
+              >
+                {formatDate(item.schedule)}
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -101,56 +128,61 @@ export default function HomeCounselor({ navigate }) {
       <ScrollView>
         <View style={[styles.pb5]}>
           <View style={[styles.h180, styles.brb30, styles.bLightOrange]}>
-          <View
-            style={[styles.container, styles.pb30, styles.h150, styles.shadow]}
-          >
             <View
               style={[
-                styles.bOrange,
                 styles.container,
-                styles.dFlex,
-                styles.itemCenter,
-                styles.brb30,
+                styles.pb30,
+                styles.h150,
+                styles.shadow,
               ]}
             >
-              <View style={{ marginRight: 15 }}>
-                <Text
-                  style={[
-                    styles.cBlack,
-                    styles.fs16,
-                    styles.fwBold,
-                    styles.cBlack,
-                  ]}
-                >
-                  {profile.User?.name}
-                </Text>
-                <Text style={[styles.cBlack]}>{profile.User?.email}</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 15,
-                    borderRadius: 100,
-                    borderWidth: 3,
-                    borderColor: "black",
-                  }}
-                  onPress={signOut}
-                >
+              <View
+                style={[
+                  styles.bOrange,
+                  styles.container,
+                  styles.dFlex,
+                  styles.itemCenter,
+                  styles.brb30,
+                ]}
+              >
+                <View style={{ marginRight: 15 }}>
                   <Text
-                    style={{
-                      color: "black",
-                      textAlign: "right",
-                      fontWeight: "600",
-                    }}
+                    style={[
+                      styles.cBlack,
+                      styles.fs16,
+                      styles.fwBold,
+                      styles.cBlack,
+                    ]}
                   >
-                    Logout
+                    {profile.User?.name}
                   </Text>
-                </TouchableOpacity>
+                  <Text style={[styles.cBlack]}>{profile.User?.email}</Text>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    style={{
+                      paddingVertical: 10,
+                      paddingHorizontal: 15,
+                      borderRadius: 100,
+                      borderWidth: 3,
+                      borderColor: "black",
+                    }}
+                    onPress={signOut}
+                  >
+                    <Text
+                      style={{
+                        color: "black",
+                        textAlign: "right",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Logout
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
         </View>
         <View
           style={[

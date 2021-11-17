@@ -21,7 +21,7 @@ import { scheduleValidation } from "../helpers/scheduleValidation";
 import { WebView } from "react-native-webview";
 import { patchCounselingIsDone } from "../store/actions/counselingAction";
 
-export default function CounselorDetailClient({ route }) {
+export default function CounselorDetailClient({ route, navigation }) {
   const counselingID = +route.params.counselingId;
   const dispatch = useDispatch();
   const { detail, isLoading, error } = useSelector((state) => state.detail);
@@ -146,47 +146,79 @@ export default function CounselorDetailClient({ route }) {
           </View>
         </View>
         <View style={[styles.containerItemFluid]}>
-          <TouchableOpacity
-            style={[
-              styles.bDarkBlue,
-              styles.h50,
-              styles.br20,
-              styles.dFlex,
-              styles.justifyCenter,
-              styles.itemCenter,
-              styles.mb10,
-            ]}
-            disabled={
-              scheduleValidation(detail.schedule) === false || detail.isDone
-            }
-            onPress={() => Linking.openURL(detail.dailyUrl)}
-          >
-            <Text style={[styles.cWhite, styles.fwBold]}>
-              {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
-            </Text>
-          </TouchableOpacity>
-          {detail.isDone === false && scheduleValidation(detail.schedule) ? (
+          {
+            // Mulai konseling
             <TouchableOpacity
               style={[
-                styles.boderBoldBlack,
+                styles.bDarkBlue,
                 styles.h50,
                 styles.br20,
                 styles.dFlex,
                 styles.justifyCenter,
                 styles.itemCenter,
+                styles.mb10,
               ]}
-              onPress={() => endCounselingHandler(detail)}
-              disabled={!scheduleValidation(detail.schedule)}
+              disabled={
+                scheduleValidation(detail.schedule) === false || detail.isDone
+              }
+              onPress={() => Linking.openURL(detail.dailyUrl)}
             >
-              {loadingPatchDone ? (
-                <ActivityIndicator color="white" size="small" />
-              ) : (
-                <Text style={[styles.cBlack, styles.fwBold]}>
-                  End Counseling
-                </Text>
-              )}
+              <Text style={[styles.cWhite, styles.fwBold]}>
+                {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
+              </Text>
             </TouchableOpacity>
-          ) : null}
+          }
+          {
+            // Akhiri counseling
+            detail.isDone === false && scheduleValidation(detail.schedule) ? (
+              <TouchableOpacity
+                style={[
+                  styles.boderBoldBlack,
+                  styles.h50,
+                  styles.br20,
+                  styles.dFlex,
+                  styles.justifyCenter,
+                  styles.itemCenter,
+                ]}
+                onPress={() => endCounselingHandler(detail)}
+                disabled={!scheduleValidation(detail.schedule)}
+              >
+                {loadingPatchDone ? (
+                  <ActivityIndicator color="white" size="small" />
+                ) : (
+                  <Text style={[styles.cBlack, styles.fwBold]}>
+                    End Counseling
+                  </Text>
+                )}
+              </TouchableOpacity>
+            ) : null
+          }
+          {
+            // Chating
+            detail.isDone === false ? (
+              <TouchableOpacity
+                style={[
+                  styles.boderBoldBlack,
+                  styles.h50,
+                  styles.br20,
+                  styles.dFlex,
+                  styles.justifyCenter,
+                  styles.itemCenter,
+                ]}
+                onPress={() =>
+                  navigation.navigate("Chat", {
+                    roomId: detail.orderId,
+                  })
+                }
+              >
+                {loadingPatchDone ? (
+                  <ActivityIndicator color="white" size="small" />
+                ) : (
+                  <Text style={[styles.cBlack, styles.fwBold]}>Chat</Text>
+                )}
+              </TouchableOpacity>
+            ) : null
+          }
         </View>
       </View>
     </SafeAreaView>

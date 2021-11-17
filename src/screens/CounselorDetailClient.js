@@ -11,6 +11,7 @@ import {
   Button,
   TouchableOpacity,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction";
 import { useFocusEffect } from "@react-navigation/core";
@@ -22,7 +23,6 @@ import { WebView } from "react-native-webview";
 export default function CounselorDetailClient({ route }) {
   const counselingID = +route.params.counselingId;
   const dispatch = useDispatch();
-  const [videoUrl,setVideoUrl] = React.useState()
   const { detail, isLoading, error } = useSelector((state) => state.detail);
   const options = {
     weekday: "long",
@@ -44,10 +44,6 @@ export default function CounselorDetailClient({ route }) {
         </View>
       </>
     );
-  }
-
-  if(videoUrl){
-    return <WebView source={{ uri:videoUrl }} />
   }
 
   return (
@@ -164,7 +160,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.justifyCenter,
                 styles.itemCenter,
               ]}
-              onPress={()=>setVideoUrl(detail.dailyUrl)}
+              onPress={() => Linking.openURL(detail.dailyUrl)}
               disabled={!scheduleValidation(detail.schedule)}
             >
               <Text style={[styles.cWhite, styles.fwBold]}>
@@ -383,5 +379,5 @@ const styles = StyleSheet.create({
   boderBoldBlack: {
     borderWidth: 1,
     borderColor: "#1F2937",
-  }
+  },
 });

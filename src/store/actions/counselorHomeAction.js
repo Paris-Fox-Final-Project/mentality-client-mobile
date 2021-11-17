@@ -50,7 +50,10 @@ export const counselorHomeDataHandler = (payload) => {
       });
       dispatch(setCounselorHomeData(homeData.data));
     } catch (err) {
-      console.log(err, "err get home counselor");
+      const { response } = err;
+      const { data } = response;
+      const { message } = data;
+      dispatch(setCounselorHomeError(message));
     } finally {
       dispatch(setCounselorHomeLoading(false));
     }

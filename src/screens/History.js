@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,8 +21,6 @@ import Loading from "../components/Loading";
 export default function History() {
   const dispatch = useDispatch();
   const { histories, isLoading } = useSelector((state) => state.history);
-  const [videoUrl,setVideoUrl] = React.useState()
-
 
   useFocusEffect(
     React.useCallback(() => {
@@ -29,15 +28,13 @@ export default function History() {
     }, [])
   );
   const renderCounselingList = ({ item }) => {
-  console.log(item, 'itemnya gan')
-
     const isActive = scheduleValidation(item.schedule);
     return (
       <View
         style={{
           backgroundColor: "white",
           width: 320,
-          height: 150,
+          height: 180,
           borderRadius: 20,
           marginBottom: 20,
         }}
@@ -47,8 +44,9 @@ export default function History() {
             flexDirection: "row",
             alignItems: "center",
             paddingTop: 20,
+            width: 320,
             paddingBottom: 10,
-            paddingRight: 20,
+            paddingRight: 40,
             paddingLeft: 20,
             borderBottomColor: "gray",
             borderBottomWidth: 1,
@@ -75,7 +73,10 @@ export default function History() {
                 fontSize: 17,
                 color: "#222C39",
                 marginBottom: 4,
+                overflow: "hidden",
+                width: 150,
               }}
+              numberOfLines={2}
             >
               {item.Counselor.User.name}
             </Text>
@@ -116,7 +117,7 @@ export default function History() {
             {formatDate(item.schedule)}
           </Text>
           {isActive ? (
-            <TouchableOpacity onPress={()=>setVideoUrl(item.dailyUrl)}>
+            <TouchableOpacity onPress={() => Linking.openURL(item.dailyUrl)}>
               <Image
                 source={videoCamera}
                 style={{
@@ -133,10 +134,6 @@ export default function History() {
 
   if (isLoading) {
     return <Loading />;
-  }
-
-  if(videoUrl){
-    return <WebView source={{ uri:videoUrl }} />
   }
 
   return (

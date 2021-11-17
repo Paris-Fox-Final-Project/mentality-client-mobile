@@ -14,6 +14,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleCounselor } from "../store/actions/singleCounselorAction";
+import formatPrice from "../helpers/formatPrice";
+import Loading from "../components/Loading";
 export default function DetailCounselor({ navigation, route }) {
   const dispatch = useDispatch();
   const { id } = route.params;
@@ -26,13 +28,7 @@ export default function DetailCounselor({ navigation, route }) {
   }, [id]);
 
   if (loading) {
-    return (
-      <>
-        <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#FDB029" />
-        </View>
-      </>
-    );
+    return <Loading />;
   }
 
   if (error) {
@@ -47,96 +43,114 @@ export default function DetailCounselor({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView style={[styleDetailCounselor.AndroidSafeArea, styles.bLightOrange]}>
+    <SafeAreaView
+      style={[styleDetailCounselor.AndroidSafeArea, styles.bLightOrange]}
+    >
       <ScrollView>
-      <View style={[styles.bDarkBlue, styles.br30, styles.pt20]}>
-        <View style={[styles.mb30]}>
-          {/* <View>
+        <View style={[styles.bDarkBlue, styles.br30, styles.pt20]}>
+          <View style={[styles.mb30]}>
+            {/* <View>
             <Text style={[styles.fs20, styles.txtCenter, styles.mt10, styles.h50]}>
               Profile
             </Text>
           </View> */}
-          <View style={[styles.itemCenter, styles.dFlex, styles.justifyCenter]}>
-            <Image
-              source={{ uri: singleCounselor.User?.avatarUrl }}
-              style={[styles.imgLargeSize, styles.br10]}
-            />
-            <View style={[styles.ml5]}>
-              <Text style={[styles.fs18, styles.fwBold, styles.cWhite]}>
-                {singleCounselor.User?.name}
-              </Text>
-              <Text style={[styles.cWhite]}>{singleCounselor.specialist}</Text>
-              <Text style={[styles.cWhite]}>{singleCounselor.motto}</Text>
+            <View
+              style={[styles.itemCenter, styles.dFlex, styles.justifyCenter]}
+            >
+              <Image
+                source={{ uri: singleCounselor.User?.avatarUrl }}
+                style={[styles.imgLargeSize, styles.br10]}
+              />
+              <View style={[styles.ml5]}>
+                <Text style={[styles.fs18, styles.fwBold, styles.cWhite]}>
+                  {singleCounselor.User?.name}
+                </Text>
+                <Text style={[styles.cWhite]}>
+                  {singleCounselor.specialist}
+                </Text>
+                <Text style={[styles.cWhite]}>{singleCounselor.motto}</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={[styles.br30, styles.bWhite]}>
-          <View style={[styles.containerItemFluid]}>
-            <View style={[styles.mt30, styles.mb10]}>
-              <View style={[singleCounselor.mb5]}>
-                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
-                  About
-                </Text>
-                {/* <View style={[styles.bWhite, styles.h120, styles.br10]}> */}
-                <ScrollView>
-                  <Text style={[styles.container, styles.mt5, styles.mb5, styles.ml5]}>
-                    {singleCounselor.about}
+          <View style={[styles.br30, styles.bWhite]}>
+            <View style={[styles.containerItemFluid]}>
+              <View style={[styles.mt30, styles.mb10]}>
+                <View style={[singleCounselor.mb5]}>
+                  <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
+                    About
                   </Text>
-                </ScrollView>
-                {/* </View> */}
-              </View>
-              <View style={[styles.boderBlack, styles.br10, styles.mt10]}>
-                <Text
-                  style={[styles.fs16, styles.fwBold, styles.mb5, styles.mt5, styles.ml5]}
-                >
-                  Price
-                </Text>
-                <View
-                  style={[
-                    styles.bDarkBlue,
-                    styles.h50,
-                    styles.br10,
-                    styles.dFlex,
-                    styles.itemCenter
-                  ]}
-                >
-                  <Text style={[styles.ml5, styles.cWhite]}>Rp. {Number(singleCounselor.price)}</Text>
+                  {/* <View style={[styles.bWhite, styles.h120, styles.br10]}> */}
+                  <ScrollView>
+                    <Text
+                      style={[
+                        styles.container,
+                        styles.mt5,
+                        styles.mb5,
+                        styles.ml5,
+                      ]}
+                    >
+                      {singleCounselor.about}
+                    </Text>
+                  </ScrollView>
+                  {/* </View> */}
+                </View>
+                <View style={[styles.boderBlack, styles.br10, styles.mt10]}>
+                  <Text
+                    style={[
+                      styles.fs16,
+                      styles.fwBold,
+                      styles.mb5,
+                      styles.mt5,
+                      styles.ml5,
+                    ]}
+                  >
+                    Price
+                  </Text>
+                  <View
+                    style={[
+                      styles.bDarkBlue,
+                      styles.h50,
+                      styles.br10,
+                      styles.dFlex,
+                      styles.itemCenter,
+                    ]}
+                  >
+                    <Text style={[styles.ml5, styles.cWhite]}>
+                      {formatPrice(
+                        !singleCounselor.price ? 0 : singleCounselor.price
+                      )}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={[styles.mb10]}>
-              <View style={[styles.h180, styles.mb30s]}>
-                <View style={[styles.mb5]}>
-                  <Text style={[styles.fs16]}>Review Konseling</Text>
-                </View>
-                <View
-                  style={[
-                    styles.h80,
-                    styles.bWhite,
-                    styles.br10,
-                    styles.mb5,
-                    styles.shadow,
-                    styles.boderOrange
-                  ]}
-                >
-                  <View style={[styles.containerItemFluid]}>
-                    <Text>Name Reviewer</Text>
-                    <Text>Review</Text>
+              <View style={[styles.mb10]}>
+                <View style={[styles.h180, styles.mb30s]}>
+                  <View style={[styles.mb5]}>
+                    <Text style={[styles.fs16]}>Review Konseling</Text>
+                  </View>
+                  <View
+                    style={[
+                      styles.h80,
+                      styles.bWhite,
+                      styles.br10,
+                      styles.mb5,
+                      styles.shadow,
+                      styles.boderOrange,
+                    ]}
+                  >
+                    <View style={[styles.containerItemFluid]}>
+                      <Text>Name Reviewer</Text>
+                      <Text>Review</Text>
+                    </View>
                   </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
       </ScrollView>
       <TouchableOpacity
-        style={[
-          styles.bOrange,
-          styles.h50,
-          styles.br20,
-          styles.floatingButton,
-        ]}
+        style={[styles.bOrange, styles.h50, styles.br20, styles.floatingButton]}
         onPress={() =>
           navigation.navigate("Schedule", {
             counselor: singleCounselor,
@@ -402,5 +416,5 @@ const styles = StyleSheet.create({
   boderBlack: {
     borderWidth: 1,
     borderColor: "#222C39",
-  }
+  },
 });

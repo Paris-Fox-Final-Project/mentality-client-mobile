@@ -54,8 +54,20 @@ export default function HomeClient({ navigation }) {
 
   const renderCardCounselor = ({ item }) => {
     return (
-      <View style={[styleHomeClient.counselorCard, styleHomeClient.br10, styleHomeClient.boderBoldBlack]}>
-        <View style={[styleHomeClient.itemCenter, styleHomeClient.dFlex, styleHomeClient.ml5]}>
+      <View
+        style={[
+          styleHomeClient.counselorCard,
+          styleHomeClient.br10,
+          styleHomeClient.boderBoldBlack,
+        ]}
+      >
+        <View
+          style={[
+            styleHomeClient.itemCenter,
+            styleHomeClient.dFlex,
+            styleHomeClient.ml5,
+          ]}
+        >
           <Image
             source={{ uri: item.User.avatarUrl }}
             style={styleHomeClient.profilePicture}
@@ -63,20 +75,22 @@ export default function HomeClient({ navigation }) {
         </View>
         <View style={styleHomeClient.textCardContainer}>
           <Text style={styleHomeClient.counselorName}>{item.User.name}</Text>
-          <Text style={styleHomeClient.textSpecialist} numberOfLines={3}>
+          <Text style={styleHomeClient.textSpecialist} numberOfLines={2}>
             {item.specialist}
           </Text>
-          <View style={{alignSelf: 'flex-end', marginRight: 10}}>
+          <View style={{ alignSelf: "flex-end", marginRight: 10 }}>
             <TouchableOpacity
-              style={[{
-                backgroundColor: "#FDB029",
-                alignSelf: "flex-start",
-                paddingVertical: 6,
-                paddingHorizontal: 8,
-                borderRadius: 15,
-                width: 80,
-                marginBottom: 3
-              }]}
+              style={[
+                {
+                  backgroundColor: "#FDB029",
+                  alignSelf: "flex-start",
+                  paddingVertical: 6,
+                  paddingHorizontal: 8,
+                  borderRadius: 15,
+                  width: 80,
+                  marginBottom: 3,
+                },
+              ]}
               onPress={() =>
                 navigation.navigate("DetailCounselor", {
                   id: item.id,
@@ -90,7 +104,7 @@ export default function HomeClient({ navigation }) {
                   color: "white",
                   fontWeight: "bold",
                   letterSpacing: 0.5,
-                  textAlign: 'center'
+                  textAlign: "center",
                 }}
               >
                 Meetup
@@ -116,10 +130,15 @@ export default function HomeClient({ navigation }) {
         }}
         onPress={signOut}
       >
-        <Text style={{ color: "white", textAlign: 'right' }}>Logout</Text>
+        <Text style={{ color: "white", textAlign: "right" }}>Logout</Text>
       </TouchableOpacity>
 
-      <View style={[styleHomeClient.profileContainer, styleHomeClient.justifyCenter]}>
+      <View
+        style={[
+          styleHomeClient.profileContainer,
+          styleHomeClient.justifyCenter,
+        ]}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -127,10 +146,13 @@ export default function HomeClient({ navigation }) {
             alignItems: "center",
           }}
         >
-          
           <View>
-            <Text style={[styleHomeClient.fs30, styleHomeClient.cWhite]}>Welcome, </Text>
-            <Text style={[styleHomeClient.cWhite, styleHomeClient.fs18]}>{user?.name} 👋</Text>
+            <Text style={[styleHomeClient.fs30, styleHomeClient.cWhite]}>
+              Welcome,{" "}
+            </Text>
+            <Text style={[styleHomeClient.cWhite, styleHomeClient.fs18]}>
+              {user?.name} 👋
+            </Text>
           </View>
 
           <TouchableOpacity onPress={() => navigation.navigate("History")}>
@@ -162,7 +184,7 @@ export default function HomeClient({ navigation }) {
           data={counselors}
           renderItem={renderCardCounselor}
           keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </ImageBackground>
@@ -192,9 +214,10 @@ const styleHomeClient = StyleSheet.create({
     paddingTop: 10,
   },
   counselorCard: {
-    backgroundColor: "transparent",
     flexDirection: "row",
     marginBottom: 15,
+    alignItems: "center",
+    backgroundColor: "white",
   },
   counselorName: {
     color: "#222C39",
@@ -204,15 +227,18 @@ const styleHomeClient = StyleSheet.create({
     textTransform: "capitalize",
   },
   textCardContainer: {
-    marginTop: 6,
+    marginTop: 30,
+    justifyContent: "center",
     flex: 1,
   },
   textSpecialist: {
-    textAlign: "justify",
+    textAlign: "left",
     marginBottom: 10,
     fontSize: 14,
     fontWeight: "600",
     color: "#222C39",
+    width: 200,
+    textTransform: "capitalize",
   },
   profileContainer: {
     paddingHorizontal: 20,
@@ -255,7 +281,7 @@ const styleHomeClient = StyleSheet.create({
     marginTop: 30,
   },
   ml5: {
-    marginLeft: 5
+    marginLeft: 5,
   },
   fs20: {
     fontSize: 20,
@@ -377,6 +403,6 @@ const styleHomeClient = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   txtRight: {
-    textAlign: 'right'
-  }
+    textAlign: "right",
+  },
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   StyleSheet,
@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   Linking,
 } from "react-native";
-import { counselorCounselingDetailHandler } from "../store/actions/counselorCounselingDetailAction";
+import { counselorCounselingDetailHandler } from "../store/Actions/counselorCounselingDetailAction";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
@@ -48,6 +48,7 @@ export default function CounselorDetailClient({ route }) {
 
   return (
     <SafeAreaView>
+      <ScrollView>
       <View style={[styles.mb10, styles.h180]}>
         <View
           style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
@@ -78,8 +79,7 @@ export default function CounselorDetailClient({ route }) {
           </View>
         </View>
       </View>
-      <View style={[styles.bOrange, styles.h100, styles.mAuto, styles.br30]}>
-        <ScrollView>
+      <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
           <View style={[styles.containerItemFluid]}>
             <View style={[styles.mauto, styles.mt20]}>
               <Text
@@ -92,9 +92,7 @@ export default function CounselorDetailClient({ route }) {
                   <Text
                     style={[
                       styles.cBlack,
-                      styles.mt10,
-                      styles.mb10,
-                      styles.ml5,
+                      styles.containerItemFluid
                     ]}
                   >
                     {detail.description}
@@ -140,7 +138,7 @@ export default function CounselorDetailClient({ route }) {
                     </Text>
                   </View>
                   <View style={[styles.dFlex, styles.itemCenter]}>
-                    <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
+                    <Text style={[styles.ml5, styles.fwBold]}>End   :</Text>
                     <Text style={[styles.ml5]}>
                       {formatDate(detail.enddate)}
                       {/* {detail.enddate} */}
@@ -164,12 +162,29 @@ export default function CounselorDetailClient({ route }) {
               disabled={!scheduleValidation(detail.schedule)}
             >
               <Text style={[styles.cWhite, styles.fwBold]}>
-                Mulai Konseling
+                Start Counseling
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.boderBoldBlack,
+                styles.h50,
+                styles.br20,
+                styles.dFlex,
+                styles.justifyCenter,
+                styles.itemCenter,
+                styles.mt10
+              ]}
+              onPress={() => Linking.openURL(detail.dailyUrl)}
+              disabled={!scheduleValidation(detail.schedule)}
+            >
+              <Text style={[styles.cBlack, styles.fwBold]}>
+                End Counseling
               </Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -377,7 +392,7 @@ const styles = StyleSheet.create({
     borderColor: "#FDB029",
   },
   boderBoldBlack: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#1F2937",
   },
 });

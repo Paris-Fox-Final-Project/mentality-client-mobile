@@ -20,7 +20,7 @@ import {
   registerHandler,
   setRegisterError,
   setRegisterSuccess,
-} from "../store/actions/registerAction";
+} from "../store/Actions/registerAction";
 import { useFocusEffect } from "@react-navigation/core";
 import * as ImagePicker from "expo-image-picker";
 

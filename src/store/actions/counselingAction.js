@@ -62,3 +62,27 @@ export const createNewCounselingHandler = (payload) => {
     }
   };
 };
+
+export const patchCounselingIsDone = (counselingId) => {
+  return async (dispatch, getState) => {
+    dispatch(setLoadingCreateScheduleCounseling(true));
+    try {
+      const token = await AsyncStorage.getItem("access_token");
+      const { data } = apiClient({
+        method: "PATCH",
+        url: `/counseling/${counselingId}/done`,
+        headers: {
+          access_token: token,
+        },
+      });
+      dispatch(setSuccessCreateScheduleCounseling(true));
+    } catch (error) {
+      const { response } = error;
+      const { data } = response;
+      const { message } = data;
+      dispatch(setErrorCreateScheduleCounseling(message));
+    } finally {
+      dispatch(setLoadingCreateScheduleCounseling(false));
+    }
+  };
+};

@@ -19,23 +19,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 import { WebView } from "react-native-webview";
+import { patchCounselingIsDone } from "../store/actions/counselingAction";
 
 export default function CounselorDetailClient({ route }) {
   const counselingID = +route.params.counselingId;
   const dispatch = useDispatch();
   const { detail, isLoading, error } = useSelector((state) => state.detail);
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
+  const { isSuccess, isLoading: loadingPatchDone } = useSelector(
+    (state) => state.counseling
+  );
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(counselorCounselingDetailHandler(counselingID));
     }, [])
   );
+
+  const endCounselingHandler = (counseling) => {
+    const { id } = counseling;
+    dispatch(patchCounselingIsDone(id));
+  };
+
   if (isLoading) {
     return (
       <>
@@ -47,9 +51,8 @@ export default function CounselorDetailClient({ route }) {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-      <View style={[styles.h150]}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
         <View
           style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
         >
@@ -80,91 +83,89 @@ export default function CounselorDetailClient({ route }) {
         </View>
       </View>
       <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
-          <View style={[styles.containerItemFluid]}>
-            <View style={[styles.mauto, styles.mt20]}>
-              <Text
-                style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}
-              >
-                Deskripsi permasalahan
+        <View style={[styles.containerItemFluid]}>
+          <View style={[styles.mauto, styles.mt20]}>
+            <Text
+              style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}
+            >
+              Deskripsi permasalahan
+            </Text>
+            <View style={[styles.bWhite, styles.h120, styles.br10]}>
+              <ScrollView>
+                <Text style={[styles.cBlack, styles.containerItemFluid]}>
+                  {detail.description}
+                </Text>
+              </ScrollView>
+            </View>
+          </View>
+          <View style={[styles.mt10]}>
+            <View>
+              <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
+                Topik
               </Text>
-              <View style={[styles.bWhite, styles.h120, styles.br10]}>
-                <ScrollView>
-                  <Text
-                    style={[
-                      styles.cBlack,
-                      styles.containerItemFluid
-                    ]}
-                  >
-                    {detail.description}
+              <View
+                style={[
+                  styles.bWhite,
+                  styles.h50,
+                  styles.br10,
+                  styles.dFlex,
+                  styles.itemCenter,
+                ]}
+              >
+                <Text style={[styles.ml5]}>{detail.Topic.name}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={[styles.mt10]}>
+            <View>
+              <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
+                Jadwal Konseling
+              </Text>
+              <View
+                style={[
+                  styles.bWhite,
+                  styles.h50,
+                  styles.br10,
+                  styles.justifyCenter,
+                ]}
+              >
+                <View style={[styles.dFlex, styles.itemCenter]}>
+                  <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
+                  <Text style={[styles.ml5]}>
+                    {formatDate(detail.schedule)}
                   </Text>
-                </ScrollView>
-              </View>
-            </View>
-            <View style={[styles.mt10]}>
-              <View>
-                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
-                  Topik
-                </Text>
-                <View
-                  style={[
-                    styles.bWhite,
-                    styles.h50,
-                    styles.br10,
-                    styles.dFlex,
-                    styles.itemCenter,
-                  ]}
-                >
-                  <Text style={[styles.ml5]}>{detail.Topic.name}</Text>
                 </View>
-              </View>
-            </View>
-            <View style={[styles.mt10]}>
-              <View>
-                <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
-                  Jadwal Konseling
-                </Text>
-                <View
-                  style={[
-                    styles.bWhite,
-                    styles.h50,
-                    styles.br10,
-                    styles.justifyCenter,
-                  ]}
-                >
-                  <View style={[styles.dFlex, styles.itemCenter]}>
-                    <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
-                    <Text style={[styles.ml5]}>
-                      {formatDate(detail.schedule)}
-                    </Text>
-                  </View>
-                  <View style={[styles.dFlex, styles.itemCenter]}>
-                    <Text style={[styles.ml5, styles.fwBold]}>End   :</Text>
-                    <Text style={[styles.ml5]}>
-                      {formatDate(detail.enddate)}
-                      {/* {detail.enddate} */}
-                    </Text>
-                  </View>
+                <View style={[styles.dFlex, styles.itemCenter]}>
+                  <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
+                  <Text style={[styles.ml5]}>
+                    {formatDate(detail.enddate)}
+                    {/* {detail.enddate} */}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
-          <View style={[styles.containerItemFluid]}>
-            <TouchableOpacity
-              style={[
-                styles.bDarkBlue,
-                styles.h50,
-                styles.br20,
-                styles.dFlex,
-                styles.justifyCenter,
-                styles.itemCenter,
-              ]}
-              onPress={() => Linking.openURL(detail.dailyUrl)}
-              disabled={!scheduleValidation(detail.schedule)}
-            >
-              <Text style={[styles.cWhite, styles.fwBold]}>
-                Start Counseling
-              </Text>
-            </TouchableOpacity>
+        </View>
+        <View style={[styles.containerItemFluid]}>
+          <TouchableOpacity
+            style={[
+              styles.bDarkBlue,
+              styles.h50,
+              styles.br20,
+              styles.dFlex,
+              styles.justifyCenter,
+              styles.itemCenter,
+            ]}
+            disabled={
+              scheduleValidation(detail.schedule) === false || detail.isDone
+            }
+            onPress={() => Linking.openURL(detail.dailyUrl)}
+          >
+            <Text style={[styles.cWhite, styles.fwBold]}>
+              {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
+            </Text>
+          </TouchableOpacity>
+          {detail.isDone === false && scheduleValidation(detail.schedule) ? (
             <TouchableOpacity
               style={[
                 styles.boderBoldBlack,
@@ -173,18 +174,22 @@ export default function CounselorDetailClient({ route }) {
                 styles.dFlex,
                 styles.justifyCenter,
                 styles.itemCenter,
-                styles.mt10
+                styles.mt10,
               ]}
-              onPress={() => Linking.openURL(detail.dailyUrl)}
+              onPress={() => endCounselingHandler(detail)}
               disabled={!scheduleValidation(detail.schedule)}
             >
-              <Text style={[styles.cBlack, styles.fwBold]}>
-                End Counseling
-              </Text>
+              {loadingPatchDone ? (
+                <ActivityIndicator color="white" size="small" />
+              ) : (
+                <Text style={[styles.cBlack, styles.fwBold]}>
+                  End Counseling
+                </Text>
+              )}
             </TouchableOpacity>
-          </View>
+          ) : null}
+        </View>
       </View>
-      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -293,6 +298,8 @@ const styles = StyleSheet.create({
   },
   bOrange: {
     backgroundColor: "#FDB029",
+    flex: 1,
+    // height: 650,
   },
   bDarkBlue: {
     backgroundColor: "#222C39",

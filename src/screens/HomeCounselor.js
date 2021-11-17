@@ -12,6 +12,7 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,8 @@ export default function HomeCounselor({ navigate }) {
   const { homeData, error, isLoading, profile } = useSelector(
     (state) => state.counselorHome
   );
+  const image = { uri: "../../assets/hello.svg" };
+
   useFocusEffect(
     React.useCallback(() => {
       dispatch(counselorHomeDataHandler());
@@ -97,8 +100,9 @@ export default function HomeCounselor({ navigate }) {
     >
       <ScrollView>
         <View style={[styles.pb5]}>
+          <View style={[styles.h180, styles.brb30, styles.bLightOrange]}>
           <View
-            style={[styles.container, styles.pb30, styles.h180, styles.shadow]}
+            style={[styles.container, styles.pb30, styles.h150, styles.shadow]}
           >
             <View
               style={[
@@ -146,6 +150,7 @@ export default function HomeCounselor({ navigate }) {
               </View>
             </View>
           </View>
+        </View>
         </View>
         <View
           style={[
@@ -298,6 +303,12 @@ const styles = StyleSheet.create({
   },
   bDarkBlue: {
     backgroundColor: "#222C39",
+  },
+  bLightOrange: {
+    backgroundColor: "#F9DCA8",
+  },
+  bDarkOrange: {
+    backgroundColor: "#E19001",
   },
   cWhite: {
     color: "white",

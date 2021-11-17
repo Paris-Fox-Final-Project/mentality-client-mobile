@@ -49,13 +49,13 @@ export default function CounselorDetailClient({ route }) {
   return (
     <SafeAreaView>
       <ScrollView>
+      <View style={[styles.bLightOrange, styles.mt30, styles.br30]}>
       <View style={[styles.h150]}>
         <View
-          style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
+          style={[styles.container, styles.mAuto, styles.h180]}
         >
           <View
             style={[
-              styles.mt30,
               styles.dFlex,
               styles.containerItem,
               styles.ml15,
@@ -71,10 +71,10 @@ export default function CounselorDetailClient({ route }) {
               />
             </View>
             <View style={[styles.ml5, styles.justifyCenter]}>
-              <Text style={[styles.cBlack, styles.fs18]}>
+              <Text style={[styles.cBlack, styles.fs20, styles.fwBold]}>
                 {detail.User.name}
               </Text>
-              <Text style={[styles.cBlack]}>{detail.User.email}</Text>
+              <Text style={[styles.cBlack, styles.fs16]}>{detail.User.email}</Text>
             </View>
           </View>
         </View>
@@ -157,6 +157,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.dFlex,
                 styles.justifyCenter,
                 styles.itemCenter,
+                styles.mb5
               ]}
               onPress={() => Linking.openURL(detail.dailyUrl)}
               disabled={!scheduleValidation(detail.schedule)}
@@ -172,8 +173,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.br20,
                 styles.dFlex,
                 styles.justifyCenter,
-                styles.itemCenter,
-                styles.mt10
+                styles.itemCenter
               ]}
               onPress={() => Linking.openURL(detail.dailyUrl)}
               disabled={!scheduleValidation(detail.schedule)}
@@ -183,6 +183,7 @@ export default function CounselorDetailClient({ route }) {
               </Text>
             </TouchableOpacity>
           </View>
+      </View>
       </View>
       </ScrollView>
     </SafeAreaView>
@@ -297,8 +298,17 @@ const styles = StyleSheet.create({
   bDarkBlue: {
     backgroundColor: "#222C39",
   },
+  bLightOrange: {
+    backgroundColor: "#F9DCA8",
+  },
+  bDarkOrange: {
+    backgroundColor: "#E19001",
+  },
   cWhite: {
     color: "white",
+  },
+  cLightOrange: {
+    color: "#F9DCA8",
   },
   cBlack: {
     color: "black",

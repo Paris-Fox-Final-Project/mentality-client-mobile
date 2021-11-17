@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 import { patchCounselingIsDone } from "../store/actions/counselingAction";
+import iconChat from "../../assets/chat.png";
 
 export default function CounselorDetailClient({ route, navigation }) {
   const counselingID = +route.params.counselingId;
@@ -152,25 +153,46 @@ export default function CounselorDetailClient({ route, navigation }) {
               </View>
             </View>
             <View style={[styles.containerItemFluid]}>
-              <TouchableOpacity
-                style={[
-                  styles.bDarkBlue,
-                  styles.h50,
-                  styles.br20,
-                  styles.dFlex,
-                  styles.justifyCenter,
-                  styles.itemCenter,
-                  styles.mb10,
-                ]}
-                disabled={
-                  scheduleValidation(detail.schedule) === false || detail.isDone
-                }
-                onPress={() => Linking.openURL(detail.dailyUrl)}
-              >
-                <Text style={[styles.cWhite, styles.fwBold]}>
-                  {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
-                </Text>
-              </TouchableOpacity>
+              {scheduleValidation(detail.schedule) ? (
+                <TouchableOpacity
+                  style={[
+                    styles.bDarkBlue,
+                    styles.h50,
+                    styles.br20,
+                    styles.dFlex,
+                    styles.justifyCenter,
+                    styles.itemCenter,
+                    styles.mb10,
+                  ]}
+                  disabled={
+                    scheduleValidation(detail.schedule) === false ||
+                    detail.isDone
+                  }
+                  onPress={() => Linking.openURL(detail.dailyUrl)}
+                >
+                  <Text style={[styles.cWhite, styles.fwBold]}>
+                    {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={[
+                    styles.boderBoldBlack,
+                    styles.h50,
+                    styles.br20,
+                    styles.dFlex,
+                    styles.justifyCenter,
+                    styles.itemCenter,
+                  ]}
+                  onPress={() =>
+                    navigation.navigate("Chat", {
+                      roomId: detail.orderId,
+                    })
+                  }
+                >
+                  <Image source={iconChat} style={{ width: 25, height: 25 }} />
+                </TouchableOpacity>
+              )}
               {detail.isDone === false &&
               scheduleValidation(detail.schedule) ? (
                 <TouchableOpacity

@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getUserLoggedInProfile,
   setLoginStatus,
+  setLoginUser,
 } from "../store/actions/loginAction";
 import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -46,6 +47,7 @@ export default function HomeCounselor({ navigate }) {
     (async () => {
       await AsyncStorage.removeItem("access_token");
       await AsyncStorage.removeItem("user");
+      dispatch(setLoginUser(null));
       dispatch(setLoginStatus(false));
     })();
   };

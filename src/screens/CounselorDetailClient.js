@@ -53,9 +53,7 @@ export default function CounselorDetailClient({ route }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
-        <View
-          style={[styles.container, styles.mAuto, styles.h180]}
-        >
+        <View style={[styles.container, styles.mAuto, styles.h180]}>
           <View
             style={[
               styles.dFlex,
@@ -76,7 +74,9 @@ export default function CounselorDetailClient({ route }) {
               <Text style={[styles.cBlack, styles.fs20, styles.fwBold]}>
                 {detail.User.name}
               </Text>
-              <Text style={[styles.cBlack, styles.fs16]}>{detail.User.email}</Text>
+              <Text style={[styles.cBlack, styles.fs16]}>
+                {detail.User.email}
+              </Text>
             </View>
           </View>
         </View>
@@ -154,6 +154,7 @@ export default function CounselorDetailClient({ route }) {
               styles.dFlex,
               styles.justifyCenter,
               styles.itemCenter,
+              styles.mb10,
             ]}
             disabled={
               scheduleValidation(detail.schedule) === false || detail.isDone
@@ -172,7 +173,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.br20,
                 styles.dFlex,
                 styles.justifyCenter,
-                styles.itemCenter
+                styles.itemCenter,
               ]}
               onPress={() => endCounselingHandler(detail)}
               disabled={!scheduleValidation(detail.schedule)}
@@ -188,8 +189,7 @@ export default function CounselorDetailClient({ route }) {
           ) : null}
         </View>
       </View>
-      </View>
-      </ScrollView>
+    </SafeAreaView>
   );
 }
 

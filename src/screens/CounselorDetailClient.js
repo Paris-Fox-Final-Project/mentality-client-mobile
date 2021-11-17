@@ -18,7 +18,6 @@ import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
-import { WebView } from "react-native-webview";
 import { patchCounselingIsDone } from "../store/actions/counselingAction";
 
 export default function CounselorDetailClient({ route, navigation }) {
@@ -52,175 +51,153 @@ export default function CounselorDetailClient({ route, navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
-        <View style={[styles.container, styles.mAuto, styles.h180]}>
-          <View
-            style={[
-              styles.dFlex,
-              styles.containerItem,
-              styles.ml15,
-              styles.pCenter,
-            ]}
-          >
-            <View>
-              <Image
-                style={[styles.imgMediumSize, styles.br10]}
-                source={{
-                  uri: detail.User.avatarUrl,
-                }}
-              />
-            </View>
-            <View style={[styles.ml5, styles.justifyCenter]}>
-              <Text style={[styles.cBlack, styles.fs20, styles.fwBold]}>
-                {detail.User.name}
-              </Text>
-              <Text style={[styles.cBlack, styles.fs16]}>
-                {detail.User.email}
-              </Text>
+      <ScrollView>
+        <View style={[styles.bLightOrange, styles.mt30, styles.br30]}>
+          <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
+            <View style={[styles.container, styles.mAuto, styles.h180]}>
+              <View
+                style={[
+                  styles.dFlex,
+                  styles.containerItem,
+                  styles.ml15,
+                  styles.pCenter,
+                ]}
+              >
+                <View>
+                  <Image
+                    style={[styles.imgMediumSize, styles.br10]}
+                    source={{
+                      uri: detail.User.avatarUrl,
+                    }}
+                  />
+                </View>
+                <View style={[styles.ml5, styles.justifyCenter]}>
+                  <Text style={[styles.cBlack, styles.fs20, styles.fwBold]}>
+                    {detail.User.name}
+                  </Text>
+                  <Text style={[styles.cBlack, styles.fs16]}>
+                    {detail.User.email}
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
-      <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
-        <View style={[styles.containerItemFluid]}>
-          <View style={[styles.mauto, styles.mt20]}>
-            <Text
-              style={[styles.cBlack, styles.fs16, styles.fwBold, styles.mb5]}
-            >
-              Deskripsi permasalahan
-            </Text>
-            <View style={[styles.bWhite, styles.h120, styles.br10]}>
-              <ScrollView>
-                <Text style={[styles.cBlack, styles.containerItemFluid]}>
-                  {detail.description}
+          <View style={[styles.bOrange, styles.mAuto, styles.br30]}>
+            <View style={[styles.containerItemFluid]}>
+              <View style={[styles.mauto, styles.mt20]}>
+                <Text
+                  style={[
+                    styles.cBlack,
+                    styles.fs16,
+                    styles.fwBold,
+                    styles.mb5,
+                  ]}
+                >
+                  Deskripsi permasalahan
                 </Text>
-              </ScrollView>
-            </View>
-          </View>
-          <View style={[styles.mt10]}>
-            <View>
-              <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
-                Topik
-              </Text>
-              <View
-                style={[
-                  styles.bWhite,
-                  styles.h50,
-                  styles.br10,
-                  styles.dFlex,
-                  styles.itemCenter,
-                ]}
-              >
-                <Text style={[styles.ml5]}>{detail.Topic.name}</Text>
-              </View>
-            </View>
-          </View>
-          <View style={[styles.mt10]}>
-            <View>
-              <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
-                Jadwal Konseling
-              </Text>
-              <View
-                style={[
-                  styles.bWhite,
-                  styles.h50,
-                  styles.br10,
-                  styles.justifyCenter,
-                ]}
-              >
-                <View style={[styles.dFlex, styles.itemCenter]}>
-                  <Text style={[styles.ml5, styles.fwBold]}>Start :</Text>
-                  <Text style={[styles.ml5]}>
-                    {formatDate(detail.schedule)}
-                  </Text>
-                </View>
-                <View style={[styles.dFlex, styles.itemCenter]}>
-                  <Text style={[styles.ml5, styles.fwBold]}>End :</Text>
-                  <Text style={[styles.ml5]}>
-                    {formatDate(detail.enddate)}
-                    {/* {detail.enddate} */}
-                  </Text>
+                <View style={[styles.bWhite, styles.h120, styles.br10]}>
+                  <ScrollView>
+                    <Text style={[styles.cBlack, styles.containerItemFluid]}>
+                      {detail.description}
+                    </Text>
+                  </ScrollView>
                 </View>
               </View>
+              <View style={[styles.mt10]}>
+                <View>
+                  <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
+                    Topik
+                  </Text>
+                  <View
+                    style={[
+                      styles.bWhite,
+                      styles.h50,
+                      styles.br10,
+                      styles.dFlex,
+                      styles.itemCenter,
+                    ]}
+                  >
+                    <Text style={[styles.ml5]}>{detail.Topic.name}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={[styles.mt10]}>
+                <View>
+                  <Text style={[styles.fs16, styles.fwBold, styles.mb5]}>
+                    Jadwal Konseling
+                  </Text>
+                  <View
+                    style={[
+                      styles.bWhite,
+                      styles.h50,
+                      styles.br10,
+                      styles.justifyCenter,
+                    ]}
+                  >
+                    <View style={[styles.dFlex, styles.itemCenter]}>
+                      <Text style={[styles.ml5, styles.fwBold]}>Mulai :</Text>
+                      <Text style={[styles.ml5]}>
+                        {formatDate(detail.schedule)}
+                      </Text>
+                    </View>
+                    <View style={[styles.dFlex, styles.itemCenter]}>
+                      <Text style={[styles.ml5, styles.fwBold]}>Akhir :</Text>
+                      <Text style={[styles.ml5]}>
+                        {formatDate(detail.enddate)}
+                        {/* {detail.enddate} */}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-        <View style={[styles.containerItemFluid]}>
-          {
-            // Mulai konseling
-            <TouchableOpacity
-              style={[
-                styles.bDarkBlue,
-                styles.h50,
-                styles.br20,
-                styles.dFlex,
-                styles.justifyCenter,
-                styles.itemCenter,
-                styles.mb10,
-              ]}
-              disabled={
-                scheduleValidation(detail.schedule) === false || detail.isDone
-              }
-              onPress={() => Linking.openURL(detail.dailyUrl)}
-            >
-              <Text style={[styles.cWhite, styles.fwBold]}>
-                {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
-              </Text>
-            </TouchableOpacity>
-          }
-          {
-            // Akhiri counseling
-            detail.isDone === false && scheduleValidation(detail.schedule) ? (
+            <View style={[styles.containerItemFluid]}>
               <TouchableOpacity
                 style={[
-                  styles.boderBoldBlack,
+                  styles.bDarkBlue,
                   styles.h50,
                   styles.br20,
                   styles.dFlex,
                   styles.justifyCenter,
                   styles.itemCenter,
+                  styles.mb10,
                 ]}
-                onPress={() => endCounselingHandler(detail)}
-                disabled={!scheduleValidation(detail.schedule)}
-              >
-                {loadingPatchDone ? (
-                  <ActivityIndicator color="white" size="small" />
-                ) : (
-                  <Text style={[styles.cBlack, styles.fwBold]}>
-                    End Counseling
-                  </Text>
-                )}
-              </TouchableOpacity>
-            ) : null
-          }
-          {
-            // Chating
-            detail.isDone === false ? (
-              <TouchableOpacity
-                style={[
-                  styles.boderBoldBlack,
-                  styles.h50,
-                  styles.br20,
-                  styles.dFlex,
-                  styles.justifyCenter,
-                  styles.itemCenter,
-                ]}
-                onPress={() =>
-                  navigation.navigate("Chat", {
-                    roomId: detail.orderId,
-                  })
+                disabled={
+                  scheduleValidation(detail.schedule) === false || detail.isDone
                 }
+                onPress={() => Linking.openURL(detail.dailyUrl)}
               >
-                {loadingPatchDone ? (
-                  <ActivityIndicator color="white" size="small" />
-                ) : (
-                  <Text style={[styles.cBlack, styles.fwBold]}>Chat</Text>
-                )}
+                <Text style={[styles.cWhite, styles.fwBold]}>
+                  {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
+                </Text>
               </TouchableOpacity>
-            ) : null
-          }
+              {detail.isDone === false &&
+              scheduleValidation(detail.schedule) ? (
+                <TouchableOpacity
+                  style={[
+                    styles.boderBoldBlack,
+                    styles.h50,
+                    styles.br20,
+                    styles.dFlex,
+                    styles.justifyCenter,
+                    styles.itemCenter,
+                  ]}
+                  onPress={() => endCounselingHandler(detail)}
+                  disabled={!scheduleValidation(detail.schedule)}
+                >
+                  {loadingPatchDone ? (
+                    <ActivityIndicator color="white" size="small" />
+                  ) : (
+                    <Text style={[styles.cBlack, styles.fwBold]}>
+                      End Counseling
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              ) : null}
+            </View>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -330,7 +307,7 @@ const styles = StyleSheet.create({
   bOrange: {
     backgroundColor: "#FDB029",
     flex: 1,
-    // height: 650,
+    height: 500,
   },
   bDarkBlue: {
     backgroundColor: "#222C39",

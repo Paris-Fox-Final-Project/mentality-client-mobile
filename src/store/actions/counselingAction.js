@@ -6,6 +6,8 @@ import {
 } from "../counselingTypes";
 import apiClient from "../../apis/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setCounselorHomeData } from "./counselorHomeAction";
+import { setCounselorCounselingDetailData } from "./counselorCounselingDetailAction";
 
 export const setSuccessCreateScheduleCounseling = (payload) => {
   return {
@@ -65,6 +67,7 @@ export const createNewCounselingHandler = (payload) => {
 
 export const patchCounselingIsDone = (counselingId) => {
   return async (dispatch, getState) => {
+    const { detail } = getState().detail;
     dispatch(setLoadingCreateScheduleCounseling(true));
     try {
       const token = await AsyncStorage.getItem("access_token");
@@ -75,6 +78,7 @@ export const patchCounselingIsDone = (counselingId) => {
           access_token: token,
         },
       });
+      dispatch(setCounselorCounselingDetailData({ ...detail, isDone: true }));
       dispatch(setSuccessCreateScheduleCounseling(true));
     } catch (error) {
       const { response } = error;

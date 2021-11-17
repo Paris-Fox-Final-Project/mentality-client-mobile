@@ -44,8 +44,8 @@ export const loginHandler = (credential) => {
         method: "POST",
         data: credential,
       });
-      await AsyncStorage.setItem("access_token", data.access_token);
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      await AsyncStorage.setItem("access_token", data.access_token);
       dispatch(setLoginStatus(true));
     } catch (error) {
       const { response } = error;

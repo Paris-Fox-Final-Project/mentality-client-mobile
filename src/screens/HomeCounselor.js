@@ -9,13 +9,10 @@ import {
   Image,
   Text,
   View,
-  FlatList,
-  TextInput,
   ScrollView,
-  Button,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,6 +22,8 @@ import {
 import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
+import logoutIcon from "../../assets/logoutku.png";
+
 import Loading from "../components/Loading";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 
@@ -52,6 +51,7 @@ export default function HomeCounselor({ navigate }) {
   };
 
   const renderListPatient = (item) => {
+    const isActive = scheduleValidation(item.schedule);
     return (
       <TouchableOpacity
         style={[
@@ -90,27 +90,23 @@ export default function HomeCounselor({ navigate }) {
           </View>
           <View style={[styles.ml5, styles.container, styles.h80]}>
             <Text style={[styles.fwBold, styles.mb5]}>{item.User.name}</Text>
-            <Text numberOfLines={3}>{item.description}</Text>
-            <View style={{ marginTop: 10 }}>
-              <Text
-                style={{
-                  backgroundColor: scheduleValidation(item.schedule)
-                    ? "#A7F3D0"
-                    : "#F3F4F6",
-                  alignSelf: "flex-start",
-                  paddingHorizontal: 12,
-                  color: scheduleValidation(item.schedule)
-                    ? "#065F46"
-                    : "#1F2937",
-                  borderRadius: 4,
-                  paddingVertical: 2,
-                  fontSize: 10,
-                  fontWeight: "bold",
-                }}
-              >
-                {formatDate(item.schedule)}
-              </Text>
-            </View>
+            <Text numberOfLines={3} style={[styles.mb5]}>
+              {item.description}
+            </Text>
+            <Text
+              style={{
+                backgroundColor: isActive ? "#A7F3D0" : "#F3F4F6",
+                alignSelf: "flex-start",
+                paddingHorizontal: 12,
+                color: isActive ? "#065F46" : "#1F2937",
+                borderRadius: 4,
+                paddingVertical: 2,
+                fontSize: 10,
+                fontWeight: "bold",
+              }}
+            >
+              {formatDate(item.schedule)}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -154,30 +150,16 @@ export default function HomeCounselor({ navigate }) {
                       styles.cBlack,
                     ]}
                   >
-                    {profile.User?.name}
+                    {profile.name}
                   </Text>
-                  <Text style={[styles.cBlack]}>{profile.User?.email}</Text>
+                  <Text style={[styles.cBlack]}>{profile.email}</Text>
                 </View>
                 <View>
-                  <TouchableOpacity
-                    style={{
-                      paddingVertical: 10,
-                      paddingHorizontal: 15,
-                      borderRadius: 100,
-                      borderWidth: 3,
-                      borderColor: "black",
-                    }}
-                    onPress={signOut}
-                  >
-                    <Text
-                      style={{
-                        color: "black",
-                        textAlign: "right",
-                        fontWeight: "600",
-                      }}
-                    >
-                      Logout
-                    </Text>
+                  <TouchableOpacity onPress={signOut} style={styles.ml15}>
+                    <Image
+                      source={logoutIcon}
+                      style={{ width: 34, height: 34 }}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -192,16 +174,17 @@ export default function HomeCounselor({ navigate }) {
             styles.containerItemFluid,
           ]}
         >
-          <View style={[styles.w50, styles.h50, styles.boderBoldBlack]}>
+          <View style={[styles.w50, styles.h50]}>
             <View
               style={[
                 styles.justifyCenter,
                 styles.itemCenter,
                 styles.h100,
                 styles.bDarkBlue,
+                styles.br10,
               ]}
             >
-              <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>
+              <Text style={[styles.fs16, styles.cWhite]}># Pasien Aktif</Text>
               <Text style={[styles.fs16, styles.cWhite, styles.fwBold]}>
                 {homeData.filter((e) => !e.isDone).length}
               </Text>

@@ -92,7 +92,7 @@ export default function HomeClient({ navigation }) {
             >
               <Text
                 style={{
-                  fontSize: 10,
+                  fontSize: 13,
                   color: "white",
                   fontWeight: "bold",
                   letterSpacing: 0.5,
@@ -129,7 +129,7 @@ export default function HomeClient({ navigation }) {
         >
           <View>
             <Text style={[styleHomeClient.fs30, styleHomeClient.cWhite]}>
-              Welcome,{" "}
+              Halo,{" "}
             </Text>
             <Text style={[styleHomeClient.cWhite, styleHomeClient.fs18]}>
               {user?.name} 👋
@@ -152,7 +152,8 @@ export default function HomeClient({ navigation }) {
         <Text
           style={{
             fontWeight: "700",
-            fontSize: 15,
+            fontSize: 18,
+            fontStyle: 'italic',
             color: "#222C39",
             marginBottom: 20,
           }}

@@ -28,8 +28,8 @@ export default function Navigation() {
       const token = await AsyncStorage.getItem("access_token");
 
       if (userData && token) {
-        dispatch(setLoginStatus(true));
         setUser(JSON.parse(userData));
+        dispatch(setLoginStatus(true));
       }
     })();
   }, [isLoggedIn]);

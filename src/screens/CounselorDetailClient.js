@@ -54,11 +54,10 @@ export default function CounselorDetailClient({ route }) {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={([styles.mb10, styles.h180], { flex: 0.4 })}>
         <View
-          style={[styles.container, styles.mAuto, styles.h180, styles.mt10]}
+          style={[styles.container, styles.mAuto, styles.h180]}
         >
           <View
             style={[
-              styles.mt30,
               styles.dFlex,
               styles.containerItem,
               styles.ml15,
@@ -74,10 +73,10 @@ export default function CounselorDetailClient({ route }) {
               />
             </View>
             <View style={[styles.ml5, styles.justifyCenter]}>
-              <Text style={[styles.cBlack, styles.fs18]}>
+              <Text style={[styles.cBlack, styles.fs20, styles.fwBold]}>
                 {detail.User.name}
               </Text>
-              <Text style={[styles.cBlack]}>{detail.User.email}</Text>
+              <Text style={[styles.cBlack, styles.fs16]}>{detail.User.email}</Text>
             </View>
           </View>
         </View>
@@ -173,8 +172,7 @@ export default function CounselorDetailClient({ route }) {
                 styles.br20,
                 styles.dFlex,
                 styles.justifyCenter,
-                styles.itemCenter,
-                styles.mt10,
+                styles.itemCenter
               ]}
               onPress={() => endCounselingHandler(detail)}
               disabled={!scheduleValidation(detail.schedule)}
@@ -190,7 +188,8 @@ export default function CounselorDetailClient({ route }) {
           ) : null}
         </View>
       </View>
-    </SafeAreaView>
+      </View>
+      </ScrollView>
   );
 }
 
@@ -304,8 +303,17 @@ const styles = StyleSheet.create({
   bDarkBlue: {
     backgroundColor: "#222C39",
   },
+  bLightOrange: {
+    backgroundColor: "#F9DCA8",
+  },
+  bDarkOrange: {
+    backgroundColor: "#E19001",
+  },
   cWhite: {
     color: "white",
+  },
+  cLightOrange: {
+    color: "#F9DCA8",
   },
   cBlack: {
     color: "black",

@@ -13,11 +13,11 @@ import CalendarStrip from "react-native-calendar-strip";
 import { Picker } from "@react-native-picker/picker";
 import { useFocusEffect } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTopics } from "../store/actions/topicAction";
+import { getAllTopics } from "../store/Actions/topicAction";
 import {
   createNewCounselingHandler,
   setCreateCounseling,
-} from "../store/actions/counselingAction";
+} from "../store/Actions/counselingAction";
 import Midtrans from "./Midtrans";
 import formatPrice from "../helpers/formatPrice.js";
 const TIMES = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];

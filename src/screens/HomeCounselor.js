@@ -32,6 +32,7 @@ export default function HomeCounselor({ navigate }) {
       dispatch(counselorHomeDataHandler());
     }, [])
   );
+
   const signOut = () => {
     (async () => {
       await AsyncStorage.removeItem("access_token");
@@ -165,7 +166,7 @@ export default function HomeCounselor({ navigate }) {
             >
               <Text style={[styles.fs16, styles.cWhite]}># Active Patient</Text>
               <Text style={[styles.fs16, styles.cWhite, styles.fwBold]}>
-                {homeData.length}
+                {homeData.filter((e) => !e.isDone).length}
               </Text>
             </View>
           </View>

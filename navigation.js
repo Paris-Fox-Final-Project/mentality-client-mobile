@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Schedule from "./src/screens/Schedule";
 import History from "./src/screens/History";
 import { setLoginStatus } from "./src/store/actions/loginAction";
+import HomeNavigation from "./src/components/HomeNavigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,23 +51,17 @@ export default function Navigation() {
           ) : (
             // seluruh screen user
             <>
+              <Stack.Screen name="HomeUser" component={HomeNavigation} />
               <Stack.Screen name="HomeClient" component={HomeClient} />
-              <Stack.Screen name="ListCounselor" component={ListCounselor} />
               <Stack.Screen
                 name="DetailCounselor"
                 component={DetailCounselor}
-                options={{ headerShown: true }}
+                options={({ route }) => ({
+                  title: route.params.counselor.User.name,
+                  headerShown: true,
+                })}
               />
-              <Stack.Screen
-                name="Schedule"
-                component={Schedule}
-                options={{ headerShown: true }}
-              />
-              <Stack.Screen
-                name="History"
-                component={History}
-                options={{ headerShown: true }}
-              />
+              <Stack.Screen name="Schedule" component={Schedule} />
             </>
           )
         ) : (

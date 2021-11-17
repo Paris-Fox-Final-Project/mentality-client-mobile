@@ -19,6 +19,7 @@ import { setLoginStatus } from "../store/actions/loginAction";
 import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
+import Loading from "../components/Loading";
 
 export default function HomeCounselor({ navigate }) {
   const navigation = useNavigation();
@@ -85,6 +86,10 @@ export default function HomeCounselor({ navigate }) {
     );
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <SafeAreaView
       style={[styleHomeCounselor.AndroidSafeArea, styles.bLightGrey]}
@@ -123,10 +128,10 @@ export default function HomeCounselor({ navigate }) {
                     styles.cBlack,
                   ]}
                 >
-                  {profile.name}
+                  {profile.User?.name}
                 </Text>
                 <Text style={[styles.cBlack, styles.cWhite, styles.cBlack]}>
-                  {profile.email}
+                  {profile.User?.email}
                 </Text>
               </View>
             </View>

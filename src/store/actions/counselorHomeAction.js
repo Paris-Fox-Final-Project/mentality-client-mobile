@@ -36,7 +36,7 @@ export const setCounselorProfileData = (payload) => {
 };
 
 export const counselorHomeDataHandler = (payload) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(setCounselorHomeLoading(true));
     try {
       const access_token = await AsyncStorage.getItem("access_token");
@@ -44,12 +44,13 @@ export const counselorHomeDataHandler = (payload) => {
       user = JSON.parse(user);
       dispatch(setCounselorProfileData(user));
       const homeData = await apiClient({
-        url: `/counseling/counselor/${+user.id}`,
+        url: `/counseling/counselor/${+user.Counselor.id}`,
         method: "GET",
         headers: { access_token: access_token },
       });
       dispatch(setCounselorHomeData(homeData.data));
     } catch (err) {
+      console.log(err);
       const { response } = err;
       const { data } = response;
       const { message } = data;

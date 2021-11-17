@@ -86,6 +86,7 @@ export default function Schedule({ route }) {
   const onButtonSubmit = () => {
     const getDate = date.toISOString().split("T")[0];
     const schedule = `${getDate} 22:40:00`;
+    // const schedule = `${getDate} ${time}:00`;
     const payload = {
       totalSession: session,
       TopicId: topicId,

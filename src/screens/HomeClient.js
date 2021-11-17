@@ -18,7 +18,7 @@ import { getUserLoggedInProfile } from "../store/actions/loginAction";
 import { fetchCounselors } from "../store/actions/counselorsAction";
 import { useFocusEffect } from "@react-navigation/core";
 import Loading from "../components/Loading";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function HomeClient({ navigation }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.login);
@@ -27,6 +27,7 @@ export default function HomeClient({ navigation }) {
   useEffect(() => {
     dispatch(getUserLoggedInProfile());
     dispatch(fetchCounselors());
+    // logoutHandler()
   }, []);
 
   useFocusEffect(

@@ -40,14 +40,6 @@ export default function HomeClient({ navigation }) {
     }, [])
   );
 
-  const signOut = () => {
-    (async () => {
-      await AsyncStorage.removeItem("access_token");
-      await AsyncStorage.removeItem("user");
-      dispatch(setLoginStatus(false));
-    })();
-  };
-
   if (loading) {
     return <Loading />;
   }
@@ -122,17 +114,6 @@ export default function HomeClient({ navigation }) {
       resizeMode="cover"
       style={styleHomeClient.container}
     >
-      <TouchableOpacity
-        style={{
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          backgroundColor: "black",
-        }}
-        onPress={signOut}
-      >
-        <Text style={{ color: "white", textAlign: "right" }}>Logout</Text>
-      </TouchableOpacity>
-
       <View
         style={[
           styleHomeClient.profileContainer,

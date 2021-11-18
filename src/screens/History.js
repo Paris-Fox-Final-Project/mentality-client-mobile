@@ -101,6 +101,7 @@ export default function History({ navigation }) {
             justifyContent: "space-between",
             marginBottom: 10,
             flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <Text
@@ -125,7 +126,7 @@ export default function History({ navigation }) {
                 });
               }}
             >
-              <Image source={iconChat} style={{ width: 25, height: 25 }} />
+              <Image source={iconChat} style={{ width: 20, height: 20 }} />
             </TouchableOpacity>
           ) : null}
           {item.isDone === false && isActive ? (
@@ -133,7 +134,7 @@ export default function History({ navigation }) {
               style={{
                 backgroundColor: "#FDB029",
                 paddingHorizontal: 6,
-                paddingVertical: 3,
+                paddingVertical: 2,
                 borderRadius: 10,
               }}
               onPress={() => Linking.openURL(item.dailyUrl)}

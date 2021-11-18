@@ -42,7 +42,6 @@ export const counselorHomeDataHandler = (payload) => {
       const access_token = await AsyncStorage.getItem("access_token");
       let user = await AsyncStorage.getItem("user");
       user = JSON.parse(user);
-      console.log(user, ">>>");
       if (user.role === "counselor") {
         dispatch(setCounselorProfileData(user));
         const homeData = await apiClient({

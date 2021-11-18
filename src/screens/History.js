@@ -116,7 +116,7 @@ export default function History({ navigation }) {
               fontWeight: "bold",
             }}
           >
-            {formatDate(item.schedule)}
+            {/* {formatDate(item.schedule)} */}
           </Text>
           {item.isDone === false ? (
             <TouchableOpacity

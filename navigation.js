@@ -46,7 +46,6 @@ export default function Navigation() {
             // seluruh screen counselor
             <>
               <Stack.Screen name="HomeUser" component={HomeNavigation} />
-              <Stack.Screen name="HomeClient" component={HomeClient} />
               <Stack.Screen
                 name="DetailCounselor"
                 component={DetailCounselor}

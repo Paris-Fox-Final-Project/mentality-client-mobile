@@ -138,13 +138,13 @@ export default function CounselorDetailClient({ route, navigation }) {
                     <View style={[styles.dFlex, styles.itemCenter]}>
                       <Text style={[styles.ml5, styles.fwBold]}>Mulai :</Text>
                       <Text style={[styles.ml5]}>
-                        {formatDate(detail.schedule)}
+                        {/* {formatDate(detail.schedule)} */}
                       </Text>
                     </View>
                     <View style={[styles.dFlex, styles.itemCenter]}>
                       <Text style={[styles.ml5, styles.fwBold]}>Akhir :</Text>
                       <Text style={[styles.ml5]}>
-                        {formatDate(detail.enddate)}
+                        {/* {formatDate(detail.enddate)} */}
                         {/* {detail.enddate} */}
                       </Text>
                     </View>

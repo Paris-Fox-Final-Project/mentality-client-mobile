@@ -20,7 +20,10 @@ import {
   setLoginStatus,
   setLoginUser,
 } from "../store/actions/loginAction";
-import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
+import {
+  counselorHomeDataHandler,
+  setCounselorProfileData,
+} from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
 import logoutIcon from "../../assets/logoutku.png";
@@ -34,21 +37,21 @@ export default function HomeCounselor({ navigate }) {
   const { homeData, error, isLoading, profile } = useSelector(
     (state) => state.counselorHome
   );
+
   const image = { uri: "../../assets/hello.svg" };
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(counselorHomeDataHandler());
-      dispatch(getUserLoggedInProfile());
     }, [])
   );
 
   const signOut = () => {
     (async () => {
-      await AsyncStorage.removeItem("access_token");
       await AsyncStorage.removeItem("user");
-      dispatch(setLoginUser(null));
+      await AsyncStorage.removeItem("access_token");
       dispatch(setLoginStatus(false));
+      dispatch(setLoginUser(null));
     })();
   };
 
@@ -143,7 +146,7 @@ export default function HomeCounselor({ navigate }) {
                   styles.brb30,
                 ]}
               >
-                <View style={{ marginRight: 15 }}>
+                <View style={{ marginRight: 15, width: "70%" }}>
                   <Text
                     style={[
                       styles.cBlack,
@@ -151,6 +154,7 @@ export default function HomeCounselor({ navigate }) {
                       styles.fwBold,
                       styles.cBlack,
                     ]}
+                    numberOfLines={2}
                   >
                     {profile.name}
                   </Text>

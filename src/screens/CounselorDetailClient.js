@@ -174,7 +174,8 @@ export default function CounselorDetailClient({ route, navigation }) {
                     {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
                   </Text>
                 </TouchableOpacity>
-              ) : (
+              ) : null}
+              {detail.isDone === false ? (
                 <TouchableOpacity
                   style={[
                     styles.boderBoldBlack,
@@ -183,6 +184,7 @@ export default function CounselorDetailClient({ route, navigation }) {
                     styles.dFlex,
                     styles.justifyCenter,
                     styles.itemCenter,
+                    styles.mb10,
                   ]}
                   onPress={() =>
                     navigation.navigate("Chat", {
@@ -192,7 +194,7 @@ export default function CounselorDetailClient({ route, navigation }) {
                 >
                   <Image source={iconChat} style={{ width: 25, height: 25 }} />
                 </TouchableOpacity>
-              )}
+              ) : null}
               {detail.isDone === false &&
               scheduleValidation(detail.schedule) ? (
                 <TouchableOpacity
@@ -329,7 +331,7 @@ const styles = StyleSheet.create({
   bOrange: {
     backgroundColor: "#FDB029",
     flex: 1,
-    height: 500,
+    height: 600,
   },
   bDarkBlue: {
     backgroundColor: "#222C39",

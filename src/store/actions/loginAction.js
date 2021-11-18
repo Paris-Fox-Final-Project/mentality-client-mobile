@@ -6,6 +6,7 @@ import {
   SET_LOGIN_USER,
 } from "../loginTypes";
 import apiServer from "../../apis";
+import { setCounselorProfileData } from "./counselorHomeAction";
 export const setLoginError = (payload) => {
   return {
     type: SET_LOGIN_ERROR,
@@ -46,6 +47,7 @@ export const loginHandler = (credential) => {
       });
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("access_token", data.access_token);
+      dispatch(setLoginUser(data.user));
       dispatch(setLoginStatus(true));
     } catch (error) {
       const { response } = error;

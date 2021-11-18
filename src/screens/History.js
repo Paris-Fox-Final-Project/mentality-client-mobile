@@ -12,13 +12,12 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import userProfile from "../../assets/user.png";
-import videoCamera from "../../assets/video-camera.png";
-import { WebView } from "react-native-webview";
+import iconChat from "../../assets/chat.png";
 import { getHistoriesCounselingUserLoggedIn } from "../store/actions/historyAction";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 import Loading from "../components/Loading";
-export default function History() {
+export default function History({ navigation }) {
   const dispatch = useDispatch();
   const { histories, isLoading } = useSelector((state) => state.history);
 
@@ -34,9 +33,9 @@ export default function History() {
         style={{
           backgroundColor: "white",
           width: 320,
-          height: 180,
           borderRadius: 20,
           marginBottom: 20,
+          paddingBottom: 15,
         }}
       >
         <View
@@ -98,10 +97,10 @@ export default function History() {
         </View>
         <View
           style={{
-            paddingHorizontal: 20,
+            paddingHorizontal: 10,
             justifyContent: "space-between",
-            marginBottom: 10,
             flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <Text
@@ -112,16 +111,29 @@ export default function History() {
               color: isActive ? "#065F46" : "#1F2937",
               borderRadius: 4,
               paddingVertical: 2,
+              fontSize: 10,
+              fontWeight: "bold",
             }}
           >
             {formatDate(item.schedule)}
           </Text>
-          {isActive && item.isDone === false ? (
+          {item.isDone === false ? (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Chat", {
+                  roomId: item.orderId,
+                });
+              }}
+            >
+              <Image source={iconChat} style={{ width: 20, height: 20 }} />
+            </TouchableOpacity>
+          ) : null}
+          {item.isDone === false && isActive ? (
             <TouchableOpacity
               style={{
                 backgroundColor: "#FDB029",
                 paddingHorizontal: 6,
-                paddingVertical: 3,
+                paddingVertical: 2,
                 borderRadius: 10,
               }}
               onPress={() => Linking.openURL(item.dailyUrl)}

@@ -77,7 +77,7 @@ export default function Schedule({ route }) {
     const currentMonth = new Date().getMonth();
     if (currentMonth === selectedMonth && selectedDate === currentDate) {
       const hours = new Date().getHours();
-      if (hours >= 18) {
+      if (hours >= 17) {
         setErrorDate("Tidak ada jadwal tersedia");
       }
     } else {
@@ -88,7 +88,11 @@ export default function Schedule({ route }) {
 
   const onButtonSubmit = () => {
     const getDate = date.toISOString().split("T")[0];
-    const schedule = `${getDate} ${time}:00+07`;
+    let minTime = time - 7;
+    if (minTime < 10) {
+      minTime = `0${minTime}`;
+    }
+    const schedule = new Date(`${getDate}T${minTime}:00:00`);
     const payload = {
       totalSession: session,
       TopicId: topicId,
@@ -100,9 +104,13 @@ export default function Schedule({ route }) {
   };
 
   const datesBlackList = (date) => {
-    let current = new Date();
-    let yesterday = current.setDate(current.getDate() - 1);
-    return date.isoWeekday() === 7 || date < yesterday;
+    const selectedDate = new Date(date).getDate();
+    const selectedMonth = new Date(date).getMonth();
+    const currentDate = new Date().getDate();
+    const currentMonth = new Date().getMonth();
+    const isDay = selectedDate < currentDate && selectedMonth && currentMonth;
+
+    return date.isoWeekday() === 7 || isDay;
   };
 
   if (midtrans) {
@@ -258,7 +266,8 @@ export default function Schedule({ route }) {
                     currentMonth === selectedMonth &&
                     selectedDate === currentDate;
 
-                  if (isToday && element < hour) {
+                  if (isToday && element <= hour) {
+                    console.log("halo");
                     return null;
                   }
 

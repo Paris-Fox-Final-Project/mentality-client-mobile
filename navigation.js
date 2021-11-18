@@ -11,23 +11,30 @@ import DetailCounselor from "./src/screens/Detail";
 import CounselorDetailClient from "./src/screens/CounselorDetailClient";
 import { useDispatch, useSelector } from "react-redux";
 import Schedule from "./src/screens/Schedule";
-import { setLoginStatus } from "./src/store/actions/loginAction";
+import { setLoginStatus, setLoginUser } from "./src/store/actions/loginAction";
 import HomeNavigation from "./src/components/HomeNavigation";
+import Chat from "./src/screens/Chat";
+import getFirstName from "./src/helpers/getFirstName";
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.login);
-  const [user, setUser] = React.useState({});
+  const { isLoggedIn, user } = useSelector((state) => state.login);
+  // const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
     (async () => {
       const userData = await AsyncStorage.getItem("user");
       const token = await AsyncStorage.getItem("access_token");
+      let data = JSON.parse(userData);
+
+      // if (userData) {
+      //   setUser(data);
+      // }
 
       if (userData && token) {
-        setUser(JSON.parse(userData));
+        dispatch(setLoginUser(data));
         dispatch(setLoginStatus(true));
       }
     })();
@@ -36,27 +43,16 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isLoggedIn ? (
-          user.role !== "user" ? (
+        {isLoggedIn && user ? (
+          user.role === "user" ? (
             // seluruh screen counselor
-
-            <>
-              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
-              <Stack.Screen
-                name="CounselorDetailClient"
-                component={CounselorDetailClient}
-              />
-            </>
-          ) : (
-            // seluruh screen user
             <>
               <Stack.Screen name="HomeUser" component={HomeNavigation} />
-              <Stack.Screen name="HomeClient" component={HomeClient} />
               <Stack.Screen
                 name="DetailCounselor"
                 component={DetailCounselor}
                 options={({ route }) => ({
-                  title: route.params.counselor.User.name,
+                  title: getFirstName(route.params.counselor.User.name),
                   headerShown: true,
                 })}
               />
@@ -68,6 +64,29 @@ export default function Navigation() {
                   headerShown: true,
                   headerTitleAlign: "center",
                 })}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerShown: true,
+                }}
+              />
+            </>
+          ) : (
+            // seluruh screen counselor
+            <>
+              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+              <Stack.Screen
+                name="CounselorDetailClient"
+                component={CounselorDetailClient}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerShown: true,
+                }}
               />
             </>
           )

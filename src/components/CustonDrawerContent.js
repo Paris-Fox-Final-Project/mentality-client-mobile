@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { setLoginStatus } from "../store/actions/loginAction";
+import { setLoginStatus, setLoginUser } from "../store/actions/loginAction";
 export default CustomDrawerContent = (props) => {
   const dispatch = useDispatch();
   const signOut = () => {
@@ -14,6 +14,7 @@ export default CustomDrawerContent = (props) => {
       await AsyncStorage.removeItem("access_token");
       await AsyncStorage.removeItem("user");
       dispatch(setLoginStatus(false));
+      dispatch(setLoginUser(null));
     })();
   };
 

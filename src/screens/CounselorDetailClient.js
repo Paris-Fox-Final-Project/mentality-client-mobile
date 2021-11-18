@@ -19,8 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../helpers/formatDate";
 import { scheduleValidation } from "../helpers/scheduleValidation";
 import { patchCounselingIsDone } from "../store/actions/counselingAction";
+import iconChat from "../../assets/chat.png";
 
-export default function CounselorDetailClient({ route }) {
+export default function CounselorDetailClient({ route, navigation }) {
   const counselingID = +route.params.counselingId;
   const dispatch = useDispatch();
   const { detail, isLoading, error } = useSelector((state) => state.detail);
@@ -144,7 +145,6 @@ export default function CounselorDetailClient({ route }) {
                       <Text style={[styles.ml5, styles.fwBold]}>Akhir :</Text>
                       <Text style={[styles.ml5]}>
                         {formatDate(detail.enddate)}
-                        {/* {detail.enddate} */}
                       </Text>
                     </View>
                   </View>
@@ -152,25 +152,48 @@ export default function CounselorDetailClient({ route }) {
               </View>
             </View>
             <View style={[styles.containerItemFluid]}>
-              <TouchableOpacity
-                style={[
-                  styles.bDarkBlue,
-                  styles.h50,
-                  styles.br20,
-                  styles.dFlex,
-                  styles.justifyCenter,
-                  styles.itemCenter,
-                  styles.mb10,
-                ]}
-                disabled={
-                  scheduleValidation(detail.schedule) === false || detail.isDone
-                }
-                onPress={() => Linking.openURL(detail.dailyUrl)}
-              >
-                <Text style={[styles.cWhite, styles.fwBold]}>
-                  {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
-                </Text>
-              </TouchableOpacity>
+              {scheduleValidation(detail.schedule) ? (
+                <TouchableOpacity
+                  style={[
+                    styles.bDarkBlue,
+                    styles.h50,
+                    styles.br20,
+                    styles.dFlex,
+                    styles.justifyCenter,
+                    styles.itemCenter,
+                    styles.mb10,
+                  ]}
+                  disabled={
+                    scheduleValidation(detail.schedule) === false ||
+                    detail.isDone
+                  }
+                  onPress={() => Linking.openURL(detail.dailyUrl)}
+                >
+                  <Text style={[styles.cWhite, styles.fwBold]}>
+                    {detail.isDone ? "Konseling Selesai" : "Mulai Konseling"}
+                  </Text>
+                </TouchableOpacity>
+              ) : null}
+              {detail.isDone === false ? (
+                <TouchableOpacity
+                  style={[
+                    styles.boderBoldBlack,
+                    styles.h50,
+                    styles.br20,
+                    styles.dFlex,
+                    styles.justifyCenter,
+                    styles.itemCenter,
+                    styles.mb10,
+                  ]}
+                  onPress={() =>
+                    navigation.navigate("Chat", {
+                      roomId: detail.orderId,
+                    })
+                  }
+                >
+                  <Image source={iconChat} style={{ width: 25, height: 25 }} />
+                </TouchableOpacity>
+              ) : null}
               {detail.isDone === false &&
               scheduleValidation(detail.schedule) ? (
                 <TouchableOpacity
@@ -307,7 +330,7 @@ const styles = StyleSheet.create({
   bOrange: {
     backgroundColor: "#FDB029",
     flex: 1,
-    height: 500,
+    height: 600,
   },
   bDarkBlue: {
     backgroundColor: "#222C39",

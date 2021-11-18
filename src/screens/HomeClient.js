@@ -153,7 +153,7 @@ export default function HomeClient({ navigation }) {
           style={{
             fontWeight: "700",
             fontSize: 18,
-            fontStyle: 'italic',
+            fontStyle: "italic",
             color: "#222C39",
             marginBottom: 20,
           }}

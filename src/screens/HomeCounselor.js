@@ -2,24 +2,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/core";
 import * as React from "react";
 import { StatusBar } from "react-native";
+import { formatDate } from "../helpers/formatDate";
+
 import {
   StyleSheet,
   Image,
   Text,
   View,
-  FlatList,
-  TextInput,
   ScrollView,
-  Button,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
-import { formatDate } from "../helpers/formatDate";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginStatus } from "../store/actions/loginAction";
-import { counselorHomeDataHandler } from "../store/actions/counselorHomeAction";
+import {
+  getUserLoggedInProfile,
+  setLoginStatus,
+  setLoginUser,
+} from "../store/actions/loginAction";
+import {
+  counselorHomeDataHandler,
+  setCounselorProfileData,
+} from "../store/actions/counselorHomeAction";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import userProfile from "../../assets/user.png";
 import logoutIcon from "../../assets/logoutku.png";
@@ -33,6 +37,7 @@ export default function HomeCounselor({ navigate }) {
   const { homeData, error, isLoading, profile } = useSelector(
     (state) => state.counselorHome
   );
+
   const image = { uri: "../../assets/hello.svg" };
 
   useFocusEffect(
@@ -43,9 +48,10 @@ export default function HomeCounselor({ navigate }) {
 
   const signOut = () => {
     (async () => {
-      await AsyncStorage.removeItem("access_token");
       await AsyncStorage.removeItem("user");
+      await AsyncStorage.removeItem("access_token");
       dispatch(setLoginStatus(false));
+      dispatch(setLoginUser(null));
     })();
   };
 
@@ -140,7 +146,7 @@ export default function HomeCounselor({ navigate }) {
                   styles.brb30,
                 ]}
               >
-                <View style={{ marginRight: 15 }}>
+                <View style={{ marginRight: 15, width: "70%" }}>
                   <Text
                     style={[
                       styles.cBlack,
@@ -148,6 +154,7 @@ export default function HomeCounselor({ navigate }) {
                       styles.fwBold,
                       styles.cBlack,
                     ]}
+                    numberOfLines={2}
                   >
                     {profile.name}
                   </Text>

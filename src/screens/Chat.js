@@ -34,7 +34,6 @@ export default function Chat({ route }) {
               user: doc.data().user,
             };
           });
-          console.log(data, ">>>");
           setMessages(data);
         });
 
@@ -46,9 +45,7 @@ export default function Chat({ route }) {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
-    console.log(messages);
     const { _id, createdAt, text, user } = messages[0];
-    console.log(messages[0]);
     db.collection("chats").doc(roomId).collection("messages").add({
       _id,
       createdAt,
@@ -65,6 +62,7 @@ export default function Chat({ route }) {
     <GiftedChat
       messages={messages}
       onSend={(message) => onSendMessageHandler(message)}
+      showAvatarForEveryMessage={true}
       user={{ _id: user.id, name: user.name, avatar: user.avatarUrl }}
     />
   );

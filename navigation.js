@@ -27,8 +27,11 @@ export default function Navigation() {
       const userData = await AsyncStorage.getItem("user");
       const token = await AsyncStorage.getItem("access_token");
 
-      if (userData && token) {
+      if (userData) {
         setUser(JSON.parse(userData));
+      }
+
+      if (userData && token) {
         dispatch(setLoginStatus(true));
       }
     })();

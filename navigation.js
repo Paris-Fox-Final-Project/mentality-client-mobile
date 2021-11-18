@@ -28,6 +28,7 @@ export default function Navigation() {
       const token = await AsyncStorage.getItem("access_token");
 
       if (userData) {
+        console.log(userData, ">>>>>");
         setUser(JSON.parse(userData));
       }
 
@@ -41,25 +42,8 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
-          user.role !== "user" ? (
+          user.role === "user" ? (
             // seluruh screen counselor
-
-            <>
-              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
-              <Stack.Screen
-                name="CounselorDetailClient"
-                component={CounselorDetailClient}
-              />
-              <Stack.Screen
-                name="Chat"
-                component={Chat}
-                options={{
-                  headerShown: true,
-                }}
-              />
-            </>
-          ) : (
-            // seluruh screen user
             <>
               <Stack.Screen name="HomeUser" component={HomeNavigation} />
               <Stack.Screen name="HomeClient" component={HomeClient} />
@@ -79,6 +63,22 @@ export default function Navigation() {
                   headerShown: true,
                   headerTitleAlign: "center",
                 })}
+              />
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerShown: true,
+                }}
+              />
+            </>
+          ) : (
+            // seluruh screen counselor
+            <>
+              <Stack.Screen name="HomeCounselor" component={HomeCounselor} />
+              <Stack.Screen
+                name="CounselorDetailClient"
+                component={CounselorDetailClient}
               />
               <Stack.Screen
                 name="Chat"

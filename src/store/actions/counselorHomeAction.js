@@ -44,7 +44,7 @@ export const counselorHomeDataHandler = (payload) => {
       user = JSON.parse(user);
       dispatch(setCounselorProfileData(user));
       const homeData = await apiClient({
-        url: `/counseling/counselor/${+user.Counselor.id}`,
+        url: `/counseling/counselor/${+user.Counselor?.id}`,
         method: "GET",
         headers: { access_token: access_token },
       });

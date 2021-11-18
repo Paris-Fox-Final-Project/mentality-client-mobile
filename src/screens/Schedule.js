@@ -100,9 +100,13 @@ export default function Schedule({ route }) {
   };
 
   const datesBlackList = (date) => {
-    let current = new Date();
-    let yesterday = current.setDate(current.getDate() - 1);
-    return date.isoWeekday() === 7 || date < yesterday;
+    const selectedDate = new Date(date).getDate();
+    const selectedMonth = new Date(date).getMonth();
+    const currentDate = new Date().getDate();
+    const currentMonth = new Date().getMonth();
+    const isDay = selectedDate < currentDate && selectedMonth && currentMonth;
+
+    return date.isoWeekday() === 7 || isDay;
   };
 
   if (midtrans) {
@@ -258,7 +262,8 @@ export default function Schedule({ route }) {
                     currentMonth === selectedMonth &&
                     selectedDate === currentDate;
 
-                  if (isToday && element < hour) {
+                  if (isToday && element <= hour) {
+                    console.log("halo");
                     return null;
                   }
 

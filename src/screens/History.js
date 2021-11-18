@@ -33,9 +33,9 @@ export default function History({ navigation }) {
         style={{
           backgroundColor: "white",
           width: 320,
-          height: 180,
           borderRadius: 20,
           marginBottom: 20,
+          paddingBottom: 15,
         }}
       >
         <View
@@ -97,9 +97,8 @@ export default function History({ navigation }) {
         </View>
         <View
           style={{
-            paddingHorizontal: 20,
+            paddingHorizontal: 10,
             justifyContent: "space-between",
-            marginBottom: 10,
             flexDirection: "row",
             alignItems: "center",
           }}
@@ -116,7 +115,7 @@ export default function History({ navigation }) {
               fontWeight: "bold",
             }}
           >
-            {/* {formatDate(item.schedule)} */}
+            {formatDate(item.schedule)}
           </Text>
           {item.isDone === false ? (
             <TouchableOpacity

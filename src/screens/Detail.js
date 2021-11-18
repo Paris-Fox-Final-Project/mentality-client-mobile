@@ -150,18 +150,20 @@ export default function DetailCounselor({ navigation, route }) {
             }}
           >{`" ${singleCounselor.motto} "`}</Text>
         </View>
-        <View>
-          <Text
-            style={{
-              textAlign: "justify",
-              letterSpacing: 1,
-              fontSize: 14,
-              lineHeight: 1.5 * 14,
-            }}
-          >
-            {singleCounselor.about}
-          </Text>
-        </View>
+        <ScrollView style={{ marginBottom: 10 }}>
+          <View>
+            <Text
+              style={{
+                textAlign: "justify",
+                letterSpacing: 1,
+                fontSize: 14,
+                lineHeight: 1.5 * 14,
+              }}
+            >
+              {singleCounselor.about}
+            </Text>
+          </View>
+        </ScrollView>
       </View>
       <View
         style={{

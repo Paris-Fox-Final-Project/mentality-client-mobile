@@ -14,6 +14,7 @@ import Schedule from "./src/screens/Schedule";
 import { setLoginStatus } from "./src/store/actions/loginAction";
 import HomeNavigation from "./src/components/HomeNavigation";
 import Chat from "./src/screens/Chat";
+import getFirstName from "./src/helpers/getFirstName";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,7 +51,7 @@ export default function Navigation() {
                 name="DetailCounselor"
                 component={DetailCounselor}
                 options={({ route }) => ({
-                  title: route.params.counselor.User.name,
+                  title: getFirstName(route.params.counselor.User.name),
                   headerShown: true,
                 })}
               />

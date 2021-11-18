@@ -1,6 +1,4 @@
-import moment from "moment";
 export const formatDate = (inputDate) => {
-  const schedule = moment(inputDate);
-  schedule.locale("ID");
-  return schedule.format("lll");
+  const [date, time] = new Date(inputDate).toString().split("GMT+0700 (WIB)");
+  return `${date} ${time}`;
 };
